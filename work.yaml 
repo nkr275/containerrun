@@ -1,1 +1,0 @@
-NODE_OPTIONS="--max-old-space-size=4096" make allk8s -e -f Infer.Makefile PUBLISH_DIR=$PWD/publish VERSION=3.0.0 BUILD_NUMBER=13B
