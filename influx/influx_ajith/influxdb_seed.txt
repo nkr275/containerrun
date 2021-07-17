@@ -1,0 +1,23 @@
+docker run -d --name iotc-console \
+--network devnw \
+-e INSTANCE_NAME=akrinferapp03 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=3437eeea-1124-7143-33cd-add0c4ee5a67 \
+-p 50062:50062 \
+-p 60062:60062 \
+shazdevops.azurecr.io/shinternal/iotc-console-uservice:3.0.0-13
+
+
+docker run -it --rm --name shinfluxseed \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta \
+-e INFLUX_META_JOIN_ADDR=shinfluxmeta01 \
+shazdevops.azurecr.io/shinternal/infer/influxseed:3.0.0-13
+
+
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \

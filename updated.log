@@ -1,0 +1,193 @@
+-----END ENCRYPTED PRIVATE KEY-----
+, console.grpc.port=50062, disable.user.account.time.period.minutes=5, communicator.host=iotc-communicator, password.expire.time.in.days=90, zcs.key.store=/opt/vmware/iotc/iotc-zcsconnector-uservice/certs/zcsconnector.truststore.jks, metricingest.grpc.port=50056, iam.host=iotc-iam, mongo.db.threshold.delete=40, metricquery.grpc.port=50057, org.hierarchy.visibility.enabled=false, aggregator.grpc.port=50059, console.rest.port=60062, token.access.forgot.password.validity.min=120, retention.policy.default=thirtyDays, tasks.query.pageSize.max=100, alert.host=iotc-alert, tasks.consumer.numOfWorkers=2} 
+2021-06-20 04:36:57,135 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Start initializing Mongo client 
+2021-06-20 04:36:57,135 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Get MongoDB Credentials 
+2021-06-20 04:36:57,261 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Build MongoClientOptions 
+2021-06-20 04:36:57,330 [] [] [] [] [TM-iam-dummy.node.com-listener] [INFO ] o.m.driver.cluster - Cluster created with settings {hosts=[172.19.0.6:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=2500} 
+2021-06-20 04:36:57,330 [] [] [] [] [TM-iam-dummy.node.com-listener] [INFO ] o.m.driver.cluster - Adding discovered server 172.19.0.6:27017 to client view of cluster 
+2021-06-20 04:36:57,347 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] o.m.driver.cluster - Updating cluster description to  {type=UNKNOWN, servers=[{address=172.19.0.6:27017, type=UNKNOWN, state=CONNECTING}] 
+2021-06-20 04:36:57,352 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Mongo client initialization completed successfully. 
+2021-06-20 04:36:57,357 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBUtils - Organization Id for the filter query null 
+2021-06-20 04:36:57,357 [] [] [] [] [main] [DEBUG] c.v.i.c.d.m.MongoDBUtils - Organization Id for the filter query null 
+2021-06-20 04:36:57,391 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [INFO ] o.m.d.connection - Opened connection [connectionId{localValue:1}] to 172.19.0.6:27017 
+2021-06-20 04:36:57,391 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [DEBUG] o.m.driver.cluster - Checking status of 172.19.0.6:27017 
+2021-06-20 04:36:57,394 [] [] [] [] [main] [INFO ] o.m.driver.cluster - Cluster description not yet available. Waiting for 30000 ms before timing out 
+2021-06-20 04:36:57,394 [] [] [] [] [TM-iam-dummy.node.com-listener] [INFO ] o.m.driver.cluster - Cluster description not yet available. Waiting for 30000 ms before timing out 
+2021-06-20 04:36:57,401 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [DEBUG] o.m.d.p.command - Sending command '{"ismaster": 1, "$db": "admin"}' with request id 4 to database admin on connection [connectionId{localValue:1}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,403 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [DEBUG] o.m.d.p.command - Execution of command with request id 4 completed successfully in 5.27 ms on connection [connectionId{localValue:1}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,404 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [INFO ] o.m.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=172.19.0.6:27017, type=SHARD_ROUTER, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 4, 6]}, minWireVersion=0, maxWireVersion=9, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=8255807} 
+2021-06-20 04:36:57,404 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [INFO ] o.m.driver.cluster - Discovered cluster type of SHARDED 
+2021-06-20 04:36:57,405 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [DEBUG] o.m.driver.cluster - Updating cluster description to  {type=SHARDED, servers=[{address=172.19.0.6:27017, type=SHARD_ROUTER, roundTripTime=8.3 ms, state=CONNECTED}] 
+2021-06-20 04:36:57,468 [] [] [] [] [TM-iam-dummy.node.com-listener] [INFO ] o.m.d.connection - Opened connection [connectionId{localValue:2}] to 172.19.0.6:27017 
+2021-06-20 04:36:57,473 [] [] [] [] [main] [INFO ] o.m.d.connection - Opened connection [connectionId{localValue:3}] to 172.19.0.6:27017 
+2021-06-20 04:36:57,478 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] o.m.d.p.command - Sending command '{"find": "iamUsers", "filter": {"userName": "iam@iotc-system", "status": {"$in": ["ACTIVE", "ROOT_USER"]}, "isDeleted": false}, "limit": 1, "singleBatch": true, "$db": "iotcDb", "$clusterTime": {"clusterTime": {"$timestamp": {"t": 1624163813, "i": 1}}, "signature": {"hash": {"$binary": {"base64": "9o3gpJCfMZuWuqYF8qa4+YpnTxo=", "subType": "00"}}, "keyId": 6975553138161877014}}, "lsid": {"id": {"$binary": {"base64": "3RSD94JYSzuHD4KuyRHeWw==", "subType": "04"}}}}' with request id 17 to database iotcDb on connection [connectionId{localValue:2}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,480 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] o.m.d.p.command - Execution of command with request id 17 completed successfully in 5.08 ms on connection [connectionId{localValue:2}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,481 [] [] [] [] [main] [DEBUG] o.m.d.p.command - Sending command '{"find": "iamUsers", "filter": {"userName": "iam@iotc-system", "status": {"$in": ["ACTIVE", "ROOT_USER"]}, "isDeleted": false}, "limit": 1, "singleBatch": true, "$db": "iotcDb", "$clusterTime": {"clusterTime": {"$timestamp": {"t": 1624163813, "i": 1}}, "signature": {"hash": {"$binary": {"base64": "9o3gpJCfMZuWuqYF8qa4+YpnTxo=", "subType": "00"}}, "keyId": 6975553138161877014}}, "lsid": {"id": {"$binary": {"base64": "Jq/oHk3NS6ec0Z8ZmBV6qg==", "subType": "04"}}}}' with request id 18 to database iotcDb on connection [connectionId{localValue:3}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,483 [] [] [] [] [main] [DEBUG] o.m.d.p.command - Execution of command with request id 18 completed successfully in 3.19 ms on connection [connectionId{localValue:3}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,484 [] [] [] [] [main] [DEBUG] c.v.i.c.d.m.MongoDBAdapter - Query documents for filter: {"userName":"iam@iotc-system","status":{"$in":["ACTIVE","ROOT_USER"]},"isDeleted":false}, Time Taken : 119 
+2021-06-20 04:36:57,484 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBAdapter - Query documents for filter: {"userName":"iam@iotc-system","status":{"$in":["ACTIVE","ROOT_USER"]},"isDeleted":false}, Time Taken : 119 
+2021-06-20 04:36:57,485 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.l.SlowLogger - com.vmware.iotc.commons.db.mongo.MongoDBAdapter class for input request {"collection":"iamUsers","filter":{"userName":"iam@iotc-system","status":{"$in":["ACTIVE","ROOT_USER"]},"orgId":"SystemTenant"}} took 119 milli seconds 
+2021-06-20 04:36:57,485 [] [] [] [] [main] [DEBUG] c.v.i.c.l.SlowLogger - com.vmware.iotc.commons.db.mongo.MongoDBAdapter class for input request {"collection":"iamUsers","filter":{"userName":"iam@iotc-system","status":{"$in":["ACTIVE","ROOT_USER"]},"orgId":"SystemTenant"}} took 119 milli seconds 
+2021-06-20 04:36:57,489 [] [] [] [] [main] [ERROR] c.v.i.c.t.PulseTaskManager - Failed to create system context. Error:  
+java.lang.IllegalArgumentException: contains illegal character for hexBinary: 4XhDZacrqMDoR7gaA614Rz9FCMH38mj+Yc6BqIvoJ+wUpwMcRY1IS+1PPKOE9CaSd2n1Tq3uWh++BGoRrPzVtA==
+	at javax.xml.bind.DatatypeConverterImpl.parseHexBinary(DatatypeConverterImpl.java:451)
+	at javax.xml.bind.DatatypeConverter.parseHexBinary(DatatypeConverter.java:357)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.decode(PlainTextEncoder.java:79)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.getSalt(PlainTextEncoder.java:116)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.isValidHash(PlainTextEncoder.java:46)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.authenticateSystemUser(IamUtils.java:433)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.performOperationInSystemContext(IamUtils.java:296)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.performOperationInSystemContext(IamUtils.java:256)
+	at com.vmware.iotc.commons.auth.AuthUtils.performLocalOperationInSystemContext(AuthUtils.java:166)
+	at com.vmware.iotc.commons.auth.AuthUtils.performLocalOperationInSystemContext(AuthUtils.java:181)
+	at com.vmware.iotc.commons.task.PulseTaskManager.getSystemCtx(PulseTaskManager.java:796)
+	at com.vmware.iotc.commons.task.PulseTaskManager.scheduleExists(PulseTaskManager.java:674)
+	at com.vmware.iotc.iam.task.CertificateExpiry.createSchedule(CertificateExpiry.java:49)
+	at com.vmware.iotc.iam.task.CertificateExpiry.registerCertificateExpiryHandler(CertificateExpiry.java:43)
+	at com.vmware.iotc.iam.IAMMicroService.preStart(IAMMicroService.java:55)
+	at com.vmware.iotc.runtime.PulseMicroServiceRuntime.main(PulseMicroServiceRuntime.java:67)
+2021-06-20 04:36:57,489 [] [] [] [] [TM-iam-dummy.node.com-listener] [ERROR] c.v.i.c.t.PulseTaskManager - Failed to create system context. Error:  
+java.lang.IllegalArgumentException: contains illegal character for hexBinary: 4XhDZacrqMDoR7gaA614Rz9FCMH38mj+Yc6BqIvoJ+wUpwMcRY1IS+1PPKOE9CaSd2n1Tq3uWh++BGoRrPzVtA==
+	at javax.xml.bind.DatatypeConverterImpl.parseHexBinary(DatatypeConverterImpl.java:451)
+	at javax.xml.bind.DatatypeConverter.parseHexBinary(DatatypeConverter.java:357)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.decode(PlainTextEncoder.java:79)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.getSalt(PlainTextEncoder.java:116)
+	at com.vmware.iotc.commons.util.PlainTextEncoder.isValidHash(PlainTextEncoder.java:46)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.authenticateSystemUser(IamUtils.java:433)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.performOperationInSystemContext(IamUtils.java:296)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.performOperationInSystemContext(IamUtils.java:256)
+	at com.vmware.iotc.commons.auth.AuthUtils.performLocalOperationInSystemContext(AuthUtils.java:166)
+	at com.vmware.iotc.commons.auth.AuthUtils.performLocalOperationInSystemContext(AuthUtils.java:181)
+	at com.vmware.iotc.commons.task.PulseTaskManager.getSystemCtx(PulseTaskManager.java:796)
+	at com.vmware.iotc.commons.task.PulseTaskManager$QueuePollTask.run(PulseTaskManager.java:847)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2021-06-20 04:36:57,492 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.c.PulseContextThreadLocal - Setting request context to null 
+2021-06-20 04:36:57,493 [] [] [] [] [main] [INFO ] c.v.i.c.u.PulseResourceBundle - Error while reading property from resourceBundle invalid.system.context with exception Can't find resource for bundle java.util.PropertyResourceBundle, key invalid.system.context 
+com.vmware.iotc.commons.task.exception.PulseTaskException: Failed to check for scheduleName: CERTIFICATE_EXPIRY_CHECK_TASK
+	at com.vmware.iotc.commons.task.PulseTaskManager.scheduleExists(PulseTaskManager.java:678)
+	at com.vmware.iotc.iam.task.CertificateExpiry.createSchedule(CertificateExpiry.java:49)
+	at com.vmware.iotc.iam.task.CertificateExpiry.registerCertificateExpiryHandler(CertificateExpiry.java:43)
+	at com.vmware.iotc.iam.IAMMicroService.preStart(IAMMicroService.java:55)
+	at com.vmware.iotc.runtime.PulseMicroServiceRuntime.main(PulseMicroServiceRuntime.java:67)
+Caused by: java.lang.IllegalArgumentException: Invalid pulse system context
+	at com.vmware.iotc.commons.ctx.PulseContextThreadLocal.setSystemContext(PulseContextThreadLocal.java:73)
+	at com.vmware.iotc.uservice.iam.utils.IamUtils.performOperationInSystemContext(IamUtils.java:344)
+	at com.vmware.iotc.commons.auth.AuthUtils.performOperationInSystemContext(AuthUtils.java:192)
+	at com.vmware.iotc.commons.task.PulseTaskManager.scheduleExists(PulseTaskManager.java:674)
+	... 4 more
+Exception occurred while initializing common runtime:::
+2021-06-20 04:36:57,495 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping Server@5a411614{STARTED}[9.4.z-SNAPSHOT] 
+2021-06-20 04:36:57,495 [] [] [] [] [Thread-3] [DEBUG] o.e.j.server.Server - doStop Server@5a411614{STOPPING}[9.4.z-SNAPSHOT] 
+2021-06-20 04:36:57,497 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandlerContainer - Graceful shutdown Server@5a411614{STOPPING}[9.4.z-SNAPSHOT] by  
+2021-06-20 04:36:57,498 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,500 [] [] [] [] [Thread-12] [DEBUG] c.v.i.r.s.RestServerRunner - Exiting application (shutdown hook) 
+2021-06-20 04:36:57,502 [] [] [] [] [TM-iam-dummy.node.com-listener] [DEBUG] c.v.i.c.d.m.MongoDBUtils - Organization Id for the filter query null 
+2021-06-20 04:36:57,506 [] [] [] [] [Thread-15] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Closing mongodb connection since JVM is shutting down 
+2021-06-20 04:36:57,506 [] [] [] [] [Thread-1] [DEBUG] c.v.i.c.c.i.ConsulConfigProvider - Closing consul client connection since destroy of connection is called. 
+2021-06-20 04:36:57,509 [] [] [] [] [iam-ThreadPool-qtp415565467-22] [DEBUG] o.e.j.u.t.QueuedThreadPool - ran iam-ThreadPool-qtp415565467-22-acceptor-0@31464a43-ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,509 [] [] [] [] [Thread-13] [INFO ] c.v.i.c.t.PulseTaskManager - Task consumer stopped. 
+2021-06-20 04:36:57,509 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping SelectorManager@ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,509 [] [] [] [] [Thread-1] [DEBUG] c.v.i.c.c.i.ConsulConfigProvider - Stopping the consul watch listener. 
+2021-06-20 04:36:57,510 [] [] [] [] [TM-iam-dummy.node.com-listener] [ERROR] c.v.i.c.t.PulseTaskAdapter - Error retrieving task from queue iam. Exception:  
+java.lang.IllegalStateException: The pool is closed
+	at com.mongodb.internal.connection.ConcurrentPool.get(ConcurrentPool.java:137)
+	at com.mongodb.internal.connection.ConcurrentPool.get(ConcurrentPool.java:123)
+	at com.mongodb.internal.session.ServerSessionPool.get(ServerSessionPool.java:80)
+	at com.mongodb.internal.session.BaseClientSessionImpl.<init>(BaseClientSessionImpl.java:40)
+	at com.mongodb.client.internal.ClientSessionImpl.<init>(ClientSessionImpl.java:48)
+	at com.mongodb.client.internal.MongoClientDelegate.createClientSession(MongoClientDelegate.java:110)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.getClientSession(MongoClientDelegate.java:249)
+	at com.mongodb.client.internal.MongoClientDelegate$DelegateOperationExecutor.execute(MongoClientDelegate.java:190)
+	at com.mongodb.client.internal.MongoCollectionImpl.executeFindOneAndUpdate(MongoCollectionImpl.java:744)
+	at com.mongodb.client.internal.MongoCollectionImpl.findOneAndUpdate(MongoCollectionImpl.java:724)
+	at com.vmware.iotc.commons.db.mongo.MongoDBAdapter.findOneAndUpdate(MongoDBAdapter.java:559)
+	at com.vmware.iotc.commons.db.mongo.MongoDBAdapter.findOneAndUpdate(MongoDBAdapter.java:510)
+	at com.vmware.iotc.commons.task.PulseTaskAdapter.getOne(PulseTaskAdapter.java:246)
+	at com.vmware.iotc.commons.task.PulseTaskManager$QueuePollTask.run(PulseTaskManager.java:851)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2021-06-20 04:36:57,510 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ManagedSelector@33f98231{STARTED} id=0 keys=0 selected=0 updates=0 
+2021-06-20 04:36:57,513 [] [] [] [] [Thread-1] [DEBUG] c.v.i.c.c.i.ConsulConfigProvider - Stopped the consul watch listener. 
+2021-06-20 04:36:57,513 [] [] [] [] [Thread-3] [DEBUG] o.e.j.i.ManagedSelector - Queued change org.eclipse.jetty.io.ManagedSelector$CloseConnections@72a8500 on ManagedSelector@33f98231{STOPPING} id=0 keys=0 selected=0 updates=0 
+2021-06-20 04:36:57,513 [] [] [] [] [Thread-3] [DEBUG] o.e.j.i.ManagedSelector - Wakeup on submit ManagedSelector@33f98231{STOPPING} id=0 keys=0 selected=0 updates=1 
+2021-06-20 04:36:57,512 [] [] [] [] [Thread-15] [DEBUG] o.m.d.p.command - Sending command '{"endSessions": [{"id": {"$binary": {"base64": "Jq/oHk3NS6ec0Z8ZmBV6qg==", "subType": "04"}}}, {"id": {"$binary": {"base64": "3RSD94JYSzuHD4KuyRHeWw==", "subType": "04"}}}], "$db": "admin", "$clusterTime": {"clusterTime": {"$timestamp": {"t": 1624163814, "i": 1}}, "signature": {"hash": {"$binary": {"base64": "6pOTN+mNwu1EYqoVG683nS87AIU=", "subType": "00"}}, "keyId": 6975553138161877014}}, "$readPreference": {"mode": "primaryPreferred"}}' with request id 19 to database admin on connection [connectionId{localValue:2}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,514 [] [] [] [] [Thread-1] [DEBUG] c.v.i.c.c.i.ConsulConfigProvider - Consul client connection closed 
+2021-06-20 04:36:57,514 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea woken with none selected 
+2021-06-20 04:36:57,514 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea woken up from select, 0/0/0 selected 
+2021-06-20 04:36:57,514 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea processing 0 keys, 1 updates 
+2021-06-20 04:36:57,514 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - updateable 1 
+2021-06-20 04:36:57,514 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - update org.eclipse.jetty.io.ManagedSelector$CloseConnections@72a8500 
+2021-06-20 04:36:57,515 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Closing 0 connections on ManagedSelector@33f98231{STOPPING} id=0 keys=0 selected=0 updates=0 
+2021-06-20 04:36:57,515 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - updates 0 
+2021-06-20 04:36:57,515 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea waiting with 0 keys 
+2021-06-20 04:36:57,515 [] [] [] [] [Thread-3] [DEBUG] o.e.j.i.ManagedSelector - Queued change org.eclipse.jetty.io.ManagedSelector$StopSelector@66614b58 on ManagedSelector@33f98231{STOPPING} id=0 keys=0 selected=0 updates=0 
+2021-06-20 04:36:57,515 [] [] [] [] [Thread-15] [DEBUG] o.m.d.p.command - Execution of command with request id 19 completed successfully in 4.40 ms on connection [connectionId{localValue:2}] to server 172.19.0.6:27017 
+2021-06-20 04:36:57,515 [] [] [] [] [Thread-3] [DEBUG] o.e.j.i.ManagedSelector - Wakeup on submit ManagedSelector@33f98231{STOPPING} id=0 keys=0 selected=0 updates=1 
+2021-06-20 04:36:57,516 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea woken with none selected 
+2021-06-20 04:36:57,516 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea woken up from select, 0/0/0 selected 
+2021-06-20 04:36:57,516 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - Selector sun.nio.ch.EPollSelectorImpl@19ac13ea processing 0 keys, 1 updates 
+2021-06-20 04:36:57,516 [] [] [] [] [Thread-15] [INFO ] o.m.d.connection - Closed connection [connectionId{localValue:3}] to 172.19.0.6:27017 because the pool has been closed. 
+2021-06-20 04:36:57,516 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - updateable 1 
+2021-06-20 04:36:57,516 [] [] [] [] [Thread-15] [DEBUG] o.m.d.connection - Closing connection connectionId{localValue:3} 
+2021-06-20 04:36:57,516 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - update org.eclipse.jetty.io.ManagedSelector$StopSelector@66614b58 
+2021-06-20 04:36:57,517 [] [] [] [] [Thread-15] [INFO ] o.m.d.connection - Closed connection [connectionId{localValue:2}] to 172.19.0.6:27017 because the pool has been closed. 
+2021-06-20 04:36:57,517 [] [] [] [] [Thread-15] [DEBUG] o.m.d.connection - Closing connection connectionId{localValue:2} 
+2021-06-20 04:36:57,517 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.i.ManagedSelector - updates 0 
+2021-06-20 04:36:57,517 [] [] [] [] [iam-ThreadPool-qtp415565467-21] [DEBUG] o.e.j.u.t.QueuedThreadPool - ran org.eclipse.jetty.io.ManagedSelector$$Lambda$194/1433568941@b10a26d 
+2021-06-20 04:36:57,517 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping EatWhatYouKill@67b7c170/SelectorProducer@6fd77352/IDLE/p=false/QueuedThreadPool[iam-ThreadPool-qtp415565467]@18c5069b{STARTED,8<=8<=16,i=7,q=0}[ReservedThreadExecutor@65b3a85a{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2021-06-20T04:36:57.517Z 
+2021-06-20 04:36:57,518 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED EatWhatYouKill@67b7c170/SelectorProducer@6fd77352/IDLE/p=false/QueuedThreadPool[iam-ThreadPool-qtp415565467]@18c5069b{STARTED,8<=8<=16,i=8,q=0}[ReservedThreadExecutor@65b3a85a{s=0/1,p=0}][pc=0,pic=0,pec=0,epc=0]@2021-06-20T04:36:57.518Z 
+2021-06-20 04:36:57,518 [] [] [] [] [Thread-15] [DEBUG] c.v.i.c.d.m.MongoDBConnection - Mongodb connection closed 
+2021-06-20 04:36:57,517 [] [] [] [] [cluster-ClusterId{value='60cec5e9ca31c178a47cf02d', description='null'}-172.19.0.6:27017] [DEBUG] o.m.d.connection - Closing connection connectionId{localValue:1} 
+2021-06-20 04:36:57,518 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ManagedSelector@33f98231{STOPPED} id=0 keys=-1 selected=-1 updates=0 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED SelectorManager@ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping HttpConnectionFactory@625abb97[HTTP/1.1] 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED HttpConnectionFactory@625abb97[HTTP/1.1] 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ScheduledExecutorScheduler@31aa3ca5{STARTED} 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ScheduledExecutorScheduler@31aa3ca5{STOPPED} 
+2021-06-20 04:36:57,519 [] [] [] [] [Thread-3] [INFO ] o.e.j.s.AbstractConnector - Stopped ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,520 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ServerConnector@3543df7d{HTTP/1.1,[http/1.1]}{0.0.0.0:60052} 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandler - stopping Server@5a411614{STOPPING}[9.4.z-SNAPSHOT] 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping DefaultSessionIdManager@40c80397{STARTED}[worker=node0] 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping HouseKeeper@e077866{STARTED}[interval=600000, ownscheduler=true] 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [INFO ] o.e.j.server.session - node0 Stopped scavenging 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ScheduledExecutorScheduler@ed3068a{STARTED} 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ScheduledExecutorScheduler@ed3068a{STOPPED} 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED HouseKeeper@e077866{STOPPED}[interval=600000, ownscheduler=true] 
+2021-06-20 04:36:57,521 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED DefaultSessionIdManager@40c80397{STOPPED}[worker=node0] 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ErrorHandler@25b2cfcb{STARTED} 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandler - stopping ErrorHandler@25b2cfcb{STOPPING} 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ErrorHandler@25b2cfcb{STOPPED} 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping o.e.j.s.ServletContextHandler@5ddea849{/,null,SHUTDOWN} 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandlerContainer - Graceful shutdown o.e.j.s.ServletContextHandler@5ddea849{/,null,SHUTDOWN} by  
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandler - stopping o.e.j.s.ServletContextHandler@5ddea849{/,null,UNAVAILABLE} 
+2021-06-20 04:36:57,522 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping org.eclipse.jetty.server.session.SessionHandler1591916281==dftMaxIdleSec=-1 
+2021-06-20 04:36:57,525 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping org.eclipse.jetty.server.session.DefaultSessionCache@18230356[evict=-1,removeUnloadable=false,saveOnCreate=false,saveOnInactiveEvict=false] 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping org.eclipse.jetty.server.session.NullSessionDataStore@22b53226[passivating=false,graceSec=3600] 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED org.eclipse.jetty.server.session.NullSessionDataStore@22b53226[passivating=false,graceSec=3600] 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED org.eclipse.jetty.server.session.DefaultSessionCache@18230356[evict=-1,removeUnloadable=false,saveOnCreate=false,saveOnInactiveEvict=false] 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ScheduledExecutorScheduler@60dce7ea{STARTED} 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ScheduledExecutorScheduler@60dce7ea{STOPPED} 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandler - stopping org.eclipse.jetty.server.session.SessionHandler1591916281==dftMaxIdleSec=-1 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ServletHandler@395b56bb{STARTED} 
+2021-06-20 04:36:57,526 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.AbstractHandler - stopping ServletHandler@395b56bb{STOPPING} 
+2021-06-20 04:36:57,528 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping org.eclipse.jetty.servlet.ServletHandler$Default404Servlet-12bcd0c0@41162c2f==org.eclipse.jetty.servlet.ServletHandler$Default404Servlet,jsp=null,order=-1,inst=false,async=true 
+2021-06-20 04:36:57,528 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED org.eclipse.jetty.servlet.ServletHandler$Default404Servlet-12bcd0c0@41162c2f==org.eclipse.jetty.servlet.ServletHandler$Default404Servlet,jsp=null,order=-1,inst=false,async=true 
+2021-06-20 04:36:57,528 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping com.codahale.metrics.servlets.AdminServlet-1cbf6e72@921b19a8==com.codahale.metrics.servlets.AdminServlet,jsp=null,order=-1,inst=false,async=true 
+2021-06-20 04:36:57,528 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED com.codahale.metrics.servlets.AdminServlet-1cbf6e72@921b19a8==com.codahale.metrics.servlets.AdminServlet,jsp=null,order=-1,inst=false,async=true 
+2021-06-20 04:36:57,528 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping org.glassfish.jersey.servlet.ServletContainer-5e81e5ac@9bded669==org.glassfish.jersey.servlet.ServletContainer,jsp=null,order=0,inst=true,async=true 
+2021-06-20 04:36:57,535 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED org.glassfish.jersey.servlet.ServletContainer-5e81e5ac@9bded669==org.glassfish.jersey.servlet.ServletContainer,jsp=null,order=0,inst=false,async=true 
+2021-06-20 04:36:57,536 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ServletHandler@395b56bb{STOPPED} 
+2021-06-20 04:36:57,536 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED org.eclipse.jetty.server.session.SessionHandler1591916281==dftMaxIdleSec=-1 
+2021-06-20 04:36:57,536 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.ContextHandler - contextDestroyed: javax.servlet.ServletContextEvent[source=ServletContext@o.e.j.s.ServletContextHandler@5ddea849{/,null,UNAVAILABLE}]->com.vmware.iotc.commons.management.PulseHealthCheckListener@2fea7088 
+2021-06-20 04:36:57,536 [] [] [] [] [Thread-3] [DEBUG] o.e.j.s.h.ContextHandler - contextDestroyed: javax.servlet.ServletContextEvent[source=ServletContext@o.e.j.s.ServletContextHandler@5ddea849{/,null,UNAVAILABLE}]->com.vmware.iotc.commons.management.PulseMetricsListener@4678a2eb 
+2021-06-20 04:36:57,537 [] [] [] [] [Thread-3] [INFO ] o.e.j.s.h.ContextHandler - Stopped o.e.j.s.ServletContextHandler@5ddea849{/,null,UNAVAILABLE} 
+2021-06-20 04:36:57,537 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED o.e.j.s.ServletContextHandler@5ddea849{/,null,UNAVAILABLE} 
+2021-06-20 04:36:57,537 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping QueuedThreadPool[iam-ThreadPool-qtp415565467]@18c5069b{STARTED,8<=8<=16,i=8,q=0}[ReservedThreadExecutor@65b3a85a{s=0/1,p=0}] 
+2021-06-20 04:36:57,537 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - stopping ReservedThreadExecutor@65b3a85a{s=0/1,p=0} 
+2021-06-20 04:36:57,537 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED ReservedThreadExecutor@65b3a85a{s=0/1,p=0} 
+2021-06-20 04:36:57,538 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED QueuedThreadPool[iam-ThreadPool-qtp415565467]@18c5069b{STOPPED,8<=8<=16,i=0,q=0}[org.eclipse.jetty.util.thread.TryExecutor$$Lambda$45/1390301622@2374d36a] 
+2021-06-20 04:36:57,538 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.t.ShutdownThread - shutdown already commenced 
+2021-06-20 04:36:57,539 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.c.AbstractLifeCycle - STOPPED Server@5a411614{STOPPED}[9.4.z-SNAPSHOT] 
+2021-06-20 04:36:57,539 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.t.ShutdownThread - Stopped Server@5a411614{STOPPED}[9.4.z-SNAPSHOT] 
+2021-06-20 04:36:57,539 [] [] [] [] [Thread-3] [DEBUG] o.e.j.u.t.ShutdownThread - Destroyed Server@5a411614{STOPPED}[9.4.z-SNAPSHOT] 

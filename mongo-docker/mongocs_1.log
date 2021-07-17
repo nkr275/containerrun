@@ -1,0 +1,375 @@
+kranti@b2-15-waw1-dev02:~/new_deploy/mongo-db$ docker run -it --rm --name mongoinit \
+> --network devnw \
+> -e INSTANCE_NAME=shkranthi-05 \
+> -e CATALOG_SERVICE_ADDR=51.83.252.116 \
+> -e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+> -e CONSUL_SERVICE_NAME=shmongocs01 \
+> -e CONSUL_NODE_NAME=shmongocs01 \
+> -e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+> -e CONSUL_DATA_DIR=/bitnami/consul \
+> -e MONGODB_SHARDING_MODE=configsvr \
+> -v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+> -v $PWD/mongocs01/consul:/bitnami/consul \
+> -v $PWD/mongocs01/data:/bitnami \
+> -v $PWD/mongocs01/ssl:/certificates \
+> -v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+> s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13 bash -x /init/mongoinit.sh
+Unable to find image 's8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13' locally
+3.0.0-13: Pulling from shinternal/infer/mongoinit
+2e6370f1e2d3: Already exists 
+8e3edd23ba57: Already exists 
+c19cda9c8ef2: Already exists 
+a7ac11832aad: Already exists 
+6c7d75ec7316: Already exists 
+c629db6b6959: Already exists 
+c6c69f0ad617: Already exists 
+040d06aeaa25: Already exists 
+71b1ba29ea28: Already exists 
+1322c692966e: Already exists 
+d4e30299511e: Already exists 
+95ab9f776fbe: Already exists 
+e01243735d60: Pull complete 
+663afc8123c4: Pull complete 
+Digest: sha256:193d64c9c1fff4452750abbcbc4ab09e2205119699471e0edff4e13b3f45e75c
+Status: Downloaded newer image for s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13
+ 03:07:17.69 
+ 03:07:17.69 Welcome to the Bitnami consul container
+ 03:07:17.69 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-consul
+ 03:07:17.69 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-consul/issues
+ 03:07:17.69 
+
++ set -x
++ source /opt/smarthub/utils/catalogsvc.sh
+++ CATALOG_SERVICE_ADDR=51.83.252.116
+++ CATALOG_SERVICE_TOKEN=b123bd0d-180b-933c-7af5-a50a281b535a
++ INFER_TEMPLATES_DIR=/opt/smarthub/templates/config
++ NODE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/node.properties
++ CONSUL_CLIENT_CONFIG_TEMPLATE=/opt/smarthub/templates/config/client.json
++ APP_CONFIG_DIR=/opt/smarthub/iotc/conf
++ NODE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/node.properties
++ CONSUL_CLIENT_CONFIG=/opt/smarthub/iotc/conf/consul.json
++ INFER_ENC_KEY_NAME=encrypt.key
++ MONGODB_ADMIN_PASSWORD_KEY_NAME=mongo.db.admin.password
++ MONGODB_IOTC_USER_KEY_NAME=mongo.db.username
++ MONGODB_IOTC_PASSWORD_KEY_NAME=mongo.db.password
++ MONGO_CS_URLS_KEY_NAME=mongo.cs.urls
++ MONGO_DB_URLS_KEY_NAME=mongo.db.urls
++ MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass
++ CERT_GEN_UTILITY=/opt/smarthub/utils/sh_generate_certs.py
++ CONSUL_MANAGER=/opt/smarthub/utils/consul_manager.py
++ ENCDEC_UTILTY=/opt/smarthub/utils/shencdec.py
++ MONGODB_CERTS=/certificates
++ '[' -z shkranthi-05 ']'
+++ getDeployment shkranthi-05
+++ status=0
+++ deploymentname=shkranthi-05
++++ printf infer/catalog/%s shkranthi-05
+++ deploymentpath=infer/catalog/shkranthi-05
++++ printf 'http://51.83.252.116:8500/v1/kv/%s?raw' infer/catalog/shkranthi-05
+++ url='http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw'
++++ curl -s 'http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw' -H 'Accept: application/json' -H 'cache-control: no-cache' -H 'x-consul-token: b123bd0d-180b-933c-7af5-a50a281b535a'
+++ response='{"addr": "shconsulnode01", "token": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75", "mastertoken": "5367e4c0-ad91-d721-3345-5cbc7f02de15", "encryptkey": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
+++ status=0
+++ echo CATALOG_QUERY_STATUS=0
+++ '[' 0 -eq 0 ']'
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 4
+++ echo CONFIG_SERVER=shconsulnode01
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 8
+++ echo CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 12
+++ echo CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 16
+++ echo CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ eval CATALOG_QUERY_STATUS=0 CONFIG_SERVER=shconsulnode01 CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15 CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
+++ CATALOG_QUERY_STATUS=0
+++ CONFIG_SERVER=shconsulnode01
+++ CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
+++ CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ '[' -z e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 ']'
+++ dirname /opt/smarthub/iotc/conf/node.properties
++ mkdir -p /opt/smarthub/iotc/conf
++ cp /opt/smarthub/templates/config/node.properties /opt/smarthub/iotc/conf/node.properties
++ sed -i '/consul.host/s|=.*|=shconsulnode01|g' /opt/smarthub/iotc/conf/node.properties
++ sed -i '/consul.kv.access.token/s|=.*|=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75|g' /opt/smarthub/iotc/conf/node.properties
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --host=shconsulnode01 --port=8500 --token=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key=encrypt.key
++ APP_ENCRYPT_KEY=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae
++ sed -i '/encrypt.key/s|=.*|=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae|g' /opt/smarthub/iotc/conf/node.properties
+++ ip addr show eth0
+++ grep -Po 'inet \K[\d.]+'
++ ip_addr=172.19.0.4
++ cat /opt/smarthub/templates/config/client.json
++ jq --arg node shmongocs01 '.node_name = $node'
++ jq --arg CONFIG_SERVER shconsulnode01 '.start_join += [$CONFIG_SERVER]'
++ tee /opt/smarthub/iotc/conf/consul.json
++ jq --arg CONFIG_CLIENT_TOKEN e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 '.acl.tokens.agent = $CONFIG_CLIENT_TOKEN'
++ jq --arg CONFIG_ENCRYPT_KEY 9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q= '.encrypt = $CONFIG_ENCRYPT_KEY'
++ jq --arg CONSUL_DATA_DIR /bitnami/consul '.data_dir = $CONSUL_DATA_DIR'
++ jq --arg CONFIG_MASTER_TOKEN 5367e4c0-ad91-d721-3345-5cbc7f02de15 '.acl.tokens.master = $CONFIG_MASTER_TOKEN'
+{
+  "server": false,
+  "datacenter": "dc1",
+  "data_dir": "/bitnami/consul",
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "log_level": "DEBUG",
+  "enable_syslog": false,
+  "leave_on_terminate": true,
+  "node_name": "shmongocs01",
+  "start_join": [
+    "shconsulnode01"
+  ],
+  "primary_datacenter": "dc1",
+  "acl": {
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}
++ retry=10
++ '[' 10 -gt 0 ']'
++ sleep 10
++ consul agent -config-file /opt/smarthub/iotc/conf/consul.json
+==> Starting Consul agent...
+           Version: '1.9.6'
+           Node ID: '87e98841-f1c5-3364-439d-b4c433b6d601'
+         Node name: 'shmongocs01'
+        Datacenter: 'dc1' (Segment: '')
+            Server: false (Bootstrap: false)
+       Client Addr: [127.0.0.1] (HTTP: 8500, HTTPS: -1, gRPC: -1, DNS: 8600)
+      Cluster Addr: 172.19.0.4 (LAN: 8301, WAN: 8302)
+           Encrypt: Gossip: true, TLS-Outgoing: false, TLS-Incoming: false, Auto-Encrypt-TLS: false
+
+==> Log data will now stream in as it occurs:
+
+2021-06-21T03:07:17.905Z [INFO]  agent.client.serf.lan: serf: EventMemberJoin: shmongocs01 172.19.0.4
+2021-06-21T03:07:17.905Z [INFO]  agent.router: Initializing LAN area manager
+2021-06-21T03:07:17.905Z [INFO]  agent: Started DNS server: address=127.0.0.1:8600 network=udp
+2021-06-21T03:07:17.905Z [INFO]  agent: Started DNS server: address=127.0.0.1:8600 network=tcp
+2021-06-21T03:07:17.906Z [INFO]  agent: Starting server: address=127.0.0.1:8500 network=tcp protocol=http
+2021-06-21T03:07:17.906Z [WARN]  agent: DEPRECATED Backwards compatibility with pre-1.9 metrics enabled. These metrics will be removed in a future version of Consul. Set `telemetry { disable_compat_1.9 = true }` to disable them.
+2021-06-21T03:07:17.906Z [INFO]  agent: Joining cluster
+2021-06-21T03:07:17.906Z [INFO]  agent: (LAN) joining: lan_addresses=[shconsulnode01]
+2021-06-21T03:07:17.907Z [DEBUG] agent.client.memberlist.lan: memberlist: Initiating push/pull sync with:  172.19.0.2:8301
+2021-06-21T03:07:17.908Z [INFO]  agent.client.serf.lan: serf: EventMemberJoin: shconsulnode01 172.19.0.2
+2021-06-21T03:07:17.908Z [INFO]  agent.client.serf.lan: serf: EventMemberJoin: shconsulnode02 172.19.0.3
+2021-06-21T03:07:17.909Z [INFO]  agent: (LAN) joined: number_of_nodes=1
+2021-06-21T03:07:17.909Z [DEBUG] agent: systemd notify failed: error="No socket"
+2021-06-21T03:07:17.909Z [INFO]  agent: Join completed. Initial agents synced with: agent_count=1
+2021-06-21T03:07:17.909Z [INFO]  agent: started state syncer
+2021-06-21T03:07:17.909Z [INFO]  agent: Consul agent running!
+2021-06-21T03:07:17.909Z [WARN]  agent.router.manager: No servers available
+2021-06-21T03:07:17.909Z [ERROR] agent.anti_entropy: failed to sync remote state: error="No known Consul servers"
+2021-06-21T03:07:17.909Z [INFO]  agent.client: adding server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T03:07:17.909Z [INFO]  agent.client: adding server: server="shconsulnode02 (Addr: tcp/172.19.0.3:8300) (DC: dc1)"
+2021-06-21T03:07:18.114Z [DEBUG] agent.client.serf.lan: serf: messageJoinType: shmongocs01
+2021-06-21T03:07:18.286Z [DEBUG] agent.client.serf.lan: serf: messageJoinType: shmongocs01
+2021-06-21T03:07:18.294Z [DEBUG] agent: Skipping remote check since it is managed automatically: check=serfHealth
+2021-06-21T03:07:18.295Z [INFO]  agent: Synced node info
+2021-06-21T03:07:18.314Z [DEBUG] agent.client.serf.lan: serf: messageJoinType: shmongocs01
+2021-06-21T03:07:18.565Z [DEBUG] agent: Skipping remote check since it is managed automatically: check=serfHealth
+2021-06-21T03:07:18.565Z [DEBUG] agent: Node info in sync
+2021-06-21T03:07:18.565Z [DEBUG] agent: Node info in sync
+2021-06-21T03:07:27.094Z [DEBUG] agent.client.memberlist.lan: memberlist: Stream connection from=172.19.0.3:56006
+++ consul members -token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T03:07:27.897Z [DEBUG] agent.http: Request finished: method=GET url=/v1/agent/members?segment=_all from=127.0.0.1:36942 latency=103.016µs
++ response='Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.5  2         dc1  <all>
+shconsulnode02  172.19.0.3:8301  alive   server  1.9.5  2         dc1  <all>
+shmongocs01     172.19.0.4:8301  alive   client  1.9.6  2         dc1  <default>'
++ [[ Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.5  2         dc1  <all>
+shconsulnode02  172.19.0.3:8301  alive   server  1.9.5  2         dc1  <all>
+shmongocs01     172.19.0.4:8301  alive   client  1.9.6  2         dc1  <default> =~ .*172\.19\.0\.4.* ]]
++ break
++ '[' 10 -eq 0 ']'
++ '[' '!' -f /certificates/keyfile.pem ']'
++ echo 'Creating the certificates for MongoDb'
+Creating the certificates for MongoDb
++ mkdir -p /certificates
++ python3 /opt/smarthub/utils/sh_generate_certs.py ssl --cert-store filesystem:///certificates --cert-store consul:///iotc/sites/default/instances/default/nodes/shmongocs01/certstore --fqdn shmongocs01 --ipaddr 172.19.0.4 --issuer-store consul:///iotc/sites/default/instances/default/certstore --issuer-name 'SmartHub INFER IoT Center Root CA' --component mongodb
+Generating SSL certificate...
+2021-06-21T03:07:28.228Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/certstore?recurse=true from=127.0.0.1:36944 latency=669.529µs
+d a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae 06F95F024560A19E821EE0CA74EC07EDBDE6AB31824FDF2ABD2F355A632593F81138AA6DCFBB73C580D0AB1F4208C9FA2B47AB8FA88EFCEF49D8F8556542535C94EBA6BFD7E2C8B8F62D81AD0139D146
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 3435276163355592142 (0x2fac8d783e2d45ce)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, ST = CA, L = Union City, O = SmartHub Inc., OU = INFER, CN = SmartHub INFER IoT Center Root CA
+        Validity
+            Not Before: Jun 21 03:07:28 2021 GMT
+            Not After : Jun 20 03:07:28 2024 GMT
+        Subject: C = US, ST = CA, L = Union City, O = SmartHub Inc., OU = INFER, CN = shmongocs01
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:b3:a6:34:10:d3:98:86:ab:db:02:10:2f:3a:4b:
+                    bf:6d:00:54:06:09:14:ce:8c:64:a5:c2:31:a0:7e:
+                    1e:cd:e4:86:c2:51:5e:4e:68:dd:55:2f:bf:a8:1f:
+                    4c:71:96:cd:1a:2d:e1:00:e8:19:05:70:37:79:3f:
+                    1d:47:e4:ce:79:ea:8b:c9:a8:ff:2d:73:db:02:1e:
+                    56:45:f4:74:f2:76:f0:05:38:3f:cc:e7:65:06:e2:
+                    26:7e:1f:4e:1d:23:bd:6d:cf:9b:59:6e:08:e0:67:
+                    58:b1:61:bf:5a:9a:58:33:fa:86:a1:86:f0:fb:ce:
+                    c1:19:ad:d9:21:10:e3:0d:29:3e:08:10:82:8a:61:
+                    31:f3:24:d4:56:c5:fa:63:b8:d9:87:39:99:b1:57:
+                    4f:ac:9e:5c:95:cb:c5:1b:12:b0:88:bf:ed:20:09:
+                    8d:ba:93:ba:20:4f:1a:4b:7d:60:33:9b:9b:2a:1a:
+                    ac:08:5f:9a:90:51:b6:bf:f7:d8:c4:ad:b5:5e:8a:
+                    a4:79:58:80:80:0f:fe:4d:57:66:e2:4e:82:b1:38:
+                    df:62:ce:52:e8:0a:f7:55:56:5e:db:3a:cf:33:68:
+                    74:09:eb:7e:ac:66:dd:9f:d6:35:18:b4:d7:1c:7d:
+                    ce:c1:d0:a1:bd:fa:83:83:64:fe:d4:ac:cd:66:23:
+                    ed:59
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Key Usage: critical
+                Digital Signature, Non Repudiation, Key Encipherment
+            X509v3 Subject Alternative Name: critical
+                DNS:c805e15c6b58, DNS:shmongocs01, IP Address:172.19.0.4
+            X509v3 Subject Key Identifier: 
+                08:40:F2:3A:24:CA:4B:4A:63:0E:C2:3A:69:34:10:7F:20:CC:A5:F2
+            X509v3 Authority Key Identifier: 
+                keyid:96:A5:9C:25:62:2D:F9:F9:29:07:C2:AA:08:13:DC:3C:13:38:0C:C4
+
+    Signature Algorithm: sha256WithRSAEncryption
+         7b:72:a0:74:d7:14:11:7b:4f:24:7b:9c:b0:4e:ca:c9:82:73:
+         5c:80:fb:a5:26:ba:bf:34:8c:e0:47:60:7c:5b:91:e8:6a:df:
+         09:ab:6b:05:bb:75:08:1f:e8:e0:f1:26:7a:95:f7:87:81:bc:
+         4c:f3:94:4a:f9:76:3c:b1:d0:ee:0a:7c:f1:98:ac:7c:11:f4:
+         50:21:89:17:ed:fe:41:4a:cf:c8:34:88:50:fe:02:b8:13:62:
+         a5:be:5c:ae:d7:a9:69:7f:42:30:12:ec:80:29:04:68:3d:67:
+         8c:c8:5e:c8:54:83:89:84:1e:e2:1a:6c:11:4e:d9:dc:d3:2a:
+         81:ac:f9:74:a8:3e:8f:15:5c:ff:37:ae:d3:4d:71:be:41:08:
+         f6:2b:e6:02:71:a8:ab:2d:47:43:5a:51:d0:b2:bb:89:fe:f3:
+         b5:d0:dc:99:0f:dd:8d:d5:b5:fd:23:93:e6:f0:fe:95:d2:3f:
+         fd:3f:6c:a0:63:5a:97:e6:9b:f4:b1:a1:23:90:57:92:2f:e9:
+         19:a2:0b:65:bc:72:a5:7e:cc:ac:6b:19:a6:90:93:fb:a0:2d:
+         f8:b7:72:6a:98:d5:ca:4b:ea:27:15:19:1c:70:30:4c:be:88:
+         98:da:eb:d7:c3:bc:6b:71:57:e2:03:54:f9:2f:14:c1:18:8c:
+         1b:29:57:bc:8c:d5:f1:25:b4:69:ef:e9:a5:1b:20:a6:a5:41:
+         1d:16:64:26:e6:c1:41:96:07:81:42:28:1c:66:df:69:d1:e0:
+         47:ce:be:f9:c1:7f:03:80:e8:9c:8e:c1:75:81:89:8a:f2:11:
+         35:4a:4d:4e:9d:4e:0d:50:42:61:b2:ac:82:47:73:9b:e7:ca:
+         c2:a8:82:7a:d1:f0:b8:dc:0e:5d:9c:04:52:32:32:59:4c:15:
+         ec:39:98:20:25:5f:6c:0f:81:3d:a9:93:c8:20:1b:ea:63:d5:
+         db:c3:42:52:71:35:7c:69:9a:e1:43:c0:7f:42:f8:77:fb:bd:
+         68:a7:27:82:cd:71:1f:98:19:81:71:d0:51:1d:c8:9d:bf:7e:
+         1b:18:09:ec:ee:d3:3d:1e:e0:f5:d3:16:19:94:e8:d0:2e:67:
+         36:c1:b7:a7:90:ce:a0:25:57:be:ce:8a:fa:72:75:5c:fe:12:
+         85:94:ee:22:13:cf:04:6c:8d:2a:9b:26:aa:2a:e4:fa:55:86:
+         7d:b9:8a:1b:97:fb:55:bc:e0:bf:e5:ed:bc:93:de:7d:a9:1e:
+         a1:df:70:cb:e2:78:9b:2c:2d:a6:9a:7f:e5:80:b3:c6:d4:03:
+         bf:3a:ea:3c:c1:11:e2:a8:41:c8:50:fc:7f:79:23:97:a8:9c:
+         02:26:49:58:47:3a:f3:a0
+-----BEGIN CERTIFICATE-----
+MIIFCDCCAvCgAwIBAgIIL6yNeD4tRc4wDQYJKoZIhvcNAQELBQAwgYMxCzAJBgNV
+BAYTAlVTMQswCQYDVQQIDAJDQTETMBEGA1UEBwwKVW5pb24gQ2l0eTEWMBQGA1UE
+CgwNU21hcnRIdWIgSW5jLjEOMAwGA1UECwwFSU5GRVIxKjAoBgNVBAMMIVNtYXJ0
+SHViIElORkVSIElvVCBDZW50ZXIgUm9vdCBDQTAiGA8yMDIxMDYyMTAzMDcyOFoY
+DzIwMjQwNjIwMDMwNzI4WjBtMQswCQYDVQQGEwJVUzELMAkGA1UECAwCQ0ExEzAR
+BgNVBAcMClVuaW9uIENpdHkxFjAUBgNVBAoMDVNtYXJ0SHViIEluYy4xDjAMBgNV
+BAsMBUlORkVSMRQwEgYDVQQDDAtzaG1vbmdvY3MwMTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALOmNBDTmIar2wIQLzpLv20AVAYJFM6MZKXCMaB+Hs3k
+hsJRXk5o3VUvv6gfTHGWzRot4QDoGQVwN3k/HUfkznnqi8mo/y1z2wIeVkX0dPJ2
+8AU4P8znZQbiJn4fTh0jvW3Pm1luCOBnWLFhv1qaWDP6hqGG8PvOwRmt2SEQ4w0p
+PggQgophMfMk1FbF+mO42Yc5mbFXT6yeXJXLxRsSsIi/7SAJjbqTuiBPGkt9YDOb
+myoarAhfmpBRtr/32MSttV6KpHlYgIAP/k1XZuJOgrE432LOUugK91VWXts6zzNo
+dAnrfqxm3Z/WNRi01xx9zsHQob36g4Nk/tSszWYj7VkCAwEAAaOBkDCBjTAMBgNV
+HRMBAf8EAjAAMA4GA1UdDwEB/wQEAwIF4DAtBgNVHREBAf8EIzAhggxjODA1ZTE1
+YzZiNTiCC3NobW9uZ29jczAxhwSsEwAEMB0GA1UdDgQWBBQIQPI6JMpLSmMOwjpp
+NBB/IMyl8jAfBgNVHSMEGDAWgBSWpZwlYi35+SkHwqoIE9w8EzgMxDANBgkqhkiG
+9w0BAQsFAAOCAgEAe3KgdNcUEXtPJHucsE7KyYJzXID7pSa6vzSM4EdgfFuR6Grf
+CatrBbt1CB/o4PEmepX3h4G8TPOUSvl2PLHQ7gp88ZisfBH0UCGJF+3+QUrPyDSI
+UP4CuBNipb5crtepaX9CMBLsgCkEaD1njMheyFSDiYQe4hpsEU7Z3NMqgaz5dKg+
+jxVc/zeu001xvkEI9ivmAnGoqy1HQ1pR0LK7if7ztdDcmQ/djdW1/SOT5vD+ldI/
+/T9soGNal+ab9LGhI5BXki/pGaILZbxypX7MrGsZppCT+6At+LdyapjVykvqJxUZ
+HHAwTL6ImNrr18O8a3FX4gNU+S8UwRiMGylXvIzV8SW0ae/ppRsgpqVBHRZkJubB
+QZYHgUIoHGbfadHgR86++cF/A4DonI7BdYGJivIRNUpNTp1ODVBCYbKsgkdzm+fK
+wqiCetHwuNwOXZwEUjIyWUwV7DmYICVfbA+BPamTyCAb6mPV28NCUnE1fGma4UPA
+f0L4d/u9aKcngs1xH5gZgXHQUR3Inb9+GxgJ7O7TPR7g9dMWGZTo0C5nNsG3p5DO
+oCVXvs6K+nJ1XP4ShZTuIhPPBGyNKpsmqirk+lWGfbmKG5f7Vbzgv+XtvJPefake
+od9wy+J4mywtppp/5YCzxtQDvzrqPMER4qhByFD8f3kjl6icAiZJWEc686A=
+-----END CERTIFICATE-----
+
+2021-06-21T03:07:28.517Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/component.name from=127.0.0.1:36948 latency=269.663µs
+2021-06-21T03:07:28.630Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/other.stores from=127.0.0.1:36950 latency=369.823µs
+e a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae d525325f6bcad40a544783a852dcca63
+2021-06-21T03:07:28.788Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/txn from=127.0.0.1:36952 latency=4.825153ms
+Updated keys : 
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/cert.data
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/private.key
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/private.key.passphrase
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/cert.name
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/issuer.name
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/cert.expiry
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/cert.type
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/other.stores
+	iotc/sites/default/instances/default/nodes/shmongocs01/certstore/3435276163355592142/component.name
+
++ '[' 0 -ne 0 ']'
++ cat /certificates/server.crt /certificates/server.pem
++ chmod 660 /certificates/keyfile.pem /certificates/server.pem
++ chmod 770 /certificates
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key encrypt.key
+2021-06-21T03:07:28.921Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/encrypt.key from=127.0.0.1:36954 latency=361.906µs
++ INFER_ENC_KEY=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key mongo.db.admin.password
+2021-06-21T03:07:29.030Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/mongo.db.admin.password from=127.0.0.1:36956 latency=380.148µs
++ MONGODB_ROOT_PASSWORD=409B49CCFD62F9EB32D30BC7AEE94459426132687733961F42AA91C55A07B10988E6440450145D62EB96711C10E79180F7284AD6CFD38E9BC902A5A57F1667C625585B65E3ADC69FEDA5B3B5804A8497C7B8178E4AE16582
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 409B49CCFD62F9EB32D30BC7AEE94459426132687733961F42AA91C55A07B10988E6440450145D62EB96711C10E79180F7284AD6CFD38E9BC902A5A57F1667C625585B65E3ADC69FEDA5B3B5804A8497C7B8178E4AE16582
++ MONGODB_ROOT_PASSWORD=d0c5ca050db567925d7fac276058f4f3191dbab0
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key mongo.db.username
+2021-06-21T03:07:29.371Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/mongo.db.username from=127.0.0.1:36964 latency=410.25µs
++ MONGODB_IOTC_USER=iotcUser
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key mongo.db.password
+2021-06-21T03:07:29.484Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/mongo.db.password from=127.0.0.1:36966 latency=380.908µs
++ MONGODB_IOTC_PASSWORD=72A703CD85CA9F9437D8C8A2F1D5562C5757356E24A755CEB54D5116E4A8E45B4017AD720A82CE00AE7BEBEE58A615D012985EF0059B6AA194BD21310F01D38AC3470A4ECC9DEE54A7E9B7B058E8334A8FB049A694CED268
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 72A703CD85CA9F9437D8C8A2F1D5562C5757356E24A755CEB54D5116E4A8E45B4017AD720A82CE00AE7BEBEE58A615D012985EF0059B6AA194BD21310F01D38AC3470A4ECC9DEE54A7E9B7B058E8334A8FB049A694CED268
++ MONGODB_IOTC_PASSWORD=bb2e24317d0817076edb3cf0a832a327b09a8f95
++ '[' '!' -f /opt/smarthub/iotc/conf/rootpass ']'
++ echo d0c5ca050db567925d7fac276058f4f3191dbab0
++ tee /opt/smarthub/iotc/conf/rootpass
+d0c5ca050db567925d7fac276058f4f3191dbab0
++ '[' configsvr == configsvr ']'
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key mongo.cs.urls
+2021-06-21T03:07:29.821Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/mongo.cs.urls from=127.0.0.1:36968 latency=366.161µs
++ MONGO_CS_URLS=
++ [[ '' =~ shmongocs01 ]]
++ [[ -z '' ]]
++ MONGO_CS_URLS=shmongocs01
+++ python3 /opt/smarthub/utils/consul_manager.py kv put --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --kv-pair mongo.cs.urls=shmongocs01
+2021-06-21T03:07:29.939Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/txn from=127.0.0.1:36970 latency=3.061711ms
++ Updated keys : iotc/sites/default/instances/default/mongo.cs.urls
+/init/mongoinit.sh: line 133: Updated: command not found
++ echo 'Put some delay for sync and shutdown initiation'
+Put some delay for sync and shutdown initiation
++ sleep 30s
+2021-06-21T03:07:36.487Z [DEBUG] agent.client.memberlist.lan: memberlist: Stream connection from=172.19.0.2:40688
+2021-06-21T03:07:57.095Z [DEBUG] agent.client.memberlist.lan: memberlist: Stream connection from=172.19.0.3:56114
++ consul leave --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T03:07:59.995Z [INFO]  agent.client: client starting leave
+2021-06-21T03:08:00.114Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:00.115Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:00.260Z [DEBUG] agent.client.memberlist.lan: memberlist: Initiating push/pull sync with: shconsulnode01 172.19.0.2:8301
+2021-06-21T03:08:00.285Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:00.305Z [INFO]  agent.client.serf.lan: serf: EventMemberLeave: shmongocs01 172.19.0.4
+2021-06-21T03:08:00.314Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:00.486Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:00.486Z [DEBUG] agent.client.serf.lan: serf: messageLeaveType: shmongocs01
+2021-06-21T03:08:03.705Z [INFO]  agent: Requesting shutdown
+2021-06-21T03:08:03.705Z [INFO]  agent.client: shutting down client
+2021-06-21T03:08:03.706Z [INFO]  agent: consul client down
+2021-06-21T03:08:03.706Z [INFO]  agent: shutdown complete
+2021-06-21T03:08:03.706Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/agent/leave from=127.0.0.1:37058 latency=3.710898963s
+2021-06-21T03:08:03.706Z [INFO]  agent: Stopping server: protocol=DNS address=127.0.0.1:8600 network=tcp
+2021-06-21T03:08:03.706Z [INFO]  agent: Stopping server: protocol=DNS address=127.0.0.1:8600 network=udp
+Graceful leave complete

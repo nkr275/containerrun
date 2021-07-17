@@ -1,0 +1,24 @@
+mkdir -p $PWD/influxmeta01/{home,app,data}
+
+docker run -it --rm --name influxmetainit \
+--network devnw \
+-e INFLUX_HOST="influx-meta" \
+-e CONSUL_HOST="shconsulnode01" \
+-e INSTANCE_NAME="shkranthi-05" \
+-e CATALOG_SERVICE_ADDR="51.83.252.116" \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+#-e INFLUX_SERVICE_
+-v $PWD/influxmeta01/home:/etc/influxdb \
+-v $PWD/influxmeta01/app:/opt/smarthub/iotc/conf \
+-v $PWD/influxmeta01/data:/var/lib/influxdb \
+nk275/influxinit_meta:1.0 bash -x /init/influxinit.sh
+
+
+-e INFLUX_HOST="influx-meta"
+-e CONSUL_HOST="shconsulnode01"
+-e INSTANCE_NAME="shkranthi-05"
+-e CATALOG_SERVICE_ADDR="51.83.252.116"
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"
+-v $PWD/influxmeta01/home:/etc/influxdb
+-v $PWD/influxmeta01/app:/opt/smarthub/iotc/conf
+-v $PWD/influxmeta01/data:/var/lib/influxdb

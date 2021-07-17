@@ -1,0 +1,119 @@
+mkdir -p $PWD/consul01/{data,conf,logs,ssl,extra,tmp,app}
+
+docker run -it --rm --name consulinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shconsulnode01 \
+-e CONSUL_NODE_NAME=shconsulnode01 \
+-v $PWD/consul01/data:/bitnami/consul \
+-v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/consulinit:3.0.0-20 bash -x /init/consulinit.sh
+
+docker run -it --rm --name shconsulnode01 \
+--network inferapp \
+-v $PWD/consul01/data:/bitnami/consul \
+-v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+bitnami/consul
+
+mkdir -p $PWD/consul02/{data,conf,logs,ssl,extra,tmp,app}
+
+docker run -it --rm --name consulinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shconsulnode02 \
+-e CONSUL_NODE_NAME=shconsulnode02 \
+-v $PWD/consul02/data:/bitnami/consul \
+-v $PWD/consul02/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul02/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul02/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul02/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul02/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul02/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/consulinit:3.0.0-20 bash -x /init/consulinit.sh
+
+docker run -it --rm --name shconsulnode02 \
+--network inferapp \
+-v $PWD/consul02/data:/bitnami/consul \
+-v $PWD/consul02/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul02/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul02/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul02/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul02/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul02/app:/opt/smarthub/iotc/conf \
+bitnami/consul
+
+mkdir -p $PWD/consul03/{data,conf,logs,ssl,extra,tmp,app}
+
+docker run -it --rm --name consulinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shconsulnode03 \
+-e CONSUL_NODE_NAME=shconsulnode03 \
+-v $PWD/consul03/data:/bitnami/consul \
+-v $PWD/consul03/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul03/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul03/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul03/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul03/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul03/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/consulinit:3.0.0-20 bash -x /init/consulinit.sh
+
+	docker run -it --rm --name shconsulnode03 \
+	--network inferapp \
+	-v $PWD/consul03/data:/bitnami/consul \
+	-v $PWD/consul03/conf:/opt/bitnami/consul/conf \
+	-v $PWD/consul03/logs:/opt/bitnami/consul/logs \
+	-v $PWD/consul03/ssl:/opt/bitnami/consul/certificates \
+	-v $PWD/consul03/extra:/opt/bitnami/consul/extra \
+	-v $PWD/consul03/tmp:/opt/bitnami/consul/tmp \
+	-v $PWD/consul03/app:/opt/smarthub/iotc/conf \
+	bitnami/consul
+
+
+
+docker run -it --rm  \
+--network inferapp \
+-e MONGO_HOST="shmongos01" \
+-e CONSUL_HOST="shconsulnode-01" \
+-e INFER_TENANT_NAME="smarthub" \
+-e INFER_DOMAIN_NAME="smarthub.local" \
+-e INFER_CONSOLE_USERNAME="kranthi" \
+-e INFER_CONSOLE_USEREMAIL="kranthi.n@optit.co" \
+-e INFER_CONSOLE_USERPASSWD="12345678" \
+-e INSTANCE_NAME="shkranthi-03" \
+-e CATALOG_SERVICE_ADDR="51.83.252.116" \
+-e CATALOG_SERVICE_TOKEN="03abfb46-11d1-db61-46ad-3abb945b3a4d" \
+-e SMTP_URL= \
+-e SMTP_PORT= \
+-e SMTP_PASSWORD= \
+-e SMTP_USERNAME= \
+--name dbseed_3 nk275/dbseed:3.0 bash -x /init/mongodb-setup.sh 
+
+
+
+
+docker run -it --rm --name consulclient \
+	--network inferapp \
+	bitnami/consul \
+	consul members \
+	-http-addr http://shconsulnode01:8500 \
+	-token 3d9352af-69a3-c603-be87-b8cf694fbb21
+
+
+

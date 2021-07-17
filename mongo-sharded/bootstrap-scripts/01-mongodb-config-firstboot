@@ -1,0 +1,172 @@
+#!/bin/sh
+
+# Copyright © 2018.  VMware Inc. All rights reserved. This product is protected by copyright
+# and intellectual property laws in the United States and other countries as well as by international treaties.
+# VMware products may be covered by one or more patents listed at http://www.vmware.com/go/patents.
+
+
+#### FIRST NODE
+IOTC_HOME=/opt/vmware/iotc # /opt/smarthub/iotc
+BOOTSTRAP_UTILS=/etc/bootstrap/utils  
+MONGO_HOME=/opt/mongodb # /opt/bitnami/mongodb
+MONGODB_CERTS=$MONGO_HOME/certs
+MONGODB_KEYFILE=$MONGO_HOME/mongodb-keyfile
+NODE_PROPERTIES_FILE=$IOTC_HOME/conf/node.properties
+
+consul_token=`cat ${NODE_PROPERTIES_FILE} | grep "consul.kv.access.token" | cut -d'=' -f2`
+node_name=$(sed -n "/^node.name=\(.*\)$/s//\1/p" ${NODE_PROPERTIES_FILE})
+
+generate_cert_file=/etc/bootstrap/utils/generate_certs.py
+ip_addr=$(/sbin/ifconfig eth0 | grep "inet addr" | sed 's/\:/ /' | awk '{print $3}')
+fqdn=$(hostname)
+
+
+# generate self-signed certificates for mongodb
+echo "Creating the certificates for MongoDb"
+mkdir -p "${MONGODB_CERTS}"
+python3 $generate_cert_file ssl \
+    --cert-store "filesystem://${MONGODB_CERTS}" \
+    --cert-store "consul:///iotc/sites/default/instances/default/nodes/${node_name}/certstore" \
+    --fqdn "${fqdn}" \
+    --ipaddr "${ip_addr}" \
+    --issuer-store "consul:///iotc/sites/default/instances/default/certstore" \
+    --issuer-name "SmartHub INFER IoT Center Root CA" \
+    --component "mongodb"
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to generate certificates for MongoDB"
+    exit 1
+fi
+
+cat "${MONGODB_CERTS}/server.crt" "${MONGODB_CERTS}/server.pem" >> "${MONGODB_CERTS}/keyfile.pem"
+chown -R mongod:mongod "${MONGODB_CERTS}"
+chmod -R 400 "${MONGODB_CERTS}"
+chmod 755 "${MONGODB_CERTS}"
+
+# update the mongo config file with tls certs
+sed -i "/PEMKeyFile/s|:.*|: $MONGODB_CERTS/keyfile.pem|" "${MONGO_HOME}/mongos.conf"
+sed -i "/CAFile/s|:.*|: $MONGODB_CERTS/ca.crt|" "${MONGO_HOME}/mongos.conf"
+sed -i "/PEMKeyFile/s|:.*|: $MONGODB_CERTS/keyfile.pem|" "${MONGO_HOME}/mongod.conf"
+sed -i "/CAFile/s|:.*|: $MONGODB_CERTS/ca.crt|" "${MONGO_HOME}/mongod.conf"
+sed -i "/PEMKeyFile/s|:.*|: $MONGODB_CERTS/keyfile.pem|" "${MONGO_HOME}/mongod-cs.conf"
+sed -i "/CAFile/s|:.*|: $MONGODB_CERTS/ca.crt|" "${MONGO_HOME}/mongod-cs.conf"
+
+
+# update the mongo config server ip in mongos.conf file
+sed -i "s/localhost/$ip_addr/g" $MONGO_HOME/mongos.conf
+
+# get the node type primary or secondary
+primary_node=$(sed -n "/^cluster-join=\(.*\)$/s//\1/p" ${NODE_PROPERTIES_FILE})
+
+# Open the ports for mongod-cs, mongod, mongos clustering
+sed -i '$a\iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 27017 -j ACCEPT' /etc/systemd/scripts/iptables
+sed -i '$a\iptables -I OUTPUT -m state --state NEW -m tcp -p tcp --dport 27017 -j ACCEPT' /etc/systemd/scripts/iptables
+sed -i '$a\iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 27018 -j ACCEPT' /etc/systemd/scripts/iptables
+sed -i '$a\iptables -I OUTPUT -m state --state NEW -m tcp -p tcp --dport 27018 -j ACCEPT' /etc/systemd/scripts/iptables
+sed -i '$a\iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 27019 -j ACCEPT' /etc/systemd/scripts/iptables
+sed -i '$a\iptables -I OUTPUT -m state --state NEW -m tcp -p tcp --dport 27019 -j ACCEPT' /etc/systemd/scripts/iptables
+systemctl restart iptables
+
+# It is new cluster;
+if [ -z "$primary_node" ]; then
+
+   # generate mongod keyfile
+   echo "Generating Mongo keyfile"
+   openssl rand -base64 741 > $MONGODB_KEYFILE
+
+# Secondary node;
+else
+
+   # get access token for primary node
+   echo "Getting Node mgmt access token"
+   encrypted_node_admin_password=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'node.admin.password')
+   encrypt_key=`cat ${NODE_PROPERTIES_FILE} | grep "encrypt.key" | cut -d'=' -f2`
+   decrypt_string_script=$BOOTSTRAP_UTILS/decrypt_string.py
+   node_admin_password=$(python3 $decrypt_string_script $encrypt_key $encrypted_node_admin_password)
+   nodemgmt_token=$(echo $node_admin_password | python3 $BOOTSTRAP_UTILS/get_nodemgmt_token.py $primary_node)
+
+   # update the mongo shard name
+   echo "Update the shard name in mongod conf file"
+   node_group_count=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'group.count')
+   if [ -z "$node_group_count" ]; then
+            echo "Missing consul key values for node_group_count. Exiting..."
+            exit 1
+   fi
+   sed -i "s/shard_1/shard_$node_group_count/g" $MONGO_HOME/mongod.conf
+
+   # get the mongodb-keyfile from primary node
+   echo "Getting Mongo keyfile"
+   mongod_keyvalue=$(curl -k -H "Authorization: Bearer $nodemgmt_token" -H "Accept: application/octet-stream;api-version=1.0" https://$primary_node:8443/admin/api/internal/mongo/key-file)
+   echo $mongod_keyvalue > $MONGODB_KEYFILE
+fi
+
+start_mongodb_service() {
+    SERVICE_NAME=$1
+    SERVICE_PORT=$2
+    WAIT_FOR_SERVICE=$3
+
+    echo "Starting MongoDB service '${SERVICE_NAME}'"
+    systemctl enable ${SERVICE_NAME}
+    systemctl start ${SERVICE_NAME}
+
+    if [ "${WAIT_FOR_SERVICE}" = "true" ]; then
+        retry=36
+        while [ $retry -gt 0 ]
+        do
+            port=$(echo $(netstat -tunlp | egrep -o "${SERVICE_PORT}"))
+            if [ "$port" = "${SERVICE_PORT}" ]; then
+                echo "Started ${SERVICE_NAME}"
+                break
+            fi
+
+            retry=$((retry-1))
+            echo "Waiting for ${SERVICE_NAME} to start"
+            sleep 5
+        done
+
+        if [ $retry -eq 0 ]; then
+            echo "Error: Failed to start Mongo Service '${SERVICE_NAME}'"
+            exit 1;
+        fi
+    fi
+}
+
+# change mongod keyfile permissions
+chmod 400 $MONGODB_KEYFILE
+chown mongod:mongod $MONGODB_KEYFILE
+
+# start mongodb services
+start_mongodb_service "mongod-cs.service" "27019" "true"
+start_mongodb_service "mongod.service" "27018" "true"
+start_mongodb_service "mongos.service" "27017" "false"
+
+# wait till the Mongo services are initialised fully
+echo "Waiting till MongoDB services are up..."
+retry=36
+LOGS_HOME=/var/log/mongodb
+READY_MSG="waiting for connections on port"
+while [ $retry -gt 0 ];
+do
+    [ -f "$LOGS_HOME/mongod-cs.log" ] && [ $(grep -c "$READY_MSG" "$LOGS_HOME/mongod-cs.log") -gt 0 ] && \
+    [ -f "$LOGS_HOME/mongod.log" ] && [ $(grep -c "$READY_MSG" "$LOGS_HOME/mongod.log") -gt 0 ] && break
+    sleep 5 && retry=$((retry-1))
+done
+# return error if mongo is not initialized
+if [ $retry -eq 0 ]; then
+    echo "Error: Mongo initialization failed"
+    exit 1;
+fi
+echo "MongoDB services started and running..."
+
+# Display mongodb version which is used
+echo "Using Mongo $(mongo --version | grep -i "db version")"
+
+# mongo cluster setup
+echo "Running MongoDB cluster setup script"
+/opt/mongodb/mongo-cluster-scripts/setup-mongo-cluster.sh
+status=$?
+if [ $status -ne 0 ]; then
+   echo "Failure - $status: Mongo cluster failed"
+   exit 1
+fi
+
+exit 0

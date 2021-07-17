@@ -1,0 +1,37 @@
+mkdir -p $PWD/mongoshard01/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shmongoshard01 \
+-e CONSUL_NODE_NAME=shmongoshard01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard01 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=shardsvr \
+-v $PWD/mongoshard01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongoshard01/consul:/bitnami/consul \
+-v $PWD/mongoshard01/data:/bitnami \
+-v $PWD/mongoshard01/ssl:/certificates \
+-v $PWD/mongoshard01/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/mongoinit:3.0.0-20 bash -x /init/mongoinit.sh
+
+
+docker run -it --rm --name shmongoshard01 \
+	--network inferapp \
+	-e MONGODB_SHARDING_MODE=shardsvr \
+	-e MONGODB_REPLICA_SET_MODE=primary \
+	-e MONGODB_MONGOS_HOST=shmongos01 \
+	-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard01 \
+	-e MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+	-e MONGODB_REPLICA_SET_KEY=shinferapp01 \
+	-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_shard_1 \
+	-v $PWD/mongoshard01/app:/opt/smarthub/iotc/conf \
+	-v $PWD/mongoshard01/init:/docker-entrypoint-initdb.d \
+	-v $PWD/mongoshard01/data:/bitnami \
+	-v $PWD/mongoshard01/ssl:/certificates \
+	bitnami/mongodb-sharded:4.4
+
+
+

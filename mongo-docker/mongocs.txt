@@ -1,0 +1,160 @@
+mkdir -p $PWD/mongocs01/{ssl,app,consul,data,init}
+
+
+
+docker run -it --rm --name mongoinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shmongocs01 \
+-e CONSUL_NODE_NAME=shmongocs01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=configsvr \
+-v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs01/consul:/bitnami/consul \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/mongoinit:3.0.0-20 bash -x /init/mongoinit.sh
+
+docker run -it --rm --name shmongocs01 \
+--network inferapp \
+-e MONGODB_SHARDING_MODE=configsvr \
+-e MONGODB_REPLICA_SET_MODE=primary \
+-e MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+-e MONGODB_EXTRA_FLAGS="--tlsMode=requireTLS --tlsCertificateKeyFile=/certificates/keyfile.pem --tlsClusterFile=/certificates/keyfile.pem --tlsAllowInvalidCertificates --tlsAllowInvalidHostnames --tlsAllowConnectionsWithoutCertificates" \
+-e MONGODB_CLIENT_EXTRA_FLAGS="--tls ---tlsCertificateKeyFile=/certificates/keyfile.pem --tlsCAFile=/certificates/ca.crt" \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+
+docker run -it --rm --name shmongocs01 \
+--network inferapp \
+-e MONGODB_SHARDING_MODE=configsvr \
+-e MONGODB_REPLICA_SET_MODE=primary \
+-e MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+
+	
+	--------
+	
+mkdir -p $PWD/mongocs02/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shmongocs02 \
+-e CONSUL_NODE_NAME=shmongocs02 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs02 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=configsvr \
+-v $PWD/mongocs02/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs02/consul:/bitnami/consul \
+-v $PWD/mongocs02/data:/bitnami \
+-v $PWD/mongocs02/ssl:/certificates \
+-v $PWD/mongocs02/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/mongoinit:3.0.0-20 bash -x /init/mongoinit.sh
+
+
+docker run -it --rm --name shmongocs02 \
+	--network inferapp \
+	-e MONGODB_SHARDING_MODE=configsvr \
+	-e MONGODB_REPLICA_SET_MODE=secondary \
+	-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+	-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+	-e MONGODB_ADVERTISED_HOSTNAME=shmongocs02 \
+	-e MONGODB_INITIAL_PRIMARY_HOST=shmongocs01 \
+	-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+	-e MONGODB_EXTRA_FLAGS="--tlsMode=requireTLS --tlsCertificateKeyFile=/certificates/keyfile.pem --tlsClusterFile=/certificates/keyfile.pem --tlsCAFile=/certificates/ca.crt --tlsAllowInvalidCertificates --tlsAllowInvalidHostnames --tlsAllowConnectionsWithoutCertificates" \
+	-e MONGODB_CLIENT_EXTRA_FLAGS="--tls ---tlsCertificateKeyFile=/certificates/keyfile.pem --tlsCAFile=/certificates/ca.crt" \
+	-v $PWD/mongocs02/app:/opt/smarthub/iotc/conf \
+	-v $PWD/mongocs02/init:/docker-entrypoint-initdb.d \
+	-v $PWD/mongocs02/data:/bitnami \
+	-v $PWD/mongocs02/ssl:/certificates \
+	bitnami/mongodb-sharded:4.0
+
+	docker run -it --rm --name shmongocs02 \
+	--network inferapp \
+	-e MONGODB_SHARDING_MODE=configsvr \
+	-e MONGODB_REPLICA_SET_MODE=secondary \
+	-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+	-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+	-e MONGODB_ADVERTISED_HOSTNAME=shmongocs02 \
+	-e MONGODB_INITIAL_PRIMARY_HOST=shmongocs01 \
+	-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+	-v $PWD/mongocs02/app:/opt/smarthub/iotc/conf \
+	-v $PWD/mongocs02/init:/docker-entrypoint-initdb.d \
+	-v $PWD/mongocs02/data:/bitnami \
+	-v $PWD/mongocs02/ssl:/certificates \
+	bitnami/mongodb-sharded:4.4
+	
+	
+	
+	---------
+	
+mkdir -p $PWD/mongocs03/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network inferapp \
+-e INSTANCE_NAME=inferapp01 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shmongocs03 \
+-e CONSUL_NODE_NAME=shmongocs03 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs03 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=configsvr \
+-v $PWD/mongocs03/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs03/consul:/bitnami/consul \
+-v $PWD/mongocs03/data:/bitnami \
+-v $PWD/mongocs03/ssl:/certificates \
+-v $PWD/mongocs03/app:/opt/smarthub/iotc/conf \
+gcr.io/shdev02/infer/mongoinit:3.0.0-20 bash -x /init/mongoinit.sh
+
+docker run -it --rm --name shmongocs03 \
+	--network inferapp \
+	-e MONGODB_SHARDING_MODE=configsvr \
+	-e MONGODB_REPLICA_SET_MODE=secondary \
+	-e MONGODB_REPLICA_SET_KEY="shinferapp" \
+	-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+	-e MONGODB_ADVERTISED_HOSTNAME=shmongocs03 \
+	-e MONGODB_INITIAL_PRIMARY_HOST=shmongocs01 \
+	-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+	-e MONGODB_EXTRA_FLAGS="--sslMode=requireSSL --sslPEMKeyFile=/certificates/keyfile.pem --sslCAFile=/certificates/ca.crt --sslAllowInvalidCertificates --sslAllowInvalidHostnames --sslAllowConnectionsWithoutCertificates" \
+	-e MONGODB_CLIENT_EXTRA_FLAGS="--ssl --sslPEMKeyFile=/certificates/keyfile.pem --sslCAFile=/certificates/ca.crt" \
+	-v $PWD/mongocs03/app:/opt/smarthub/iotc/conf \
+	-v $PWD/mongocs03/init:/docker-entrypoint-initdb.d \
+	-v $PWD/mongocs03/data:/bitnami \
+	-v $PWD/mongocs03/ssl:/certificates \
+	bitnami/mongodb-sharded:4.0
+
+	docker run -it --rm --name shmongocs03 \
+	--network inferapp \
+	-e MONGODB_SHARDING_MODE=configsvr \
+	-e MONGODB_REPLICA_SET_MODE=secondary \
+	-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+	-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+	-e MONGODB_ADVERTISED_HOSTNAME=shmongocs03 \
+	-e MONGODB_INITIAL_PRIMARY_HOST=shmongocs01 \
+	-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+	-v $PWD/mongocs03/app:/opt/smarthub/iotc/conf \
+	-v $PWD/mongocs03/init:/docker-entrypoint-initdb.d \
+	-v $PWD/mongocs03/data:/bitnami \
+	-v $PWD/mongocs03/ssl:/certificates \
+	bitnami/mongodb-sharded:4.4

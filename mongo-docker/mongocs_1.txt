@@ -1,0 +1,71 @@
+mkdir -p $PWD/mongocs01/{ssl,app,consul,data,init}
+
+
+docker run -it --rm --name mongoinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shmongocs01 \
+-e CONSUL_NODE_NAME=shmongocs01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=configsvr \
+-v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs01/consul:/bitnami/consul \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13 bash -x /init/mongoinit.sh
+
+docker run -d --rm --name shmongocs01 \
+--network devnw \
+-e MONGODB_SHARDING_MODE=configsvr \
+-e MONGODB_REPLICA_SET_MODE=primary \
+-e MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs01 \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongocs01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+
+-----------------
+
+mkdir -p $PWD/mongocs02/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shmongocs02 \
+-e CONSUL_NODE_NAME=shmongocs02 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs02 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=configsvr \
+-v $PWD/mongocs02/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs02/consul:/bitnami/consul \
+-v $PWD/mongocs02/data:/bitnami \
+-v $PWD/mongocs02/ssl:/certificates \
+-v $PWD/mongocs02/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13 bash -x /init/mongoinit.sh
+
+
+docker run -d --rm --name shmongocs02 \
+--network devnw \
+-e MONGODB_SHARDING_MODE=configsvr \
+-e MONGODB_REPLICA_SET_MODE=secondary \
+-e MONGODB_REPLICA_SET_KEY="shinferapp01" \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_cs \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongocs02 \
+-e MONGODB_INITIAL_PRIMARY_HOST=shmongocs01 \
+-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-v $PWD/mongocs02/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongocs02/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongocs02/data:/bitnami \
+-v $PWD/mongocs02/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+

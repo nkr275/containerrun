@@ -1,0 +1,381 @@
+apiVersion: v1
+kind: Secret
+metadata:
+ name: payment-service-secret
+ namespace: application
+data:
+ port: MzAwMA==
+ environment: cHJvZHVjdGlvbg==
+ mock_mode: ZmFsc2U=
+ user_name: QW1nYWR2b1Jj
+ password: YnRIdzBZdzBwRUdRbDRodXA4bHByI15vVGldLkpeOXQ=
+ host: ZGJtLmVkdXJla2EucHJpdmF0ZS5jbw==
+ database: cGF5bWVudC1zZXJ2aWNl
+ database_unit_test: cGF5bWVudC1zZXJ2aWNl
+ razorpay_key: cnpwX2xpdmVfbEV6ellheFZCcEd2Q0U=
+ razorpay_secret: WkVreXVBMWRuVjBJOHNieGN5Rllsb01L
+ paypal_mode: bGl2ZQ==
+ paypal_client_id: QVRPdFFoTUZxM0txYzJxYUpsdm41el9feHRlSGpKem9MX3p5R0twTkcyaXJQejRPbFkxYU1VV2dGWVFTYV9FM25mT0d4VEkwSmIydU1pZ2o=
+ paypal_client_secret: RUlERi1sQ3FpT3VvLXd5LWhxVDFRZncxZjRKS0NWZExZZ041bzZOQk9DT05SbTFzZFRDMzNzTi1lSVlsSk5hT2lUc3pYWlU3aGVSV3dMUHI=
+ payumoney_merchant_key: MlUyeWxMMUI=
+ payumoney_auth_header: Z0U1cXFkUVB5bVEvbEt4WmxFdVVDYWRmNDBERlpISzlLMVZWTk05SmMxTT0=
+ payumoney_url: aHR0cHM6Ly93d3cucGF5dW1vbmV5LmNvbS8=
+ ccavenue_url: aHR0cHM6Ly9hcGkuY2NhdmVudWUuY29tL2FwaXMvc2VydmxldC9Eb1dlYlRyYW5z
+ ccavenue_access_code: QVZXUDYzREE2NEJOMDRQV05C
+ ccavenue_encryption_key: Q0Y4QjkwMzhERDBDMjZEM0NCMDNBOTk2NDFCQzkzRjg=
+ ccavenue_merchant_id: MzEz
+ paypal_subscription_url: aHR0cHM6Ly9hcGkucGF5cGFsLmNvbS92MQ==
+ paypal_subscription_product_id: UFJPRC0zUFMzMzAxNFM0NjgzMzYyRA==
+ edureka_url: aHR0cHM6Ly93d3cuZWR1cmVrYS5jbw==
+ paypal_base_url: aHR0cHM6Ly9hcGkucGF5cGFsLmNvbQ==
+# Env variables for Rabbitmq
+ rmq_uri: YW1xcDovLyVzOiVzQHJtcS5lZHVyZWthcHZ0LmNvOjU2NzI/aGVhcnRiZWF0PTYw
+ rmq_retrycount: Mg==
+ rmq_reconnect: NTAwMA==
+ rmq_payment_event_queue: cGF5bWVudC1ldmVudHM=
+ rmq_username: Q2tQRHJIQWRZSlpK
+ rmq_password: Mm1FdWRSMzFzeFFrYUVqVFl6KCQ8RzVtc0hTZko1b2c=
+ rmq_prefetch: NTA=
+---
+# Source: payment-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name:  payment-service
+  namespace: application
+  labels:
+    environment: production
+    app: payment-service
+spec:
+  type: 
+  selector:
+    environment: production
+    app:  payment-service
+  ports:
+  - port: 80
+    name:  payment-service-port
+    targetPort: 3000
+---
+# Source: payment-service/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: application
+  labels:
+    environment: production
+    app: payment-service
+    releaseId: r59358410763
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      annotations:
+        traffic.sidecar.istio.io/includeOutboundIPRanges: "169.254.169.254/32"
+      labels:
+        environment: production
+        app: payment-service
+    spec:
+      nodeSelector:
+        type: app
+      
+      containers:
+      - name: payment-service
+        image: "109934718044.dkr.ecr.us-east-1.amazonaws.com/payment-service:0.0.53"
+        env:
+          - name: USER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: user_name
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: password
+          - name: DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: database
+          - name: DATABASE_UNIT_TEST
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: database_unit_test
+          - name: HOST
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: host
+          - name: ENVIRONMENT
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: environment
+          - name: MOCK_MODE
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: mock_mode
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: port
+          - name: RAZORPAY_KEY
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: razorpay_key
+          - name: RAZORPAY_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: razorpay_secret
+          - name: PAYPAL_MODE
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_mode
+          - name: PAYPAL_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_client_id
+          - name: PAYPAL_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_client_secret
+          - name: PAYUMONEY_MERCHANT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: payumoney_merchant_key
+          - name: PAYUMONEY_AUTH_HEADER
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: payumoney_auth_header
+          - name: PAYUMONEY_URL
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: payumoney_url
+          - name: CCAVENUE_URL
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: ccavenue_url
+          - name: CCAVENUE_ACCESS_CODE
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: ccavenue_access_code
+          - name: CCAVENUE_ENCRYPTION_KEY
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: ccavenue_encryption_key
+          - name: CCAVENUE_MERCHANT_ID
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: ccavenue_merchant_id
+          - name: PAYPAL_SUBSCRIPTION_URL
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_subscription_url
+          - name: PAYPAL_SUBSCRIPTION_PRODUCT_ID
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_subscription_product_id
+          - name: EDUREKA_URL
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: edureka_url
+          - name: PAYPAL_BASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: paypal_base_url
+          - name: RMQ_URI
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_uri
+          - name: RMQ_RETRYCOUNT
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_retrycount
+          - name: RMQ_RECONNECT
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_reconnect
+          - name: RMQ_PAYMENT_EVENT_QUEUE
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_payment_event_queue
+          - name: RMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_username
+          - name: RMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret
+                key: rmq_password
+          - name: RMQ_PREFETCH
+            valueFrom:
+              secretKeyRef:
+                name: payment-service-secret                       
+                key: rmq_prefetch                              
+        imagePullPolicy: Always
+        livenessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:3000/health # Replace port and URI by your actual health check
+          initialDelaySeconds: 60
+          periodSeconds: 120
+          failureThreshold: 2
+        readinessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:3000/health # Replace port and URI by your actual health check
+          initialDelaySeconds:  60
+          periodSeconds:  120
+          failureThreshold:  2
+#        volumeMounts:
+#        - mountPath: "/var/www/html/logs"
+#          name: "payment-service-log-storage"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "1025Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+#      volumes:
+#      - name: "payment-service-log-storage"
+#        persistentVolumeClaim:
+#          claimName: "payment-service-logs"
+---
+# Source: payment-service/templates/hpa.yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: payment-service-hpa
+  namespace: application
+spec:
+  maxReplicas: 6
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: payment-service
+  targetCPUUtilizationPercentage: 65
+---
+# Source: payment-service/templates/mapping.yaml
+# ---
+# apiVersion: getambassador.io/v1
+# kind: Mapping
+# metadata:
+#   name: "payment-service"
+# spec:
+#   prefix: "payment-reconciliation/"
+#   service: "payment-service.application:80"
+---
+# Source: payment-service/templates/pvc.yaml
+#kind: PersistentVolumeClaim
+#apiVersion: v1
+#metadata:
+#  name: "payment-service-logs"
+#  namespace: "application"
+#spec:
+#  storageClassName: app-logs
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 5Gi
+---
+# Source: payment-service/templates/policy.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: payment-service-cb-policy
+spec:
+  host: "payment-service.application.svc.cluster.local"
+  trafficPolicy:
+    connectionPool:
+      http:
+        http2MaxRequests: 500
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutiveErrors: 7
+      interval: 5m
+      baseEjectionTime: 15m
+---
+# Source: payment-service/templates/networking.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: payment-service-gateway
+spec:
+  selector:
+    istio: pvt-ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "payment-service.edurekapvt.co"
+    # tls:
+    #   httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTP
+    hosts:
+    - "payment-service.edurekapvt.co"
+---
+# Source: payment-service/templates/networking.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: payment-service
+spec:
+  hosts:
+  - "payment-service.edurekapvt.co"
+  gateways:
+  - payment-service-gateway
+  http:
+  - match:
+    route:
+    - destination:
+        port:
+          number: 80
+        host: "payment-service.application.svc.cluster.local"

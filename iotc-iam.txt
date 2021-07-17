@@ -1,0 +1,10 @@
+docker run -d --name iotc-iam \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=iotc-iam \
+-e CONSUL_NODE_NAME=iam-service \
+-p 50052:50052 \
+-p 60052:60052 \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-iam-uservice:3.0.0-13

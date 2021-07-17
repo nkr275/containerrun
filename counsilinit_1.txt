@@ -1,0 +1,134 @@
+iotc/sites/default/instances/default/deployment/properties/console.password:47BFDF8487B82EF4051E44DB46AEB396B643F565126DD19D9A3A167B778062731BEE33E11457EE3AB91B7310E5C328E2D3B4C237F4D10811BE1E0D71
+iotc/sites/default/instances/default/deployment/properties/console.user.email:ajith@smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/console.username:sysadmin
+iotc/sites/default/instances/default/deployment/properties/domain.name:smarthub.local
+iotc/sites/default/instances/default/deployment/properties/smtp.host:smtp.smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/smtp.port:587
+iotc/sites/default/instances/default/deployment/properties/smtp.user.password:BC80F57DE2954707C2762DA1678312093B022598E05B386A6586F8C99DA86EA02625F529ACC732C2F4E7B4B62D17F53BDCBB092FB4D0CD351E
+iotc/sites/default/instances/default/deployment/properties/smtp.username:ajith
+iotc/sites/default/instances/default/deployment/properties/tenant.name:SmartHub
+
+
+
+mkdir -p $PWD/consul01/{data,conf,logs,ssl,extra,tmp,app}
+
+docker run -it --rm --name consulinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shconsulnode01 \
+-e CONSUL_NODE_NAME=shconsulnode01 \
+-e TENANT_NAME=SmartHub \
+-e TENANT_DOMAIN_NAME=smarthub.local \
+-e TENANT_CONSOLE_USERNAME=sysadmin \
+-e TENANT_CONSOLE_USER_EMAIL=ajith@smarthub.ai \
+-e TENANT_CONSOLE_USER_PASSWORD=SmartHub#123 \
+-e TENANT_SMTP_HOST=smtp.smarthub.ai \
+-e TENANT_SMTP_PORT=587 \
+-e TENANT_SMTP_USERNAME=ajith \
+-e TENANT_SMTP_USER_PASSWORD=ajith@123 \
+-v $PWD/consul01/data:/bitnami/consul \
+-v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13 bash -x /init/consulinit.sh
+
+
+docker run -d --rm --name shconsulnode01 \
+--network devnw \
+-v $PWD/consul01/data:/bitnami/consul \
+-v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+bitnami/consul
+
+
+mkdir -p $PWD/consul02/{data,conf,logs,ssl,extra,tmp,app}
+
+docker run -it --rm --name consulinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shconsulnode02 \
+-e CONSUL_NODE_NAME=shconsulnode02 \
+-e TENANT_NAME=SmartHub \
+-e TENANT_DOMAIN_NAME=smarthub.local \
+-e TENANT_CONSOLE_USERNAME=sysadmin \
+-e TENANT_CONSOLE_USER_EMAIL=ajith@smarthub.ai \
+-e TENANT_CONSOLE_USER_PASSWORD=SmartHub#123 \
+-e TENANT_SMTP_HOST=smtp.smarthub.ai \
+-e TENANT_SMTP_PORT=587 \
+-e TENANT_SMTP_USERNAME=ajith \
+-e TENANT_SMTP_USER_PASSWORD=ajith@123 \
+-v $PWD/consul02/data:/bitnami/consul \
+-v $PWD/consul02/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul02/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul02/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul02/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul02/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul02/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13 bash -x /init/consulinit.sh
+
+
+docker run -d --rm --name shconsulnode02 \
+--network devnw \
+-v $PWD/consul02/data:/bitnami/consul \
+-v $PWD/consul02/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul02/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul02/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul02/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul02/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul02/app:/opt/smarthub/iotc/conf \
+bitnami/consul
+
+
+--network inferapp \
+-e INSTANCE_NAME=shkranthi-03 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN=03abfb46-11d1-db61-46ad-3abb945b3a4d  \
+-e CONSUL_SERVICE_NAME=shconsulnode-02 \
+-e CONSUL_NODE_NAME=shconsulnode-02 \
+
+
+docker run -it --rm --name consulinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shconsulnode01 \
+-e CONSUL_NODE_NAME=shconsulnode01 \
+-e TENANT_NAME=SmartHub \
+-e TENANT_DOMAIN_NAME=smarthub.local \
+-e TENANT_CONSOLE_USERNAME=sysadmin \
+-e TENANT_CONSOLE_USER_EMAIL=ajith@smarthub.ai \
+-e TENANT_CONSOLE_USER_PASSWORD=SmartHub#123 \
+-e TENANT_SMTP_HOST=smtp.smarthub.ai \
+-e TENANT_SMTP_PORT=587 \
+-e TENANT_SMTP_USERNAME=ajith \
+-e TENANT_SMTP_USER_PASSWORD=ajith@123 \
+-v $PWD/consul01/data:/bitnami/consul \
+-v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+-v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+-v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+-v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+-v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+-v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13 bash -x /init/consulinit.sh
+
+
+I have no name!@catalog-server-0:/$ consul acl bootstrap
+AccessorID:       d75db54a-097e-2bd5-8a37-ca1bf8c33b13
+SecretID:         b123bd0d-180b-933c-7af5-a50a281b535a
+Description:      Bootstrap Token (Global Management)
+Local:            false
+Create Time:      2021-06-19 14:30:47.732237879 +0000 UTC
+Policies:
+   00000000-0000-0000-0000-000000000001 - global-management

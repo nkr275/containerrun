@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Copyright © 2018.  VMware Inc. All rights reserved. This product is protected by copyright
+# and intellectual property laws in the United States and other countries as well as by international treaties.
+# VMware products may be covered by one or more patents listed at http://www.vmware.com/go/patents.
+
+NODE_PROPERTIES_FILE=/opt/vmware/iotc/conf/node.properties
+
+# get the node type primary or secondary
+primary_node=$(sed -n "/^cluster-join=\(.*\)$/s//\1/p" ${NODE_PROPERTIES_FILE})
+
+# It is primary node; do mongodb initialisation
+if [ -z "$primary_node" ]; then
+
+    BOOTSTRAP_UTILS=/etc/bootstrap/utils
+    NODE_PROPERTIES_FILE=/opt/vmware/iotc/conf/node.properties
+    CONSUL_TOKEN=`cat ${NODE_PROPERTIES_FILE} | grep "consul.kv.access.token" | cut -d'=' -f2`
+
+    # get deployment type
+    DEPLOYMENT_TYPE=$(echo ${CONSUL_TOKEN} | python3 ${BOOTSTRAP_UTILS}/get_consul_key_value.py 'deployment/type')
+
+    # run the mongodb initialisation based on the deployment role
+    mongodb_setup_file="/opt/vmware/iotc/scripts/${DEPLOYMENT_TYPE}/mongodb/mongodb-setup.sh"
+    if [ -f "$mongodb_setup_file" ]; then
+        echo "Running mongodb intialisation for iotc ${DEPLOYMENT_TYPE} deployment"
+        "$mongodb_setup_file"
+        status=$?
+        if [ "$status" -ne 0 ]; then
+            echo "MongoDB intialisation failed"
+            exit 1
+        fi
+    fi
+fi
+
+exit 0

@@ -1,0 +1,87 @@
+Staring the meta nodes post that
+
+mkdir -p $PWD/influxmeta01/{conf,data,init} && sudo chown -R 1001:1001 $PWD/influxmeta01
+
+docker run -it --rm --name influxmetainit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta01 \
+-v $PWD/influxmeta01/conf:/etc/influxdb \
+-v $PWD/influxmeta01/data:/var/lib/influxdb \
+-v $PWD/influxmeta01/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmetainit:3.0.0-13 bash -x /init/influxmetainit.sh
+
+docker run -d --rm --name shinfluxmeta01 \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta01 \
+-v $PWD/influxmeta01/conf:/etc/influxdb \
+-v $PWD/influxmeta01/data:/var/lib/influxdb \
+-v $PWD/influxmeta01/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmeta:3.0.0-13
+
+
+==>node02
+
+
+mkdir -p $PWD/influxmeta02/{conf,data,init} && sudo chown -R 1001:1001 $PWD/influxmeta02
+
+docker run -it --rm --name influxmetainit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta02 \
+-v $PWD/influxmeta02/conf:/etc/influxdb \
+-v $PWD/influxmeta02/data:/var/lib/influxdb \
+-v $PWD/influxmeta02/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmetainit:3.0.0-13 bash -x /init/influxmetainit.sh
+
+
+docker run -d --rm --name shinfluxmeta02 \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta02 \
+-e INFLUX_META_JOIN_ADDR=shinfluxmeta01 \
+-v $PWD/influxmeta02/conf:/etc/influxdb \
+-v $PWD/influxmeta02/data:/var/lib/influxdb \
+-v $PWD/influxmeta02/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmeta:3.0.0-13
+
+==>node 03
+
+
+
+mkdir -p $PWD/influxmeta03/{conf,data,init} && sudo chown -R 1001:1001 $PWD/influxmeta03
+
+
+docker run -it --rm --name influxmetainit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta03 \
+-v $PWD/influxmeta03/conf:/etc/influxdb \
+-v $PWD/influxmeta03/data:/var/lib/influxdb \
+-v $PWD/influxmeta03/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmetainit:3.0.0-13 bash -x /init/influxmetainit.sh
+
+
+docker run -d --rm --name shinfluxmeta03 \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e INFLUX_META_ADVERTISED_HOSTNAME=shinfluxmeta \
+-e INFLUX_META_HOSTNAME_PVT=shinfluxmeta03 \
+-e INFLUX_META_JOIN_ADDR=shinfluxmeta01 \
+-v $PWD/influxmeta03/conf:/etc/influxdb \
+-v $PWD/influxmeta03/data:/var/lib/influxdb \
+-v $PWD/influxmeta03/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxmeta:3.0.0-13
+

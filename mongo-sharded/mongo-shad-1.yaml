@@ -1,0 +1,153 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+  namespace: default
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL3M4Z3NrZ3ZqLmdyYTcuY29udGFpbmVyLXJlZ2lzdHJ5Lm92aC5uZXQiOnsidXNlcm5hbWUiOiJrcmFudGhpIiwicGFzc3dvcmQiOiJ1WjNBZFd3WCIsImVtYWlsIjoia3JhbnRoaS5uQG9wdGl0LmNvIiwiYXV0aCI6ImEzSmhiblJvYVRwMVdqTkJaRmQzV0E9PSJ9fX0=
+type: kubernetes.io/dockerconfigjson
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-shad-1
+data: 
+  # init-container variables
+  INSTANCE_NAME: shkranthi-02
+  CATALOG_SERVICE_ADDR: "51.83.252.116"
+  CATALOG_SERVICE_TOKEN: 03abfb46-11d1-db61-46ad-3abb945b3a4d  
+  CONSUL_SERVICE_NAME: shmongoshard02-0 #shmongocs01-0
+  CONSUL_NODE_NAME: shmongoshard02-0 #shmongocs01-0
+  MONGODB_ADVERTISED_HOSTNAME: shmongoshard02-0 #shmongocs01-0
+  CONSUL_DATA_DIR: /bitnami/consul
+  MONGODB_SHARDING_MODE: shardsvr
+  # main container variables   
+  MONGODB_REPLICA_SET_MODE: secondary
+  MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE: /opt/smarthub/iotc/conf/rootpass 
+  MONGODB_REPLICA_SET_KEY: "shinferapp01" 
+  MONGODB_REPLICA_SET_NAME: smarthub_infer_mongodb_shard_1
+  # MONGODB_EXTRA_FLAGS: "--tlsMode=requireTLS --tlsCertificateKeyFile=/certificates/keyfile.pem --tlsClusterFile=/certificates/keyfile.pem --tlsAllowInvalidCertificates --tlsAllowInvalidHostnames --tlsAllowConnectionsWithoutCertificates"
+  # MONGODB_CLIENT_EXTRA_FLAGS: "--tls ---tlsCertificateKeyFile=/certificates/keyfile.pem --tlsCAFile=/certificates/ca.crt"
+  MONGODB_MONGOS_HOST: shmongos01-0 #shmongos01
+  MONGODB_INITIAL_PRIMARY_HOST: "shmongoshard01-0"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shmongoshard02-0 #shmongocs01-0
+  labels:
+    app: shmongoshard02-0 #shmongocs01-0
+spec:
+  type: ClusterIP
+  ports:
+  - port: 27017
+    name: mongo-configsvr
+#  externalIPs:
+#    - 172.18.0.2
+#  clusterIP: None
+  selector:
+    app: shmongoshard02-0 #shmongocs01-0 # consul-server
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: shmongoshard02 # shmongocs01
+spec:
+  selector:
+    matchLabels:
+      app: shmongoshard02-0 # shmongocs01-0 # has to match .spec.template.metadata.labels
+  serviceName: shmongoshard02-0 # "shmongocs01-0"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: shmongoshard02-0 #shmongocs01-0 # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 1800
+      initContainers:
+      - name: mongo-init
+        image: s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13         
+        imagePullPolicy: Always
+        command: ["bash", "/init/mongoinit.sh"]
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: mongo-shad-1
+        volumeMounts:                                        
+          - name: local-path-pvcdata1
+            mountPath: /data/
+          - mountPath: /docker-entrypoint-initdb.d
+            name: hostvol1
+          - mountPath: /bitnami/consul
+            name: hostvol2
+          - mountPath: /bitnami
+            name: hostvol3          
+          - mountPath: /certificates
+            name: hostvol4
+          - mountPath: /opt/smarthub/iotc/conf
+            name: hostvol5                  
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: shmongoshard02 # shmongocs01
+        image: bitnami/mongodb-sharded:latest
+        imagePullPolicy: Always        
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: mongo-shad-1 
+        volumeMounts:        
+          - mountPath: /docker-entrypoint-initdb.d
+            name: hostvol1
+          - mountPath: /bitnami/consul
+            name: hostvol2
+          - mountPath: /bitnami
+            name: hostvol3          
+          - mountPath: /certificates
+            name: hostvol4
+          - mountPath: /opt/smarthub/iotc/conf
+            name: hostvol5
+        
+      volumes:
+        - name: local-path-pvcdata1
+          persistentVolumeClaim: 
+            claimName: mongo-path-pvc1  
+#        - name: infercfgtemplates
+#          configMap:
+#            name:  inferdefcfg    
+        - name: hostvol1
+          hostPath:
+            path: /home/kranti/nk275/mongo-db/mongoshard02/init
+        - name: hostvol2
+          hostPath:
+            path: /home/kranti/nk275/mongo-db/mongoshard02/consul
+        - name: hostvol3
+          hostPath:
+            path: /home/kranti/nk275/mongo-db/mongoshard02/data
+        - name: hostvol4
+          hostPath:
+            path: /home/kranti/nk275/mongo-db/mongoshard02/ssl
+        - name: hostvol5
+          hostPath:
+            path: /home/kranti/nk275/mongo-db/mongoshard02/app
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-path-pvc5
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: microk8s-hostpath
+  resources:
+    requests:
+      storage: 2Gi

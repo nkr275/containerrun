@@ -1,0 +1,70 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"shmongocs01-0"},"name":"shmongocs01-0","namespace":"default"},"spec":{"ports":[{"name":"mongo-configsvr","port":27017}],"selector":{"app":"shmongocs01-0"},"type":"ClusterIP"}}
+  creationTimestamp: "2021-07-09T02:23:33Z"
+  labels:
+    app: shmongocs01-0
+  name: shmongocs01-0
+  namespace: default
+  resourceVersion: "6670673"
+  selfLink: /api/v1/namespaces/default/services/shmongocs01-0
+  uid: 264d8070-1013-4ce3-bca4-dd7302615124
+spec:
+  clusterIP: 10.152.183.123
+  ports:
+  - name: mongo-configsvr
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: shmongocs01-0
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+---
+
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"shinfluxdata01-0"},"name":"shinfluxdata01-0","namespace":"default"},"spec":{"ports":[{"name":"influx-data-1","port":8086},{"name":"influx-data-2","port":8088}],"selector":{"app":"shinfluxdata01-0"},"type":"ClusterIP"}}
+  creationTimestamp: "2021-07-09T03:55:21Z"
+  labels:
+    app: shinfluxdata01-0
+  name: shinfluxdata01-0
+  namespace: default
+  resourceVersion: "6679068"
+  selfLink: /api/v1/namespaces/default/services/shinfluxdata01-0
+  uid: 85a43960-b401-41bd-8b4f-aa1d5754c6eb
+spec:
+  clusterIP: 10.152.183.69
+  ports:
+  - name: influx-data-1
+    port: 8086
+    protocol: TCP
+    targetPort: 8086
+  - name: influx-data-2
+    port: 8088
+    protocol: TCP
+    targetPort: 8088
+  selector:
+    app: shinfluxdata01-0
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+~                 

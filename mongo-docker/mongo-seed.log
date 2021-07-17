@@ -1,0 +1,724 @@
+kranti@b2-15-waw1-dev02:~/new_deploy/mongo-db$ docker run -it --rm --name mongoseed \
+> --network devnw \
+> -e INSTANCE_NAME=shkranthi-05 \
+> -e CATALOG_SERVICE_ADDR=51.83.252.116 \
+> -e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+> -e CONSUL_SERVICE_NAME=shmongoseed \
+> -e CONSUL_NODE_NAME=shmongoseed \
+> -e CONSUL_DATA_DIR=/bitnami/consul \
+> -e MONGODB_SHARDING_MODE=mongos \
+> -e MONGO_HOST=shmongos01 \
+> s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongo-seed:3.0.0-13 bash -x /init/mongodb-setup.sh
+Unable to find image 's8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongo-seed:3.0.0-13' locally
+3.0.0-13: Pulling from shinternal/infer/mongo-seed
+2e6370f1e2d3: Already exists 
+8e3edd23ba57: Already exists 
+c19cda9c8ef2: Already exists 
+a7ac11832aad: Already exists 
+6c7d75ec7316: Already exists 
+c629db6b6959: Already exists 
+c6c69f0ad617: Already exists 
+040d06aeaa25: Already exists 
+71b1ba29ea28: Already exists 
+260eaba070f5: Pull complete 
+114d210fb8c0: Pull complete 
+bb3264ee8129: Pull complete 
+a9b9cd16b132: Pull complete 
+95ab9f776fbe: Pull complete 
+28cce080c2ce: Pull complete 
+afdcf75dcfc4: Pull complete 
+Digest: sha256:44555067b8a32571217b90196402849af163e27da6f41c084308ea893822aa6d
+Status: Downloaded newer image for s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongo-seed:3.0.0-13
+ 03:43:53.74 
+ 03:43:53.74 Welcome to the Bitnami consul container
+ 03:43:53.74 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-consul
+ 03:43:53.74 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-consul/issues
+ 03:43:53.74 
+
++ set -ex
++ BOOTSTRAP_UTILS=/opt/smarthub/utils
++ source /opt/smarthub/utils/catalogsvc.sh
+++ CATALOG_SERVICE_ADDR=51.83.252.116
+++ CATALOG_SERVICE_TOKEN=b123bd0d-180b-933c-7af5-a50a281b535a
++ INFER_TEMPLATES_DIR=/opt/smarthub/templates/config
++ NODE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/node.properties
++ CONSUL_CLIENT_CONFIG_TEMPLATE=/opt/smarthub/templates/config/client.json
++ APP_CONFIG_DIR=/opt/smarthub/iotc/conf
++ NODE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/node.properties
++ CONSUL_CLIENT_CONFIG=/opt/smarthub/iotc/conf/consul.json
++ IOTC_HOME=/opt/smarthub/iotc
++ MONGO_CLUSTER_SCRIPTS=/opt/smarthub/iotc/mongo/cluster
++ IOTC_SCRIPTS=/opt/smarthub/iotc/mongo/deploy
++ CERT_GEN_UTILITY=/opt/smarthub/utils/sh_generate_certs.py
++ CONSUL_MANAGER=/opt/smarthub/utils/consul_manager.py
++ ENCDEC_UTILTY=/opt/smarthub/utils/shencdec.py
++ '[' -z shkranthi-05 ']'
+++ getDeployment shkranthi-05
+++ status=0
+++ deploymentname=shkranthi-05
++++ printf infer/catalog/%s shkranthi-05
+++ deploymentpath=infer/catalog/shkranthi-05
++++ printf 'http://51.83.252.116:8500/v1/kv/%s?raw' infer/catalog/shkranthi-05
+++ url='http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw'
++++ curl -s 'http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw' -H 'Accept: application/json' -H 'cache-control: no-cache' -H 'x-consul-token: b123bd0d-180b-933c-7af5-a50a281b535a'
+++ response='{"addr": "shconsulnode01", "token": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75", "mastertoken": "5367e4c0-ad91-d721-3345-5cbc7f02de15", "encryptkey": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
+++ status=0
+++ echo CATALOG_QUERY_STATUS=0
+++ '[' 0 -eq 0 ']'
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 4
+++ echo CONFIG_SERVER=shconsulnode01
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 8
+++ echo CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 12
+++ echo CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 16
+++ echo CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ eval CATALOG_QUERY_STATUS=0 CONFIG_SERVER=shconsulnode01 CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15 CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
+++ CATALOG_QUERY_STATUS=0
+++ CONFIG_SERVER=shconsulnode01
+++ CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
+++ CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ '[' -z e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 ']'
+++ ls /opt/smarthub/utils/iotc-commons-ctx-3.0.0.jar
++ IOTC_COMMON_CTX_JAR=/opt/smarthub/utils/iotc-commons-ctx-3.0.0.jar
+++ ls /opt/smarthub/utils/iotc-iam-uservice.jar
++ IOTC_IAM_JAR=/opt/smarthub/utils/iotc-iam-uservice.jar
++ NODE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/node.properties
+++ dirname /opt/smarthub/iotc/conf/node.properties
++ mkdir -p /opt/smarthub/iotc/conf
++ cp /opt/smarthub/templates/config/node.properties /opt/smarthub/iotc/conf/node.properties
++ sed -i '/consul.host/s|=.*|=shconsulnode01|g' /opt/smarthub/iotc/conf/node.properties
++ sed -i '/consul.kv.access.token/s|=.*|=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75|g' /opt/smarthub/iotc/conf/node.properties
+++ python3 /opt/smarthub/utils/consul_manager.py kv get --host=shconsulnode01 --port=8500 --token=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 --key=encrypt.key
++ APP_ENCRYPT_KEY=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae
++ sed -i '/encrypt.key/s|=.*|=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae|g' /opt/smarthub/iotc/conf/node.properties
+++ sed -n '/^consul.kv.access.token=\(.*\)$/s//\1/p' /opt/smarthub/iotc/conf/node.properties
++ CONSUL_ACCESS_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ sed -n '/^encrypt.key=\(.*\)$/s//\1/p' /opt/smarthub/iotc/conf/node.properties
++ encrypt_key=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae
++ cat /opt/smarthub/templates/config/client.json
++ jq --arg node '' '.node_name = $node'
++ jq --arg CONSUL_DATA_DIR /bitnami/consul '.data_dir = $CONSUL_DATA_DIR'
++ jq --arg CONFIG_MASTER_TOKEN 5367e4c0-ad91-d721-3345-5cbc7f02de15 '.acl.tokens.master = $CONFIG_MASTER_TOKEN'
++ jq --arg CONFIG_ENCRYPT_KEY 9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q= '.encrypt = $CONFIG_ENCRYPT_KEY'
++ jq --arg CONFIG_SERVER shconsulnode01 '.start_join += [$CONFIG_SERVER]'
++ tee /opt/smarthub/iotc/conf/consul.json
++ jq --arg CONFIG_CLIENT_TOKEN e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 '.acl.tokens.agent = $CONFIG_CLIENT_TOKEN'
+{
+  "server": false,
+  "datacenter": "dc1",
+  "data_dir": "/bitnami/consul",
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "log_level": "DEBUG",
+  "enable_syslog": false,
+  "leave_on_terminate": true,
+  "node_name": "",
+  "start_join": [
+    "shconsulnode01"
+  ],
+  "primary_datacenter": "dc1",
+  "acl": {
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}
++ get_consul_key_value_script=/opt/smarthub/utils/get_consul_key_value.py
++ decrypt_string_script=/opt/smarthub/utils/decrypt_string.py
++ encode_string_script=/opt/smarthub/utils/encode_string.py
++ crypto_script=/opt/smarthub/utils/shencdec.py
++ get_authz_script=/opt/smarthub/utils/get_authz_constants.py
++ get_default_device_template_script=/opt/smarthub/utils/get_default_device_template.py
++ run_mongo_script=/opt/smarthub/utils/run_mongo_script.py
++ '[' '!' -f /opt/smarthub/utils/iotc-commons-ctx-3.0.0.jar ']'
++ '[' '!' -f /opt/smarthub/utils/iotc-iam-uservice.jar ']'
++ '[' '!' -f /opt/smarthub/iotc/conf/node.properties ']'
++ echo 'Starting MongoDB setup...'
+Starting MongoDB setup...
++ echo 'Update tenant name in mongo setup script'
+Update tenant name in mongo setup script
++ CREATE_TENANT_SCRIPT=/opt/smarthub/iotc/mongo/deploy/global-variables.js
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 deployment/properties/tenant.name
++ tenant_name=SmartHub
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 deployment/properties/domain.name
++ domain_name=smarthub.local
++ echo smarthub.local
++ sed 's/\(.*\)/\L\1/;s/^\s*//;s/\s*$//'
+smarthub.local
++ sed -i s/__tenant-name__//g /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i s/__tenant-display-name__//g /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i s/__domain-name__//g /opt/smarthub/iotc/mongo/deploy/global-variables.js
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 deployment/properties/console.username
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++ username=sysadmin
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 deployment/properties/console.user.email
++ email=ajith@smarthub.ai
++ echo username
++ sed 's/\(.*\)/\L\1/;s/^\s*//;s/\s*$//'
+username
++ echo email
++ sed 's/\(.*\)/\L\1/;s/^\s*//;s/\s*$//'
+email
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 deployment/properties/console.password
++ encrypted_password=8D1E374283575BDFE3C20ABF4B24582E7AB3BB820E91702D5D61A78C62652419A247585945280C6DCD2895B185348CBD4F20CB880A4FCFF0000F5A83
+++ python3 /opt/smarthub/utils/decrypt_string.py a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae 8D1E374283575BDFE3C20ABF4B24582E7AB3BB820E91702D5D61A78C62652419A247585945280C6DCD2895B185348CBD4F20CB880A4FCFF0000F5A83
++ password=SmartHub#123
+++ echo SmartHub#123
+++ sed 's/\$/\\\$/g'
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=44554F46506578786A7A54394A4C71724E48734158487A736855446D504D43645769427576454B4C3941514A4B76482B6C3257416C68593468323444643248522B59396873377A464545377A7339424D5668616C75413D3D
++ echo 'Update console credentials in mongo setup script'
+Update console credentials in mongo setup script
++ create_user_script=/opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i s/__console-username__/sysadmin/g /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i s/__console-email__/ajith@smarthub.ai/g /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i s/__console-user-displayname__/sysadmin/g /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ sed -i 's|__console-password__|44554F46506578786A7A54394A4C71724E48734158487A736855446D504D43645769427576454B4C3941514A4B76482B6C3257416C68593468323444643248522B59396873377A464545377A7339424D5668616C75413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ create_system_user_script=/opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update csp credentials in mongodb setup script'
+Update csp credentials in mongodb setup script
++ set_username_in_db_script csp.username __csp-username__
++ username_config_key=csp.username
++ username_script_key=__csp-username__
++ key_path=
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 csp.username
++ username=csp@iotc-system
++ '[' -z csp@iotc-system ']'
++ sed -i 's|__csp-username__|csp@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script csp.password __csp-password__
++ password_config_key=csp.password
++ password_script_key=__csp-password__
++ key_path=
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 csp.password
++ encrypted_password=DB53A8FCF62B614302A8894165A892E3BC6EE26E8C059353C9085C18C79DDB2F5218D810AC32A150E54DAC63ABBFF63D0D7C342052AF339983AE34F060CB8A851EB76CF4727E6DB1E4EAA9FF4766F3BCF5C393C9E7EE07F7
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text DB53A8FCF62B614302A8894165A892E3BC6EE26E8C059353C9085C18C79DDB2F5218D810AC32A150E54DAC63ABBFF63D0D7C342052AF339983AE34F060CB8A851EB76CF4727E6DB1E4EAA9FF4766F3BCF5C393C9E7EE07F7
++ password=fc194cf46efa079e0f5ed86c7833cd17128e8b99
+++ echo fc194cf46efa079e0f5ed86c7833cd17128e8b99
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=332F52354C5455674967785A6779674A6742785744644D694F3562527A71742B50496A67306855324A6F7469727345366654684D6B776B486A466C4B463065703034315331626A67497372334B4B516D4B52646644673D3D
++ '[' -z fc194cf46efa079e0f5ed86c7833cd17128e8b99 ']'
++ sed -i 's|__csp-password__|332F52354C5455674967785A6779674A6742785744644D694F3562527A71742B50496A67306855324A6F7469727345366654684D6B776B486A466C4B463065703034315331626A67497372334B4B516D4B52646644673D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update iam credentials in mongodb setup script'
+Update iam credentials in mongodb setup script
++ set_username_in_db_script iam.username __iam-username__ services/iam/
++ username_config_key=iam.username
++ username_script_key=__iam-username__
++ key_path=services/iam/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/iam/iam.username
++ username=iam@iotc-system
++ '[' -z iam@iotc-system ']'
++ sed -i 's|__iam-username__|iam@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script iam.password __iam-password__ services/iam/
++ password_config_key=iam.password
++ password_script_key=__iam-password__
++ key_path=services/iam/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/iam/iam.password
++ encrypted_password=5D3DF532E6B5CF8B0A4D6E69F30A997CE9B7AD699764348A34BAF967AFF014CC6D1C3A93104542E8617B4BBE253E266B78582E53E761E0FB9DEAB0C2F29A9B839D44BD205BFA00B2B265B69DE1680C069F2D0CFC33597B68
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 5D3DF532E6B5CF8B0A4D6E69F30A997CE9B7AD699764348A34BAF967AFF014CC6D1C3A93104542E8617B4BBE253E266B78582E53E761E0FB9DEAB0C2F29A9B839D44BD205BFA00B2B265B69DE1680C069F2D0CFC33597B68
++ password=a58a94addf37d57a997e53d5bfe7d37ae07578cb
+++ echo a58a94addf37d57a997e53d5bfe7d37ae07578cb
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=385443596D7159555A564C6559466C53333652785246712B4179476F3839696263793243503850504E4143574F495A374E306B63424630454C68734D567778776172506C3364754E6A734F53467131322F476C3237413D3D
++ '[' -z a58a94addf37d57a997e53d5bfe7d37ae07578cb ']'
++ sed -i 's|__iam-password__|385443596D7159555A564C6559466C53333652785246712B4179476F3839696263793243503850504E4143574F495A374E306B63424630454C68734D567778776172506C3364754E6A734F53467131322F476C3237413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update aggregator credentials in mongodb setup script'
+Update aggregator credentials in mongodb setup script
++ set_username_in_db_script aggregator.username __aggregator-username__ services/aggregator/
++ username_config_key=aggregator.username
++ username_script_key=__aggregator-username__
++ key_path=services/aggregator/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/aggregator/aggregator.username
++ username=aggregator@iotc-system
++ '[' -z aggregator@iotc-system ']'
++ sed -i 's|__aggregator-username__|aggregator@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script aggregator.password __aggregator-password__ services/aggregator/
++ password_config_key=aggregator.password
++ password_script_key=__aggregator-password__
++ key_path=services/aggregator/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/aggregator/aggregator.password
++ encrypted_password=6E1FB6B41EE88CA97342D43F634991E72FE5643E3C769EDB8ED607B8C155C33C9A7CB218941DA9E2AB497D867F39D3D2A4EA7E982A64D8C1C14BB39E89D3F5D662B7953B23413535399D40DFAD52B34686E68C3FDAB7DEB9
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 6E1FB6B41EE88CA97342D43F634991E72FE5643E3C769EDB8ED607B8C155C33C9A7CB218941DA9E2AB497D867F39D3D2A4EA7E982A64D8C1C14BB39E89D3F5D662B7953B23413535399D40DFAD52B34686E68C3FDAB7DEB9
++ password=60c51c7a58dfd1e6f518229b4de3d031c791e194
+++ echo 60c51c7a58dfd1e6f518229b4de3d031c791e194
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=6E492B5A524B69584C5042507A682B7432664838586F794E64716D366975633257732B383453486D5237486259724E453277542F696F74425455475079374C684252644171594F496F464A727862695770494A5958773D3D
++ '[' -z 60c51c7a58dfd1e6f518229b4de3d031c791e194 ']'
++ sed -i 's|__aggregator-password__|6E492B5A524B69584C5042507A682B7432664838586F794E64716D366975633257732B383453486D5237486259724E453277542F696F74425455475079374C684252644171594F496F464A727862695770494A5958773D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update metricquery credentials in mongodb setup script'
+Update metricquery credentials in mongodb setup script
++ set_username_in_db_script metricquery.username __metricquery-username__ services/metricquery/
++ username_config_key=metricquery.username
++ username_script_key=__metricquery-username__
++ key_path=services/metricquery/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/metricquery/metricquery.username
++ username=metricquery@iotc-system
++ '[' -z metricquery@iotc-system ']'
++ sed -i 's|__metricquery-username__|metricquery@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script metricquery.password __metricquery-password__ services/metricquery/
++ password_config_key=metricquery.password
++ password_script_key=__metricquery-password__
++ key_path=services/metricquery/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/metricquery/metricquery.password
++ encrypted_password=4ED3C1DE2A495C9E14D788491259A5A129E093D42AAF2AE917704CC58C1DFE81F52630AF447028D3830C741C8597DD0D07FA216A6D3908799A165781FAAD04C5F5E044497E7163560F82659DC37AAC9C3600D3DF84D37284
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 4ED3C1DE2A495C9E14D788491259A5A129E093D42AAF2AE917704CC58C1DFE81F52630AF447028D3830C741C8597DD0D07FA216A6D3908799A165781FAAD04C5F5E044497E7163560F82659DC37AAC9C3600D3DF84D37284
++ password=8417e1582498379ecfad585c9155a8b23ee72b18
+++ echo 8417e1582498379ecfad585c9155a8b23ee72b18
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=70736B2B324E3532546F544E7353665A492B657672766951645A6F397364506E6933784C36474D4E2F485443476961565A796E75696E61353249527048396C485A73526454654434614553686E2F6648646E396556413D3D
++ '[' -z 8417e1582498379ecfad585c9155a8b23ee72b18 ']'
++ sed -i 's|__metricquery-password__|70736B2B324E3532546F544E7353665A492B657672766951645A6F397364506E6933784C36474D4E2F485443476961565A796E75696E61353249527048396C485A73526454654434614553686E2F6648646E396556413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update alert credentials in mongodb setup script'
+Update alert credentials in mongodb setup script
++ set_username_in_db_script alert.username __alert-username__ services/alert/
++ username_config_key=alert.username
++ username_script_key=__alert-username__
++ key_path=services/alert/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/alert/alert.username
++ username=alert@iotc-system
++ '[' -z alert@iotc-system ']'
++ sed -i 's|__alert-username__|alert@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script alert.password __alert-password__ services/alert/
++ password_config_key=alert.password
++ password_script_key=__alert-password__
++ key_path=services/alert/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/alert/alert.password
++ encrypted_password=7DF8A3B924D32182FA2A1C3439FC5C39F41AE05A6917D6AE7CD054A476FECA7E0B5A800D9F2C8109EC5328A859DA96A69076532AA8851A76F983230B23EBD15E5E32CBC2E10CCF958C1B07EC1FC56B94AB6E472F28F6719F
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 7DF8A3B924D32182FA2A1C3439FC5C39F41AE05A6917D6AE7CD054A476FECA7E0B5A800D9F2C8109EC5328A859DA96A69076532AA8851A76F983230B23EBD15E5E32CBC2E10CCF958C1B07EC1FC56B94AB6E472F28F6719F
++ password=1796f297da0279f212dc375255a8ac3a1044675e
+++ echo 1796f297da0279f212dc375255a8ac3a1044675e
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=7446584C6B732B6251376575384D4D77355636636E314663523263504355432B7965435A496C62775A68714D302F6F74326557564B49544C326B587153584435756444424A776C72384C4A43464B7066756F6A5A5A773D3D
++ '[' -z 1796f297da0279f212dc375255a8ac3a1044675e ']'
++ sed -i 's|__alert-password__|7446584C6B732B6251376575384D4D77355636636E314663523263504355432B7965435A496C62775A68714D302F6F74326557564B49544C326B587153584435756444424A776C72384C4A43464B7066756F6A5A5A773D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update lcm credentials in mongodb setup script'
+Update lcm credentials in mongodb setup script
++ set_username_in_db_script lcm.username __campaign-username__ services/lcm/
++ username_config_key=lcm.username
++ username_script_key=__campaign-username__
++ key_path=services/lcm/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/lcm/lcm.username
++ username=campaign@iotc-system
++ '[' -z campaign@iotc-system ']'
++ sed -i 's|__campaign-username__|campaign@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script lcm.password __campaign-password__ services/lcm/
++ password_config_key=lcm.password
++ password_script_key=__campaign-password__
++ key_path=services/lcm/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/lcm/lcm.password
++ encrypted_password=E7333E0D3477006D72B072802B6DB8700340426D44316F065095E6F412837E45C4922EFAD8EED43D4A1A15BA643B5BC8292857822E3775CE906DF6AB2BBCA4E01BA6C83AB3D517A83727EA66785F0CE1245518D86E84DBED
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text E7333E0D3477006D72B072802B6DB8700340426D44316F065095E6F412837E45C4922EFAD8EED43D4A1A15BA643B5BC8292857822E3775CE906DF6AB2BBCA4E01BA6C83AB3D517A83727EA66785F0CE1245518D86E84DBED
++ password=5c087aaef4bb69be4e4e22b1e8a60ef232c7ce4b
+++ echo 5c087aaef4bb69be4e4e22b1e8a60ef232c7ce4b
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=3979534533336777716948546B6A2F6F6D7A58474139647276354E72784E6365505A454F5A69664C7A55694C766D47794E4B5652685466706A6B6F417862492B4C315072662B484664337A51757639517933455069413D3D
++ '[' -z 5c087aaef4bb69be4e4e22b1e8a60ef232c7ce4b ']'
++ sed -i 's|__campaign-password__|3979534533336777716948546B6A2F6F6D7A58474139647276354E72784E6365505A454F5A69664C7A55694C766D47794E4B5652685466706A6B6F417862492B4C315072662B484664337A51757639517933455069413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update notification credentials in mongodb setup script'
+Update notification credentials in mongodb setup script
++ set_username_in_db_script notifications.username __notification-username__ services/notifications/
++ username_config_key=notifications.username
++ username_script_key=__notification-username__
++ key_path=services/notifications/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/notifications/notifications.username
++ username=notification@iotc-system
++ '[' -z notification@iotc-system ']'
++ sed -i 's|__notification-username__|notification@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script notifications.password __notification-password__ services/notifications/
++ password_config_key=notifications.password
++ password_script_key=__notification-password__
++ key_path=services/notifications/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/notifications/notifications.password
++ encrypted_password=7E5C6B46734CDADF459E6F875A5CD18664AB0C71EFB666FD1FC44DA6CD0523ADF57BBDE4AAC24AFDBF528BF17CB02C1DE1A3E205688A859898B62745AFA4FC2B16EC0C1F8B3C5CEC567C92550722324566DA93DB075ABD87
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 7E5C6B46734CDADF459E6F875A5CD18664AB0C71EFB666FD1FC44DA6CD0523ADF57BBDE4AAC24AFDBF528BF17CB02C1DE1A3E205688A859898B62745AFA4FC2B16EC0C1F8B3C5CEC567C92550722324566DA93DB075ABD87
++ password=4a7c589490360fd2e8421f8c2ad95db2251c3d9a
+++ echo 4a7c589490360fd2e8421f8c2ad95db2251c3d9a
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=686956524148594A6545635557766A6B62366C6970454C3164576B54484371694F527031625A5372424D6A526F794570756B5466447665387A684973717438556269703077346F4A4830484B654A302B5864347831773D3D
++ '[' -z 4a7c589490360fd2e8421f8c2ad95db2251c3d9a ']'
++ sed -i 's|__notification-password__|686956524148594A6545635557766A6B62366C6970454C3164576B54484371694F527031625A5372424D6A526F794570756B5466447665387A684973717438556269703077346F4A4830484B654A302B5864347831773D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update node management credentials in mongodb setup script'
+Update node management credentials in mongodb setup script
++ set_username_in_db_script nodemgmt.username __nodemgmt_username__ services/nodemgmt/
++ username_config_key=nodemgmt.username
++ username_script_key=__nodemgmt_username__
++ key_path=services/nodemgmt/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/nodemgmt/nodemgmt.username
++ username=nodemgmt@iotc-system
++ '[' -z nodemgmt@iotc-system ']'
++ sed -i 's|__nodemgmt_username__|nodemgmt@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script nodemgmt.password __nodemgmt_password__ services/nodemgmt/
++ password_config_key=nodemgmt.password
++ password_script_key=__nodemgmt_password__
++ key_path=services/nodemgmt/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/nodemgmt/nodemgmt.password
++ encrypted_password=32385AB8F9E4E53D2359BC983BCF966E95E772A1C2298DE2213D02CDBED67E412E0E1C2F284D2FA1AC86C82B3FF4E64E08A3273953921561A0AE4C721D7B25E1FE7D58850A6A0DDF44A5B721B463C330498D752FE42D0B1E
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 32385AB8F9E4E53D2359BC983BCF966E95E772A1C2298DE2213D02CDBED67E412E0E1C2F284D2FA1AC86C82B3FF4E64E08A3273953921561A0AE4C721D7B25E1FE7D58850A6A0DDF44A5B721B463C330498D752FE42D0B1E
++ password=87adfe95f60aa5f9337b2c4111cb82cb1b6086d0
+++ echo 87adfe95f60aa5f9337b2c4111cb82cb1b6086d0
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=585949475962357A32736669466C4556784D7763732B59534A6749396731716632696654687770645870564E44726B6C6F316559736E54494F73536D4C53684D516974714A3563526E56546E695738735739745261513D3D
++ '[' -z 87adfe95f60aa5f9337b2c4111cb82cb1b6086d0 ']'
++ sed -i 's|__nodemgmt_password__|585949475962357A32736669466C4556784D7763732B59534A6749396731716632696654687770645870564E44726B6C6F316559736E54494F73536D4C53684D516974714A3563526E56546E695738735739745261513D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update device management credentials in mongodb setup script'
+Update device management credentials in mongodb setup script
++ set_username_in_db_script devicemgmt.username __devicemgmt_username__ services/devicemgmt/
++ username_config_key=devicemgmt.username
++ username_script_key=__devicemgmt_username__
++ key_path=services/devicemgmt/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/devicemgmt/devicemgmt.username
++ username=devicemgmt@iotc-system
++ '[' -z devicemgmt@iotc-system ']'
++ sed -i 's|__devicemgmt_username__|devicemgmt@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script devicemgmt.password __devicemgmt_password__ services/devicemgmt/
++ password_config_key=devicemgmt.password
++ password_script_key=__devicemgmt_password__
++ key_path=services/devicemgmt/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/devicemgmt/devicemgmt.password
++ encrypted_password=F7168AEC03B7CB753DAB214FD2360D918945103BA6B55890B0BAC98FA5B08109DD6F2DB339463279DEB173188331BFB9205953EB25C4B77CD3C5CB0E7DCBF3561F3FC96BD4151F17F53C492B4A5A571DD41CE3103BAFA5F7
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text F7168AEC03B7CB753DAB214FD2360D918945103BA6B55890B0BAC98FA5B08109DD6F2DB339463279DEB173188331BFB9205953EB25C4B77CD3C5CB0E7DCBF3561F3FC96BD4151F17F53C492B4A5A571DD41CE3103BAFA5F7
++ password=fcb2e07666811556464b3c57afeb8517aafee72d
+++ echo fcb2e07666811556464b3c57afeb8517aafee72d
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=3373634C4B476B6F4E676653546B6D724A4F6D6562336E4453567835374E7734432F3443692B4C6379455257634C5A4957336D79786E37754F3635546D344943333169464D6559537539756A516C50376259694A59773D3D
++ '[' -z fcb2e07666811556464b3c57afeb8517aafee72d ']'
++ sed -i 's|__devicemgmt_password__|3373634C4B476B6F4E676653546B6D724A4F6D6562336E4453567835374E7734432F3443692B4C6379455257634C5A4957336D79786E37754F3635546D344943333169464D6559537539756A516C50376259694A59773D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update distribution credentials in mongodb setup script'
+Update distribution credentials in mongodb setup script
++ set_username_in_db_script distribution.username __distribution_username__ services/distribution/
++ username_config_key=distribution.username
++ username_script_key=__distribution_username__
++ key_path=services/distribution/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/distribution/distribution.username
++ username=distribution@iotc-system
++ '[' -z distribution@iotc-system ']'
++ sed -i 's|__distribution_username__|distribution@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script distribution.password __distribution_password__ services/distribution/
++ password_config_key=distribution.password
++ password_script_key=__distribution_password__
++ key_path=services/distribution/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/distribution/distribution.password
++ encrypted_password=1FAC2EF0F0F5C6F14E022B9C266EECD8AC28DB71B5110CD80443C5A93BDB5109DED0ED105D00AA29FA00F1C61AEF6F5B28B43F07CAAAD0AF9B2B31E6AA89571D4C685B20212B459D0EBAFA486AC4D550AE731F0A826F4D01
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 1FAC2EF0F0F5C6F14E022B9C266EECD8AC28DB71B5110CD80443C5A93BDB5109DED0ED105D00AA29FA00F1C61AEF6F5B28B43F07CAAAD0AF9B2B31E6AA89571D4C685B20212B459D0EBAFA486AC4D550AE731F0A826F4D01
++ password=a3c9b42ebf7c11ca805722aaa49a13988f290722
+++ echo a3c9b42ebf7c11ca805722aaa49a13988f290722
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=6B6236324E336E72696C74327846444A3033767658624E506E47534F6731615530644B516B352F7134664F364876694D412B5446576671496A51744A45496664696B735357766B386E5A5972742F30653842703731673D3D
++ '[' -z a3c9b42ebf7c11ca805722aaa49a13988f290722 ']'
++ sed -i 's|__distribution_password__|6B6236324E336E72696C74327846444A3033767658624E506E47534F6731615530644B516B352F7134664F364876694D412B5446576671496A51744A45496664696B735357766B386E5A5972742F30653842703731673D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update device security credentials in mongodb setup script'
+Update device security credentials in mongodb setup script
++ set_username_in_db_script devicesec.username __devicesec_username__ services/devicesec/
++ username_config_key=devicesec.username
++ username_script_key=__devicesec_username__
++ key_path=services/devicesec/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/devicesec/devicesec.username
++ username=devicesec@iotc-system
++ '[' -z devicesec@iotc-system ']'
++ sed -i 's|__devicesec_username__|devicesec@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script devicesec.password __devicesec_password__ services/devicesec/
++ password_config_key=devicesec.password
++ password_script_key=__devicesec_password__
++ key_path=services/devicesec/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/devicesec/devicesec.password
++ encrypted_password=CCF9588BB06673E3DF48FC940A956AFBCF5581E6A98A7636DF01EB4325D47544778CEFB8C3FCF2047C9B1A3D4B7D65484289D44AFF045BD2CDE27930662CEBC667D65DB9EB7C32E48321287B36ED4F023D5153AB95D47DAC
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text CCF9588BB06673E3DF48FC940A956AFBCF5581E6A98A7636DF01EB4325D47544778CEFB8C3FCF2047C9B1A3D4B7D65484289D44AFF045BD2CDE27930662CEBC667D65DB9EB7C32E48321287B36ED4F023D5153AB95D47DAC
++ password=d90bdba46ca0b282e38ac3b566b7ffa5cd94d475
+++ echo d90bdba46ca0b282e38ac3b566b7ffa5cd94d475
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=6B464771586A46414D2B4C4D455539534F325673544446736A456F6B7042584232344E495673646662302B6655572B7A3873686A5072426D6D356D35343959566E2F746554526F43687033646B7074694D78567570413D3D
++ '[' -z d90bdba46ca0b282e38ac3b566b7ffa5cd94d475 ']'
++ sed -i 's|__devicesec_password__|6B464771586A46414D2B4C4D455539534F325673544446736A456F6B7042584232344E495673646662302B6655572B7A3873686A5072426D6D356D35343959566E2F746554526F43687033646B7074694D78567570413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update console service credentials in mongodb setup script'
+Update console service credentials in mongodb setup script
++ set_username_in_db_script console.username __consoleService_username__ services/console/
++ username_config_key=console.username
++ username_script_key=__consoleService_username__
++ key_path=services/console/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/console/console.username
++ username=console@iotc-system
++ '[' -z console@iotc-system ']'
++ sed -i 's|__consoleService_username__|console@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script console.password __consoleService_password__ services/console/
++ password_config_key=console.password
++ password_script_key=__consoleService_password__
++ key_path=services/console/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/console/console.password
++ encrypted_password=0508AB682B1047DA57C2840950C3D4FF5B7FD36E50C92EE04501B621930F7DE4F7E0CB4499D4B3C32B02B9A1DCE7E4702492C2C49D821892F016BC363E2918D56F4870A0FADAC56F16DC980B69B1043C57CE46695CFF211A
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 0508AB682B1047DA57C2840950C3D4FF5B7FD36E50C92EE04501B621930F7DE4F7E0CB4499D4B3C32B02B9A1DCE7E4702492C2C49D821892F016BC363E2918D56F4870A0FADAC56F16DC980B69B1043C57CE46695CFF211A
++ password=dea8d474d1b13f32862fa56381dc7f084b6ce8bc
+++ echo dea8d474d1b13f32862fa56381dc7f084b6ce8bc
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=37456E4B4130735A732B54736D4670752B567A736E6F783850703968466F61356D75793661685541654D5778744C74706F766C4478303163784B42366A49434B6B7A38562B3156336473736F6974376E4461616C4D773D3D
++ '[' -z dea8d474d1b13f32862fa56381dc7f084b6ce8bc ']'
++ sed -i 's|__consoleService_password__|37456E4B4130735A732B54736D4670752B567A736E6F783850703968466F61356D75793661685541654D5778744C74706F766C4478303163784B42366A49434B6B7A38562B3156336473736F6974376E4461616C4D773D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update repo credentials in mongodb setup script'
+Update repo credentials in mongodb setup script
++ set_username_in_db_script repo.username __repo_username__ services/repo/
++ username_config_key=repo.username
++ username_script_key=__repo_username__
++ key_path=services/repo/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/repo/repo.username
++ username=repo@iotc-system
++ '[' -z repo@iotc-system ']'
++ sed -i 's|__repo_username__|repo@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script repo.password __repo_password__ services/repo/
++ password_config_key=repo.password
++ password_script_key=__repo_password__
++ key_path=services/repo/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/repo/repo.password
++ encrypted_password=9F0F3825671CB56C280E4B39C31FB6CC67E602E2FC76597208696DFB757986CFEC829FAA66F86E0E090432230500FEBD170BE74EF1664593BEB2AE46E8DD7E2697241AD48B1F0415E286F113757E58907B37738A20FA7510
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 9F0F3825671CB56C280E4B39C31FB6CC67E602E2FC76597208696DFB757986CFEC829FAA66F86E0E090432230500FEBD170BE74EF1664593BEB2AE46E8DD7E2697241AD48B1F0415E286F113757E58907B37738A20FA7510
++ password=da7da43752cc72da56ead9e2b1275dc4ab2dbb11
+++ echo da7da43752cc72da56ead9e2b1275dc4ab2dbb11
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=536A76675643766D3645675955417A633945652F6D456C343071737073437555356C516D797072336D774E344367383271754B434E796668382B594154742B4C4E766137574F706D345866334F38372F3872793076413D3D
++ '[' -z da7da43752cc72da56ead9e2b1275dc4ab2dbb11 ']'
++ sed -i 's|__repo_password__|536A76675643766D3645675955417A633945652F6D456C343071737073437555356C516D797072336D774E344367383271754B434E796668382B594154742B4C4E766137574F706D345866334F38372F3872793076413D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update device agent credentials in mongodb setup script'
+Update device agent credentials in mongodb setup script
++ set_username_in_db_script deviceagent.username __deviceagent_username__ services/deviceagent/
++ username_config_key=deviceagent.username
++ username_script_key=__deviceagent_username__
++ key_path=services/deviceagent/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/deviceagent/deviceagent.username
++ username=deviceagent@iotc-system
++ '[' -z deviceagent@iotc-system ']'
++ sed -i 's|__deviceagent_username__|deviceagent@iotc-system|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_password_in_db_script deviceagent.password __deviceagent_password__ services/deviceagent/
++ password_config_key=deviceagent.password
++ password_script_key=__deviceagent_password__
++ key_path=services/deviceagent/
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 services/deviceagent/deviceagent.password
++ encrypted_password=96F26D75D2A7F0519B441B871CCE048D6235BA4A40657A457B16BCC2DDC7644A09BA9FCAEF9F90FD83701088BBA66AA4C33DE07CB79CC3DB57E16FB89AEF248F440510D592A63A45163A009883BE710439AF83ACC0F7D070
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 96F26D75D2A7F0519B441B871CCE048D6235BA4A40657A457B16BCC2DDC7644A09BA9FCAEF9F90FD83701088BBA66AA4C33DE07CB79CC3DB57E16FB89AEF248F440510D592A63A45163A009883BE710439AF83ACC0F7D070
++ password=361786aa99d0fef89ffca710a5b08066a93add8f
+++ echo 361786aa99d0fef89ffca710a5b08066a93add8f
+++ python3 /opt/smarthub/utils/encode_string.py
++ password_digest=64744F31792F677069384854327377543478344449386E313972472F5448315950474E44704F4D6E6159507546646259634D695979356237775470464550546269305857615432454E322B30307954514F49443768513D3D
++ '[' -z 361786aa99d0fef89ffca710a5b08066a93add8f ']'
++ sed -i 's|__deviceagent_password__|64744F31792F677069384854327377543478344449386E313972472F5448315950474E44704F4D6E6159507546646259634D695979356237775470464550546269305857615432454E322B30307954514F49443768513D3D|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Update roles and groups authorization constants'
+Update roles and groups authorization constants
++ set_authz_in_db_script roles __rolesArr__
++ authz_key=roles
++ authz_script_key=__rolesArr__
+++ python3 /opt/smarthub/utils/get_authz_constants.py roles
++ authz_const='[{"name":"Package Administrator","displayName":"Package Administrator","description":"Can add/modify packages.","permissions":[3,60,61,62,63,89,90,91,86]},{"name":"Device Administrator","displayName":"Device Administrator","description":"Can add/modify device and device templates","permissions":[3,21,20,22,23,70,68,69,71,24,18,84,25,26,27,28,29,30,1010,1011,1009,1012,64,65,66,67,90,91,61,50,51,86,95,1025,1019,1020,1026,1027,1028,1029,1030,1033,1034]},{"name":"Alert Administrator","displayName":"Alert Administrator","description":"Can view and acknowledge alerts","permissions":[47,3,6,10,14,32,36,40,20,27,1010,1011,42,46,53,61,50,51,65,86,1021,1022]},{"name":"Identity and Access Administrator","displayName":"Identity and Access Administrator","description":"Can add/modify organization, users, groups, roles, notifications, and view audit logs.","permissions":[1,3,4,2,81,82,5,6,7,8,93,9,10,11,12,13,14,15,16,31,32,33,34,35,36,37,38,51,72,73,74,75,86,1001,1002,1003,1004,1005,1006,1007,1008,95,1014,1018,1015,1016,1017,1030]},{"name":"Monitoring Administrator","displayName":"Monitoring Administrator","description":"Can modify alerts, notification definitions, notification destinations and view metrics.","permissions":[3,50,45,46,47,48,32,35,36,37,38,40,64,65,66,67,41,42,43,44,53,20,27,1010,1011,86,1019,1020,1021,1022,1023,1024,1030]},{"name":"Campaign Administrator","displayName":"Campaign Administrator","description":"Can add/modify campaigns, packages and view notification definitions, notification destinations.","permissions":[3,52,53,54,55,92,56,57,58,59,60,61,62,63,89,90,91,20,27,1010,1011,36,32,40,81,64,65,66,67,50,86,1023,1024]},{"name":"Gateway Administrator","displayName":"Gateway Administrator","description":"Can add devices to system","permissions":[3,29,30,21,20,27,1010,1011,86]},{"name":"Insights Viewer","displayName":"Insights Viewer","description":"Can view dashboards and insights","permissions":[1002,1006,53,46,20,27,1031]}]'
++ sed -i 's|__rolesArr__|[{"name":"Package Administrator","displayName":"Package Administrator","description":"Can add/modify packages.","permissions":[3,60,61,62,63,89,90,91,86]},{"name":"Device Administrator","displayName":"Device Administrator","description":"Can add/modify device and device templates","permissions":[3,21,20,22,23,70,68,69,71,24,18,84,25,26,27,28,29,30,1010,1011,1009,1012,64,65,66,67,90,91,61,50,51,86,95,1025,1019,1020,1026,1027,1028,1029,1030,1033,1034]},{"name":"Alert Administrator","displayName":"Alert Administrator","description":"Can view and acknowledge alerts","permissions":[47,3,6,10,14,32,36,40,20,27,1010,1011,42,46,53,61,50,51,65,86,1021,1022]},{"name":"Identity and Access Administrator","displayName":"Identity and Access Administrator","description":"Can add/modify organization, users, groups, roles, notifications, and view audit logs.","permissions":[1,3,4,2,81,82,5,6,7,8,93,9,10,11,12,13,14,15,16,31,32,33,34,35,36,37,38,51,72,73,74,75,86,1001,1002,1003,1004,1005,1006,1007,1008,95,1014,1018,1015,1016,1017,1030]},{"name":"Monitoring Administrator","displayName":"Monitoring Administrator","description":"Can modify alerts, notification definitions, notification destinations and view metrics.","permissions":[3,50,45,46,47,48,32,35,36,37,38,40,64,65,66,67,41,42,43,44,53,20,27,1010,1011,86,1019,1020,1021,1022,1023,1024,1030]},{"name":"Campaign Administrator","displayName":"Campaign Administrator","description":"Can add/modify campaigns, packages and view notification definitions, notification destinations.","permissions":[3,52,53,54,55,92,56,57,58,59,60,61,62,63,89,90,91,20,27,1010,1011,36,32,40,81,64,65,66,67,50,86,1023,1024]},{"name":"Gateway Administrator","displayName":"Gateway Administrator","description":"Can add devices to system","permissions":[3,29,30,21,20,27,1010,1011,86]},{"name":"Insights Viewer","displayName":"Insights Viewer","description":"Can view dashboards and insights","permissions":[1002,1006,53,46,20,27,1031]}]|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_authz_in_db_script groups __groupsArr__
++ authz_key=groups
++ authz_script_key=__groupsArr__
+++ python3 /opt/smarthub/utils/get_authz_constants.py groups
++ authz_const='[{"name":"System Administrators","roles":["Campaign Administrator","Package Administrator","Device Administrator","Gateway Administrator","Alert Administrator","Monitoring Administrator","Insights Viewer"]},{"name":"Organization Administrators","roles":["Identity and Access Administrator"]}]'
++ sed -i 's|__groupsArr__|[{"name":"System Administrators","roles":["Campaign Administrator","Package Administrator","Device Administrator","Gateway Administrator","Alert Administrator","Monitoring Administrator","Insights Viewer"]},{"name":"Organization Administrators","roles":["Identity and Access Administrator"]}]|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ set_authz_in_db_script systemRoles __systemRolesArr__
++ authz_key=systemRoles
++ authz_script_key=__systemRolesArr__
+++ python3 /opt/smarthub/utils/get_authz_constants.py systemRoles
++ authz_const='[{"name":"CSP System","displayName":"CSP System","description":"CSP System","permissions":[1,100,9,13,5,101,39,4,118,119,120,14,103,1018,3,106,107,104,105]},{"name":"Device Security System","displayName":"Device Security System","description":"Device Security System","permissions":[94,20,71,27,24,19,41,44,52,54,104,105,121]},{"name":"Node Management System","displayName":"Node Management System","description":"Node Management System","permissions":[85,86,87,88,118,119,120,110,111,106,107,103,104,105]},{"name":"Aggregator System","displayName":"Aggregator System","description":"Aggregator System","permissions":[20,50,53,27,104,105,121]},{"name":"Metric-query System","displayName":"Metric-query System","description":"Metric-query System","permissions":[27,104,105,121,110,111]},{"name":"Device Management System","displayName":"Device Management System","description":"Device Management System","permissions":[94,20,71,27]},{"name":"Alert System","displayName":"Alert System","description":"Alert System","permissions":[39,32,36,20,27,108,109,104,105,65,121,110,111,50,53]},{"name":"Notification System","displayName":"Notification System","description":"Notification System","permissions":[31,39,102,103,32,36,40,86,3]},{"name":"Device Agent System","displayName":"Device Agent System","description":"Device Agent System","permissions":[17,18,20,68,19,21,59,53,49,104,105,121]},{"name":"Console System","displayName":"Console System","description":"Console System","permissions":[108,109,106,107,112,113,114,115,116,117,110,111,118,119,103,53,46,20,104,105]},{"name":"Campaign System","displayName":"Campaign System","description":"Campaign System","permissions":[52,64,39,60,54,53,20,50,32,36,40,61,65,66,104,105,121]}]'
++ sed -i 's|__systemRolesArr__|[{"name":"CSP System","displayName":"CSP System","description":"CSP System","permissions":[1,100,9,13,5,101,39,4,118,119,120,14,103,1018,3,106,107,104,105]},{"name":"Device Security System","displayName":"Device Security System","description":"Device Security System","permissions":[94,20,71,27,24,19,41,44,52,54,104,105,121]},{"name":"Node Management System","displayName":"Node Management System","description":"Node Management System","permissions":[85,86,87,88,118,119,120,110,111,106,107,103,104,105]},{"name":"Aggregator System","displayName":"Aggregator System","description":"Aggregator System","permissions":[20,50,53,27,104,105,121]},{"name":"Metric-query System","displayName":"Metric-query System","description":"Metric-query System","permissions":[27,104,105,121,110,111]},{"name":"Device Management System","displayName":"Device Management System","description":"Device Management System","permissions":[94,20,71,27]},{"name":"Alert System","displayName":"Alert System","description":"Alert System","permissions":[39,32,36,20,27,108,109,104,105,65,121,110,111,50,53]},{"name":"Notification System","displayName":"Notification System","description":"Notification System","permissions":[31,39,102,103,32,36,40,86,3]},{"name":"Device Agent System","displayName":"Device Agent System","description":"Device Agent System","permissions":[17,18,20,68,19,21,59,53,49,104,105,121]},{"name":"Console System","displayName":"Console System","description":"Console System","permissions":[108,109,106,107,112,113,114,115,116,117,110,111,118,119,103,53,46,20,104,105]},{"name":"Campaign System","displayName":"Campaign System","description":"Campaign System","permissions":[52,64,39,60,54,53,20,50,32,36,40,61,65,66,104,105,121]}]|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Set default device template constants'
+Set default device template constants
++ set_default_device_template_in_db_script __defaultDeviceTemplate__
++ default_device_template_key=__defaultDeviceTemplate__
+++ python3 /opt/smarthub/utils/get_default_device_template.py
++ default_device_template_const='{"name":"Default Gateway Template","deviceType":"GATEWAY","systemProperties":[{"name":"os-sysname"},{"name":"os-machine"},{"name":"os-release"},{"name":"ssh"},{"name":"iotc-agent-version"}],"allowedMetrics":[{"name":"CPU-Usage(DOUBLE)","displayName":"CPU-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"},{"name":"Memory-Usage(DOUBLE)","displayName":"Memory-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"},{"name":"Disk-Usage(DOUBLE)","displayName":"Disk-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"}],"allowedCommands":[{"command":"SSH","name":"SSH","arguments":[{"name":"args","value":["enable"],"type":"STRING"}],"asRoot":true},{"command":"REBOOT","name":"REBOOT","arguments":[],"asRoot":true}],"enrollmentProvider":{"type":"JWT_NATIVE","providerConfig":"{\"expiryTime\": \"57600\"}"},"settings":[{"category":"iotc-agent","settings":{"commandFetchIntervalSeconds":30,"maxNumberOfClients":5,"metricsDiskStoreKB":262144,"grpcEnabled":1,"agentLogLevel":6,"metricsIntervalSeconds":300,"serverRequestTimeoutSeconds":300,"networkBandwidth":0},"finalSettings":{}}]}'
+++ sed 's/[][\\*.%$]/\\&/g'
+++ echo '{"name":"Default' Gateway 'Template","deviceType":"GATEWAY","systemProperties":[{"name":"os-sysname"},{"name":"os-machine"},{"name":"os-release"},{"name":"ssh"},{"name":"iotc-agent-version"}],"allowedMetrics":[{"name":"CPU-Usage(DOUBLE)","displayName":"CPU-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"},{"name":"Memory-Usage(DOUBLE)","displayName":"Memory-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"},{"name":"Disk-Usage(DOUBLE)","displayName":"Disk-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"%"}],"allowedCommands":[{"command":"SSH","name":"SSH","arguments":[{"name":"args","value":["enable"],"type":"STRING"}],"asRoot":true},{"command":"REBOOT","name":"REBOOT","arguments":[],"asRoot":true}],"enrollmentProvider":{"type":"JWT_NATIVE","providerConfig":"{\"expiryTime\":' '\"57600\"}"},"settings":[{"category":"iotc-agent","settings":{"commandFetchIntervalSeconds":30,"maxNumberOfClients":5,"metricsDiskStoreKB":262144,"grpcEnabled":1,"agentLogLevel":6,"metricsIntervalSeconds":300,"serverRequestTimeoutSeconds":300,"networkBandwidth":0},"finalSettings":{}}]}'
++ default_device_template_const='{"name":"Default Gateway Template","deviceType":"GATEWAY","systemProperties":\[{"name":"os-sysname"},{"name":"os-machine"},{"name":"os-release"},{"name":"ssh"},{"name":"iotc-agent-version"}\],"allowedMetrics":\[{"name":"CPU-Usage(DOUBLE)","displayName":"CPU-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"},{"name":"Memory-Usage(DOUBLE)","displayName":"Memory-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"},{"name":"Disk-Usage(DOUBLE)","displayName":"Disk-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"}\],"allowedCommands":\[{"command":"SSH","name":"SSH","arguments":\[{"name":"args","value":\["enable"\],"type":"STRING"}\],"asRoot":true},{"command":"REBOOT","name":"REBOOT","arguments":\[\],"asRoot":true}\],"enrollmentProvider":{"type":"JWT_NATIVE","providerConfig":"{\\"expiryTime\\": \\"57600\\"}"},"settings":\[{"category":"iotc-agent","settings":{"commandFetchIntervalSeconds":30,"maxNumberOfClients":5,"metricsDiskStoreKB":262144,"grpcEnabled":1,"agentLogLevel":6,"metricsIntervalSeconds":300,"serverRequestTimeoutSeconds":300,"networkBandwidth":0},"finalSettings":{}}\]}'
++ sed -i 's|__defaultDeviceTemplate__|{"name":"Default Gateway Template","deviceType":"GATEWAY","systemProperties":\[{"name":"os-sysname"},{"name":"os-machine"},{"name":"os-release"},{"name":"ssh"},{"name":"iotc-agent-version"}\],"allowedMetrics":\[{"name":"CPU-Usage(DOUBLE)","displayName":"CPU-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"},{"name":"Memory-Usage(DOUBLE)","displayName":"Memory-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"},{"name":"Disk-Usage(DOUBLE)","displayName":"Disk-Usage","valueType":"DOUBLE","timeInterval":300,"batchSize":1000,"factor":1,"displayUnit":"\%"}\],"allowedCommands":\[{"command":"SSH","name":"SSH","arguments":\[{"name":"args","value":\["enable"\],"type":"STRING"}\],"asRoot":true},{"command":"REBOOT","name":"REBOOT","arguments":\[\],"asRoot":true}\],"enrollmentProvider":{"type":"JWT_NATIVE","providerConfig":"{\\"expiryTime\\": \\"57600\\"}"},"settings":\[{"category":"iotc-agent","settings":{"commandFetchIntervalSeconds":30,"maxNumberOfClients":5,"metricsDiskStoreKB":262144,"grpcEnabled":1,"agentLogLevel":6,"metricsIntervalSeconds":300,"serverRequestTimeoutSeconds":300,"networkBandwidth":0},"finalSettings":{}}\]}|g' /opt/smarthub/iotc/mongo/deploy/global-variables.js
++ echo 'Get mongodb admin username'
+Get mongodb admin username
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 mongo.db.admin.username
++ admin_user=root
++ echo 'Get mongodb admin password'
+Get mongodb admin password
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 mongo.db.admin.password
++ encrypted_passwd=409B49CCFD62F9EB32D30BC7AEE94459426132687733961F42AA91C55A07B10988E6440450145D62EB96711C10E79180F7284AD6CFD38E9BC902A5A57F1667C625585B65E3ADC69FEDA5B3B5804A8497C7B8178E4AE16582
+++ sed -n '/^encrypt.key=\(.*\)$/s//\1/p' /opt/smarthub/iotc/conf/node.properties
++ encrypt_key=a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae
+++ python3 /opt/smarthub/utils/decrypt_string.py a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae 409B49CCFD62F9EB32D30BC7AEE94459426132687733961F42AA91C55A07B10988E6440450145D62EB96711C10E79180F7284AD6CFD38E9BC902A5A57F1667C625585B65E3ADC69FEDA5B3B5804A8497C7B8178E4AE16582
++ admin_passwd=d0c5ca050db567925d7fac276058f4f3191dbab0
++ '[' -z root -o -z 409B49CCFD62F9EB32D30BC7AEE94459426132687733961F42AA91C55A07B10988E6440450145D62EB96711C10E79180F7284AD6CFD38E9BC902A5A57F1667C625585B65E3ADC69FEDA5B3B5804A8497C7B8178E4AE16582 ']'
++ echo 'Get mongodb username, password'
+Get mongodb username, password
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 mongo.db.username
++ mongo_user=iotcUser
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 mongo.db.password
++ encrypted_passwd=72A703CD85CA9F9437D8C8A2F1D5562C5757356E24A755CEB54D5116E4A8E45B4017AD720A82CE00AE7BEBEE58A615D012985EF0059B6AA194BD21310F01D38AC3470A4ECC9DEE54A7E9B7B058E8334A8FB049A694CED268
+++ python3 /opt/smarthub/utils/shencdec.py decode --key a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae --encoded-text 72A703CD85CA9F9437D8C8A2F1D5562C5757356E24A755CEB54D5116E4A8E45B4017AD720A82CE00AE7BEBEE58A615D012985EF0059B6AA194BD21310F01D38AC3470A4ECC9DEE54A7E9B7B058E8334A8FB049A694CED268
++ mongo_passwd=bb2e24317d0817076edb3cf0a832a327b09a8f95
++ '[' -z iotcUser -o -z 72A703CD85CA9F9437D8C8A2F1D5562C5757356E24A755CEB54D5116E4A8E45B4017AD720A82CE00AE7BEBEE58A615D012985EF0059B6AA194BD21310F01D38AC3470A4ECC9DEE54A7E9B7B058E8334A8FB049A694CED268 ']'
+++ echo e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ python3 /opt/smarthub/utils/get_consul_key_value.py shconsulnode01 mongo.db.urls
++ mongourl=shmongos01
++ MONGO_HOST=shmongos01
++ AUTH_DB=iotcDb
++ MONGO_DB=iotcDb
++ echo 'Creating mongo iotc user'
+Creating mongo iotc user
++ sed -i s/iotcUser/iotcUser/g /opt/smarthub/iotc/mongo/cluster/create-iotc-user.js
++ sed -i 's|__user-password__|bb2e24317d0817076edb3cf0a832a327b09a8f95|g' /opt/smarthub/iotc/mongo/cluster/create-iotc-user.js
++ echo d0c5ca050db567925d7fac276058f4f3191dbab0
++ python3 /opt/smarthub/utils/run_mongo_script.py root admin shmongos01:27017 iotcDb /opt/smarthub/iotc/mongo/cluster/create-iotc-user.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=admin&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("9baecab5-8960-4dab-b8bf-70b4d73bedb3") }
+MongoDB server version: 4.4.6
+Successfully added user: {
+	"user" : "iotcUser",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "iotcDb"
+		},
+		{
+			"role" : "dbAdmin",
+			"db" : "iotcDb"
+		},
+		{
+			"role" : "dbOwner",
+			"db" : "iotcDb"
+		},
+		{
+			"role" : "userAdmin",
+			"db" : "iotcDb"
+		}
+	]
+}
+[unknown type]
+]
++ status=0
++ '[' 0 -ne 0 ']'
++ echo 'Running the mongodb setup scripts'
+Running the mongodb setup scripts
++ pushd /opt/smarthub/iotc/mongo/deploy
+/opt/smarthub/iotc/mongo/deploy /
++ echo bb2e24317d0817076edb3cf0a832a327b09a8f95
++ python3 /opt/smarthub/utils/run_mongo_script.py iotcUser iotcDb shmongos01 iotcDb bootup-script-system-main.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=iotcDb&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("1c75512f-6b62-4776-900b-af29d5b507d1") }
+MongoDB server version: 4.4.6
+Create indices
+Adding deviceagent service indexes...
+Added deviceagent service indexes...
+Adding GridFs related index and sharding...
+GridFs related index and sharding complete
+Adding devicesec svc indexes...
+Added devicesec svc indexes...
+Start: SystemTenant creation
+Success: System tenant created with MongoId: b32f26cd-bf0d-47e6-b61e-839c48589f6a
+Start: System Roles creation
+Success: System Role Created
+Start: System User creation started
+Success: System Users created
+Start: System User Memberships started
+Success: System User Memberships started
+]
++ echo bb2e24317d0817076edb3cf0a832a327b09a8f95
++ python3 /opt/smarthub/utils/run_mongo_script.py iotcUser iotcDb shmongos01 iotcDb create-tenant-user-main.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=iotcDb&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("723f0022-035e-4087-96e6-2f86e0f22adb") }
+MongoDB server version: 4.4.6
+Start: Tenant creation
+Success: Tenant Created with MongoId: 9fead85e-2ba5-45a0-a0f5-d593b051fcc0
+Start: Roles creation
+Success: Roles Created
+Start: Groups creation
+Groups array [{"_id":"7af5bceb-a84b-4607-a6be-3f8c6b160972","name":"System Administrators","description":"System Administrators","orgId":"9fead85e-2ba5-45a0-a0f5-d593b051fcc0","roles":["276a330d-e543-4907-80e5-8b6e9513e340","319e237a-e649-4a70-a6ff-be4a382fc9cb","3637b1f0-c780-45d0-982a-6f0d1fd46ebf","97394482-a402-49a8-b0c2-8855e3edb695","9cdfc86f-52df-49b6-be3b-f5b277d55c8d","be4071df-1503-4d6d-850a-b05168ff8dea","dfa8a972-3a84-41c3-8331-cd740fbb7721"],"createdTime":{"$numberLong":"1624247046649"},"lastUpdatedTime":{"$numberLong":"1624247046649"},"updateVersion":1,"createdBy":"2fdd25fb-b879-462e-9775-52417bb20a0f","lastUpdatedBy":"2fdd25fb-b879-462e-9775-52417bb20a0f","isDeleted":false},{"_id":"1f38000e-3010-461d-98ca-371f78ef7c67","name":"Organization Administrators","description":"Organization Administrators","orgId":"9fead85e-2ba5-45a0-a0f5-d593b051fcc0","roles":["57599f9b-506d-487e-8343-5634234aae6f"],"createdTime":{"$numberLong":"1624247046649"},"lastUpdatedTime":{"$numberLong":"1624247046649"},"updateVersion":1,"createdBy":"2fdd25fb-b879-462e-9775-52417bb20a0f","lastUpdatedBy":"2fdd25fb-b879-462e-9775-52417bb20a0f","isDeleted":false}]
+Success: Groups Created
+Start: User creation started
+Success: User created with MongoId: 2fdd25fb-b879-462e-9775-52417bb20a0f
+Start: Identity Store started
+Success: Identity Store completed
+Start: Console User Memberships started
+Success: Console User Memberships started
+Start: Default Template creation
+Success: Default Template Created with MongoId: 9fead85e-2ba5-45a0-a0f5-d593b051fcc0
+Start: Default System notification org setting creation
+Success: Default System notification org setting created with MongoId: 9fead85e-2ba5-45a0-a0f5-d593b051fcc0
+]
++ echo bb2e24317d0817076edb3cf0a832a327b09a8f95
++ python3 /opt/smarthub/utils/run_mongo_script.py iotcUser iotcDb shmongos01 iotcDb create-meter-config.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=iotcDb&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("39e9bf03-313e-4db0-bc51-09cf546550e7") }
+MongoDB server version: 4.4.6
+Start: Seed meter config data
+End: Seed meter config data
+Start: Updating System tenant id info in the meter config
+System tenant id : b32f26cd-bf0d-47e6-b61e-839c48589f6a
+End: Updating System tenant id info in  meter config
+]
++ echo bb2e24317d0817076edb3cf0a832a327b09a8f95
++ python3 /opt/smarthub/utils/run_mongo_script.py iotcUser iotcDb shmongos01 iotcDb insert-pcu-formula-initial-script.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=iotcDb&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("d5913c04-27a6-41b1-8162-21391a8ff6af") }
+MongoDB server version: 4.4.6
+Start: Adding the pcu formula
+End: pcu formula added.
+Start: Updating System tenant id info in the pcu formula config
+System tenant id : b32f26cd-bf0d-47e6-b61e-839c48589f6a
+End: Updating System tenant id info in the pcu formula config
+]
++ echo bb2e24317d0817076edb3cf0a832a327b09a8f95
++ python3 /opt/smarthub/utils/run_mongo_script.py iotcUser iotcDb shmongos01 iotcDb insert-pcu-formula-v12-initial-script.js
+The script exited with code [0]:[MongoDB shell version v4.4.6
+connecting to: mongodb://shmongos01:27017/iotcDb?authSource=iotcDb&compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("8c125c0b-432b-442a-82e1-adcb8e14251a") }
+MongoDB server version: 4.4.6
+Start: Adding the PCU formula v12
+End: PCU formula v12 added.
+Pcu version v12 inserted with ID:4021861d-1a10-4a61-ac42-891772f749c0
+START: Updating System tenant id info in the pcuformula config for id:4021861d-1a10-4a61-ac42-891772f749c0
+System tenant id : b32f26cd-bf0d-47e6-b61e-839c48589f6a
+End: Updating System tenant id info in the pcuformula config for id:4021861d-1a10-4a61-ac42-891772f749c0
+]
++ popd
+/
++ exit 0

@@ -1,0 +1,1071 @@
+kranti@b2-15-waw1-dev02:~/new_deploy/consul$ docker run -it --rm --name consulinit \
+> --network devnw \
+> -e INSTANCE_NAME=shkranthi-05 \
+> -e CATALOG_SERVICE_ADDR=51.83.252.116 \
+> -e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+> -e CONSUL_SERVICE_NAME=shconsulnode01 \
+> -e CONSUL_NODE_NAME=shconsulnode01 \
+> -e TENANT_NAME=SmartHub \
+> -e TENANT_DOMAIN_NAME=smarthub.local \
+> -e TENANT_CONSOLE_USERNAME=sysadmin \
+> -e TENANT_CONSOLE_USER_EMAIL=ajith@smarthub.ai \
+> -e TENANT_CONSOLE_USER_PASSWORD=SmartHub#123 \
+> -e TENANT_SMTP_HOST=smtp.smarthub.ai \
+> -e TENANT_SMTP_PORT=587 \
+> -e TENANT_SMTP_USERNAME=ajith \
+> -e TENANT_SMTP_USER_PASSWORD=ajith@123 \
+> -v $PWD/consul01/data:/bitnami/consul \
+> -v $PWD/consul01/conf:/opt/bitnami/consul/conf \
+> -v $PWD/consul01/logs:/opt/bitnami/consul/logs \
+> -v $PWD/consul01/ssl:/opt/bitnami/consul/certificates \
+> -v $PWD/consul01/extra:/opt/bitnami/consul/extra \
+> -v $PWD/consul01/tmp:/opt/bitnami/consul/tmp \
+> -v $PWD/consul01/app:/opt/smarthub/iotc/conf \
+> s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13 bash -x /init/consulinit.sh
+Unable to find image 's8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13' locally
+3.0.0-13: Pulling from shinternal/infer/consulinit
+2e6370f1e2d3: Already exists 
+8e3edd23ba57: Pull complete 
+c19cda9c8ef2: Pull complete 
+a7ac11832aad: Pull complete 
+6c7d75ec7316: Pull complete 
+c629db6b6959: Pull complete 
+c6c69f0ad617: Pull complete 
+040d06aeaa25: Pull complete 
+71b1ba29ea28: Pull complete 
+1322c692966e: Pull complete 
+d4e30299511e: Pull complete 
+95ab9f776fbe: Pull complete 
+84eeebcc62fd: Pull complete 
+Digest: sha256:8d8457c427b1c14aa2829307e00c1cceebd74ad7e7c96bada4faa2f16a524e4c
+Status: Downloaded newer image for s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13
+ 02:53:44.12 
+ 02:53:44.13 Welcome to the Bitnami consul container
+ 02:53:44.13 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-consul
+ 02:53:44.13 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-consul/issues
+ 02:53:44.13 
+
++ set -x
++ source /opt/smarthub/utils/catalogsvc.sh
+++ CATALOG_SERVICE_ADDR=51.83.252.116
+++ CATALOG_SERVICE_TOKEN=b123bd0d-180b-933c-7af5-a50a281b535a
++ export -p
+declare -x BITNAMI_APP_NAME="consul"
+declare -x BITNAMI_IMAGE_VERSION="1.9.6-debian-10-r9"
+declare -x CATALOG_SERVICE_ADDR="51.83.252.116"
+declare -x CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"
+declare -x CONSUL_AGENT_MODE="server"
+declare -x CONSUL_BASE_DIR="/opt/bitnami/consul"
+declare -x CONSUL_BIND_ADDR=""
+declare -x CONSUL_BIND_INTERFACE=""
+declare -x CONSUL_BOOTSTRAP_EXPECT="1"
+declare -x CONSUL_CLIENT_LAN_ADDRESS="0.0.0.0"
+declare -x CONSUL_CONFIG_TEMPLATE_FILE="/opt/bitnami/consul/templates/consul.json.tpl"
+declare -x CONSUL_CONF_DIR="/opt/bitnami/consul/conf"
+declare -x CONSUL_CONF_FILE="/opt/bitnami/consul/conf/consul.json"
+declare -x CONSUL_DATACENTER="dc1"
+declare -x CONSUL_DATA_DIR="/bitnami/consul"
+declare -x CONSUL_DISABLE_HOST_NODE_ID="true"
+declare -x CONSUL_DISABLE_KEYRING_FILE="false"
+declare -x CONSUL_DNS_PORT_NUMBER="8600"
+declare -x CONSUL_DOMAIN="consul"
+declare -x CONSUL_ENABLE_UI="true"
+declare -x CONSUL_ENCRYPT_FILE="/opt/bitnami/consul/conf/encrypt.json"
+declare -x CONSUL_ENCRYPT_TEMPLATE_FILE="/opt/bitnami/consul/templates/encrypt.json.tpl"
+declare -x CONSUL_EXTRA_DIR="/opt/bitnami/consul/extra"
+declare -x CONSUL_GOSSIP_ENCRYPTION="no"
+declare -x CONSUL_GOSSIP_ENCRYPTION_KEY=""
+declare -x CONSUL_GOSSIP_ENCRYPTION_KEY_FILE=""
+declare -x CONSUL_HTTP_PORT_NUMBER="8500"
+declare -x CONSUL_LOCAL_CONFIG=""
+declare -x CONSUL_LOCAL_CONF_FILE="/opt/bitnami/consul/conf/local.json"
+declare -x CONSUL_LOCAL_TEMPLATE_FILE="/opt/bitnami/consul/templates/local.json.tpl"
+declare -x CONSUL_LOGROTATE_FILE="/opt/bitnami/consul/extra/logrotate.conf"
+declare -x CONSUL_LOG_DIR="/opt/bitnami/consul/logs"
+declare -x CONSUL_LOG_FILE="/opt/bitnami/consul/logs/consul.log"
+declare -x CONSUL_MONIT_FILE="/opt/bitnami/consul/extra/monit.conf"
+declare -x CONSUL_NODE_NAME="shconsulnode01"
+declare -x CONSUL_PID_FILE="/opt/bitnami/consul/tmp/consul.pid"
+declare -x CONSUL_RAFT_MULTIPLIER="1"
+declare -x CONSUL_RETRY_JOIN_ADDRESS="127.0.0.1"
+declare -x CONSUL_RETRY_JOIN_WAN_ADDRESS="127.0.0.1"
+declare -x CONSUL_RPC_PORT_NUMBER="8300"
+declare -x CONSUL_SERF_LAN_ADDRESS="0.0.0.0"
+declare -x CONSUL_SERF_LAN_PORT_NUMBER="8301"
+declare -x CONSUL_SERVICE_NAME="shconsulnode01"
+declare -x CONSUL_SSL_DIR="/opt/bitnami/consul/certificates"
+declare -x CONSUL_SYSTEM_GROUP="consul"
+declare -x CONSUL_SYSTEM_USER="consul"
+declare -x CONSUL_TEMPLATES_DIR="/opt/bitnami/consul/templates"
+declare -x CONSUL_TMP_DIR="/opt/bitnami/consul/tmp"
+declare -x HOME="/"
+declare -x HOSTNAME="88f2451a05b2"
+declare -x INSTANCE_NAME="shkranthi-05"
+declare -x OLDPWD
+declare -x OS_ARCH="amd64"
+declare -x OS_FLAVOUR="debian-10"
+declare -x OS_NAME="linux"
+declare -x PATH="/opt/bitnami/common/bin:/opt/bitnami/consul/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+declare -x PWD="/"
+declare -x SHLVL="1"
+declare -x TENANT_CONSOLE_USERNAME="sysadmin"
+declare -x TENANT_CONSOLE_USER_EMAIL="ajith@smarthub.ai"
+declare -x TENANT_CONSOLE_USER_PASSWORD="SmartHub#123"
+declare -x TENANT_DOMAIN_NAME="smarthub.local"
+declare -x TENANT_NAME="SmartHub"
+declare -x TENANT_SMTP_HOST="smtp.smarthub.ai"
+declare -x TENANT_SMTP_PORT="587"
+declare -x TENANT_SMTP_USERNAME="ajith"
+declare -x TENANT_SMTP_USER_PASSWORD="ajith@123"
+declare -x TERM="xterm"
++ CONSUL_CONFIG_TEMPLATE=/init/templates/server.json
++ CONSUL_INFER_POLICY_TEMPLATE=/init/templates/inferpolicy.hcl
++ INFER_TEMPLATES_DIR=/opt/smarthub/templates/config
++ NODE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/node.properties
++ INSTANCE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/instance-config.properties
++ SERVICE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/service-config.properties
++ CONSUL_LOG_DIR=/opt/bitnami/consul/logs
++ CONSUL_CONF_DIR=/opt/bitnami/consul/conf
++ CONSUL_DATA_DIR=/bitnami/consul
++ CONSUL_CONFIG=/opt/bitnami/consul/conf/consul.json
++ SMARTHUB_CONF_DIR=/opt/smarthub/iotc/conf
++ NODE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/node.properties
++ INSTANCE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/instance-config.properties
++ SERVICE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/service-config.properties
++ INSTANCE_KV_PATH=iotc/sites/default/instances/default
++ BOOTSTRAP_UTILS=/opt/smarthub/utils
++ CONSUL_SERVICE_NAME=shconsulnode01
++ '[' -z shkranthi-05 ']'
++ mkdir -p /bitnami/consul
+++ getDeployment shkranthi-05
+++ status=0
+++ deploymentname=shkranthi-05
++++ printf infer/catalog/%s shkranthi-05
+++ deploymentpath=infer/catalog/shkranthi-05
++++ printf 'http://51.83.252.116:8500/v1/kv/%s?raw' infer/catalog/shkranthi-05
+++ url='http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw'
++++ curl -s 'http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw' -H 'Accept: application/json' -H 'cache-control: no-cache' -H 'x-consul-token: b123bd0d-180b-933c-7af5-a50a281b535a'
+++ response=
+++ status=0
+++ echo CATALOG_QUERY_STATUS=0
+++ '[' 0 -eq 0 ']'
++++ echo
++++ cut -d '"' -f 4
+++ echo CONFIG_SERVER=
++++ echo
++++ cut -d '"' -f 8
+++ echo CONFIG_CLIENT_TOKEN=
++++ echo
++++ cut -d '"' -f 12
+++ echo CONFIG_MASTER_TOKEN=
++++ echo
++++ cut -d '"' -f 16
+++ echo CONFIG_ENCRYPT_KEY=
++ eval CATALOG_QUERY_STATUS=0 CONFIG_SERVER= CONFIG_CLIENT_TOKEN= CONFIG_MASTER_TOKEN= CONFIG_ENCRYPT_KEY=
+++ CATALOG_QUERY_STATUS=0
+++ CONFIG_SERVER=
+++ CONFIG_CLIENT_TOKEN=
+++ CONFIG_MASTER_TOKEN=
+++ CONFIG_ENCRYPT_KEY=
++ ENCRYPT_KEY=
++ '[' -z '' ']'
++ '[' '!' -f /opt/smarthub/templates/config/node.properties ']'
++ cp /init/templates/server.json /opt/bitnami/consul/conf/consul.json
+++ dirname /opt/smarthub/iotc/conf/node.properties
++ mkdir -p /opt/smarthub/iotc/conf
++ cp /opt/smarthub/templates/config/node.properties /opt/smarthub/iotc/conf/node.properties
++ cp /opt/smarthub/templates/config/instance-config.properties /opt/smarthub/iotc/conf/instance-config.properties
++ cp /opt/smarthub/templates/config/service-config.properties /opt/smarthub/iotc/conf/service-config.properties
++ echo 'Creating new cluster in consul'
+Creating new cluster in consul
++ echo 'Generating Encrypt key'
+Generating Encrypt key
+++ consul keygen
++ ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ sed -i '/"encrypt"/s|:.*|: "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",|g' /opt/bitnami/consul/conf/consul.json
+++ cat /opt/bitnami/consul/conf/consul.json
++ CONSUL_CONFIG_BUFFER='{
+  "bind_addr": "0.0.0.0",
+  "data_dir": "/bitnami/consul",
+  "log_file": "/opt/bitnami/consul/logs/consul.log",
+  "log_rotate_bytes" : 1048576,
+  "log_rotate_max_files": 10,
+  "log_level": "DEBUG",
+  "server": true,
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "ui_config": {
+    "enabled": true
+  },
+  "node_name": "",
+  "retry_join" : [],
+  "client_addr": "0.0.0.0",
+  "leave_on_terminate": false,
+  "skip_leave_on_interrupt": true,
+  "rejoin_after_leave": true,
+  "datacenter": "dc1",
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache"
+  }
+}'
++ echo 'Starting consul server for token initialization'
+Starting consul server for token initialization
++ echo 'Attempt to bootstrap consul, phase 1'
+Attempt to bootstrap consul, phase 1
++ retry=5
++ '[' 5 -gt 0 ']'
++ sleep 10
++ consul agent -bootstrap -node shconsulnode01 -config-dir /opt/bitnami/consul/conf
+==> Starting Consul agent...
+           Version: '1.9.6'
+           Node ID: '63db1123-0c51-8bdd-b04d-f34a861ec00f'
+         Node name: 'shconsulnode01'
+        Datacenter: 'dc1' (Segment: '<all>')
+            Server: true (Bootstrap: true)
+       Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, gRPC: -1, DNS: 8600)
+      Cluster Addr: 172.19.0.2 (LAN: 8301, WAN: 8302)
+           Encrypt: Gossip: true, TLS-Outgoing: false, TLS-Incoming: false, Auto-Encrypt-TLS: false
+
+==> Log data will now stream in as it occurs:
+
+2021-06-21T02:53:44.271Z [WARN]  agent: bootstrap = true: do not enable unless necessary
+2021-06-21T02:53:44.274Z [WARN]  agent.auto_config: bootstrap = true: do not enable unless necessary
+2021-06-21T02:53:44.279Z [INFO]  agent.server.raft: initial configuration: index=1 servers="[{Suffrage:Voter ID:63db1123-0c51-8bdd-b04d-f34a861ec00f Address:172.19.0.2:8300}]"
+2021-06-21T02:53:44.279Z [INFO]  agent.server.raft: entering follower state: follower="Node at 172.19.0.2:8300 [Follower]" leader=
+2021-06-21T02:53:44.280Z [INFO]  agent.server.serf.wan: serf: EventMemberJoin: shconsulnode01.dc1 172.19.0.2
+2021-06-21T02:53:44.280Z [INFO]  agent.server.serf.lan: serf: EventMemberJoin: shconsulnode01 172.19.0.2
+2021-06-21T02:53:44.280Z [INFO]  agent.router: Initializing LAN area manager
+2021-06-21T02:53:44.280Z [INFO]  agent.server: Adding LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:53:44.281Z [INFO]  agent.server: Handled event for server in area: event=member-join server=shconsulnode01.dc1 area=wan
+2021-06-21T02:53:44.281Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=tcp
+2021-06-21T02:53:44.281Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=udp
+2021-06-21T02:53:44.281Z [INFO]  agent: Starting server: address=[::]:8500 network=tcp protocol=http
+2021-06-21T02:53:44.281Z [WARN]  agent: DEPRECATED Backwards compatibility with pre-1.9 metrics enabled. These metrics will be removed in a future version of Consul. Set `telemetry { disable_compat_1.9 = true }` to disable them.
+2021-06-21T02:53:44.281Z [INFO]  agent: started state syncer
+2021-06-21T02:53:44.281Z [INFO]  agent: Consul agent running!
+2021-06-21T02:53:44.331Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:44.431Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:44.631Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:45.031Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:45.831Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:47.431Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:53:50.116Z [WARN]  agent.server.raft: heartbeat timeout reached, starting election: last-leader=
+2021-06-21T02:53:50.116Z [INFO]  agent.server.raft: entering candidate state: node="Node at 172.19.0.2:8300 [Candidate]" term=2
+2021-06-21T02:53:50.117Z [DEBUG] agent.server.raft: votes: needed=1
+2021-06-21T02:53:50.117Z [DEBUG] agent.server.raft: vote granted: from=63db1123-0c51-8bdd-b04d-f34a861ec00f term=2 tally=1
+2021-06-21T02:53:50.117Z [INFO]  agent.server.raft: election won: tally=1
+2021-06-21T02:53:50.117Z [INFO]  agent.server.raft: entering leader state: leader="Node at 172.19.0.2:8300 [Leader]"
+2021-06-21T02:53:50.117Z [INFO]  agent.server: cluster leadership acquired
+2021-06-21T02:53:50.117Z [INFO]  agent.server: New leader elected: payload=shconsulnode01
+2021-06-21T02:53:50.117Z [INFO]  agent.server: initializing acls
+2021-06-21T02:53:50.118Z [INFO]  agent.server: Created ACL 'global-management' policy
+2021-06-21T02:53:50.119Z [INFO]  agent.server: Created ACL anonymous token from configuration
+2021-06-21T02:53:50.119Z [INFO]  agent.leader: started routine: routine="legacy ACL token upgrade"
+2021-06-21T02:53:50.119Z [INFO]  agent.leader: started routine: routine="acl token reaping"
+2021-06-21T02:53:50.119Z [INFO]  agent.server.serf.lan: serf: EventMemberUpdate: shconsulnode01
+2021-06-21T02:53:50.119Z [INFO]  agent.server.serf.wan: serf: EventMemberUpdate: shconsulnode01.dc1
+2021-06-21T02:53:50.119Z [INFO]  agent.server: Updating LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:53:50.120Z [INFO]  agent.server: Handled event for server in area: event=member-update server=shconsulnode01.dc1 area=wan
+2021-06-21T02:53:50.121Z [INFO]  agent.leader: started routine: routine="federation state anti-entropy"
+2021-06-21T02:53:50.121Z [INFO]  agent.leader: started routine: routine="federation state pruning"
+2021-06-21T02:53:50.121Z [DEBUG] agent.server: successfully established leadership: duration=3.780017ms
+2021-06-21T02:53:50.121Z [INFO]  agent.server: member joined, marking health alive: member=shconsulnode01
+2021-06-21T02:53:50.121Z [DEBUG] agent.server.autopilot: autopilot is now running
+2021-06-21T02:53:50.122Z [DEBUG] agent.server.autopilot: state update routine is now running
+2021-06-21T02:53:50.122Z [INFO]  agent.server: federation state anti-entropy synced
+2021-06-21T02:53:50.136Z [DEBUG] agent.acl: dropping check from result due to ACLs: check=serfHealth
+2021-06-21T02:53:50.136Z [WARN]  agent: Node info update blocked by ACLs: node=63db1123-0c51-8bdd-b04d-f34a861ec00f accessorID=00000000-0000-0000-0000-000000000002
+2021-06-21T02:53:50.136Z [DEBUG] agent: Node info in sync
+2021-06-21T02:53:51.497Z [DEBUG] agent.acl: dropping check from result due to ACLs: check=serfHealth
+2021-06-21T02:53:51.497Z [WARN]  agent: Node info update blocked by ACLs: node=63db1123-0c51-8bdd-b04d-f34a861ec00f accessorID=00000000-0000-0000-0000-000000000002
+++ consul acl bootstrap -format json
+2021-06-21T02:53:54.273Z [WARN]  agent.server.acl: failed to remove bootstrap file: error="remove /bitnami/consul/acl-bootstrap-reset: no such file or directory"
+2021-06-21T02:53:54.274Z [INFO]  agent.server.acl: ACL bootstrap completed
+2021-06-21T02:53:54.274Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/acl/bootstrap from=127.0.0.1:34626 latency=1.387205ms
++ MASTER_TOKEN_JSON='{
+    "CreateIndex": 9,
+    "ModifyIndex": 9,
+    "AccessorID": "b9cd920b-3346-0614-0645-167c411b9403",
+    "SecretID": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+    "Description": "Bootstrap Token (Global Management)",
+    "Policies": [
+        {
+            "ID": "00000000-0000-0000-0000-000000000001",
+            "Name": "global-management"
+        }
+    ],
+    "Local": false,
+    "CreateTime": "2021-06-21T02:53:54.273805655Z",
+    "Hash": "oyrov6+GFLjo/KZAfqgxF/X4J/3LX0435DOBy9V22I0="
+}'
++ [[ {
+    "CreateIndex": 9,
+    "ModifyIndex": 9,
+    "AccessorID": "b9cd920b-3346-0614-0645-167c411b9403",
+    "SecretID": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+    "Description": "Bootstrap Token (Global Management)",
+    "Policies": [
+        {
+            "ID": "00000000-0000-0000-0000-000000000001",
+            "Name": "global-management"
+        }
+    ],
+    "Local": false,
+    "CreateTime": "2021-06-21T02:53:54.273805655Z",
+    "Hash": "oyrov6+GFLjo/KZAfqgxF/X4J/3LX0435DOBy9V22I0="
+} =~ .*SecretID.* ]]
++ break
++ '[' 5 -eq 0 ']'
++ echo 'Generating master acl token'
+Generating master acl token
+++ echo '{' '"CreateIndex":' 9, '"ModifyIndex":' 9, '"AccessorID":' '"b9cd920b-3346-0614-0645-167c411b9403",' '"SecretID":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"Description":' '"Bootstrap' Token '(Global' 'Management)",' '"Policies":' '[' '{' '"ID":' '"00000000-0000-0000-0000-000000000001",' '"Name":' '"global-management"' '}' '],' '"Local":' false, '"CreateTime":' '"2021-06-21T02:53:54.273805655Z",' '"Hash":' '"oyrov6+GFLjo/KZAfqgxF/X4J/3LX0435DOBy9V22I0="' '}'
+++ jq -r .SecretID
++ MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
++ echo 'Consul create infer policy'
+Consul create infer policy
++ consul acl policy create -token 5367e4c0-ad91-d721-3345-5cbc7f02de15 -name agent-token-policy -description 'Infer Agent Token Policy' -rules @/init/templates/inferpolicy.hcl
+2021-06-21T02:53:54.326Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/acl/policy from=127.0.0.1:34628 latency=1.222521ms
+ID:           7cc462e4-0fc4-85ea-b01c-047b1ff449f3
+Name:         agent-token-policy
+Description:  Infer Agent Token Policy
+Datacenters:  
+Rules:
+key_prefix "" {
+  policy = "write"
+}
+agent_prefix "" {
+  policy = "write"
+}
+service_prefix "" {
+  policy = "write"
+}
+node_prefix "" {
+  policy = "write"
+}
+session_prefix "" {
+  policy = "write"
+}
+
++ echo 'Consul create acl token from policy'
+Consul create acl token from policy
+++ consul acl token create -token 5367e4c0-ad91-d721-3345-5cbc7f02de15 -description 'Infer Agent Token' -policy-name agent-token-policy -format json
+2021-06-21T02:53:54.371Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/acl/token from=127.0.0.1:34630 latency=1.765702ms
++ AGENT_TOKEN_JSON='{
+    "CreateIndex": 11,
+    "ModifyIndex": 11,
+    "AccessorID": "4afd8089-03d4-42ae-1878-db37d8400aca",
+    "SecretID": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",
+    "Description": "Infer Agent Token",
+    "Policies": [
+        {
+            "ID": "7cc462e4-0fc4-85ea-b01c-047b1ff449f3",
+            "Name": "agent-token-policy"
+        }
+    ],
+    "Local": false,
+    "CreateTime": "2021-06-21T02:53:54.369766497Z",
+    "Hash": "m56E7qbP2UsxEj+xbiOQ2Cn4dE/m+0o1JvBuY5xd66I="
+}'
++ echo 'Updating Consul access/agent token in config'
+Updating Consul access/agent token in config
+++ echo '{' '"CreateIndex":' 11, '"ModifyIndex":' 11, '"AccessorID":' '"4afd8089-03d4-42ae-1878-db37d8400aca",' '"SecretID":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"Description":' '"Infer' Agent 'Token",' '"Policies":' '[' '{' '"ID":' '"7cc462e4-0fc4-85ea-b01c-047b1ff449f3",' '"Name":' '"agent-token-policy"' '}' '],' '"Local":' false, '"CreateTime":' '"2021-06-21T02:53:54.369766497Z",' '"Hash":' '"m56E7qbP2UsxEj+xbiOQ2Cn4dE/m+0o1JvBuY5xd66I="' '}'
+++ jq -r .SecretID
++ ACCESS_TOKEN_VALUE=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++ echo 'Stop Consul server ...'
+Stop Consul server ...
++ consul leave --token=5367e4c0-ad91-d721-3345-5cbc7f02de15
+2021-06-21T02:53:54.418Z [INFO]  agent.server: server starting leave
+2021-06-21T02:53:54.418Z [INFO]  agent.server.serf.wan: serf: EventMemberLeave: shconsulnode01.dc1 172.19.0.2
+2021-06-21T02:53:54.418Z [INFO]  agent.server: Handled event for server in area: event=member-leave server=shconsulnode01.dc1 area=wan
+2021-06-21T02:53:54.418Z [INFO]  agent.router.manager: shutting down
+2021-06-21T02:53:57.418Z [INFO]  agent.server.serf.lan: serf: EventMemberLeave: shconsulnode01 172.19.0.2
+2021-06-21T02:53:57.418Z [INFO]  agent.server: Removing LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:53:57.418Z [WARN]  agent.server: deregistering self should be done by follower: name=shconsulnode01
+2021-06-21T02:54:00.122Z [DEBUG] agent.server.autopilot: will not remove server as its removal would be unsafe due to affectingas removal of a majority or servers is not safe: id=63db1123-0c51-8bdd-b04d-f34a861ec00f
+2021-06-21T02:54:00.418Z [INFO]  agent.server: Waiting to drain RPC traffic: drain_time=5s
+2021-06-21T02:54:01.279Z [ERROR] agent: Coordinate update error: error="No cluster leader"
+2021-06-21T02:54:05.418Z [INFO]  agent: Requesting shutdown
+2021-06-21T02:54:05.418Z [INFO]  agent.server: shutting down server
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopping routine: routine="legacy ACL token upgrade"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopping routine: routine="acl token reaping"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopping routine: routine="federation state anti-entropy"
+2021-06-21T02:54:05.418Z [DEBUG] agent.server.usage_metrics: usage metrics reporter shutting down
+2021-06-21T02:54:05.418Z [ERROR] agent.server: error performing anti-entropy sync of federation state: error="context canceled"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopped routine: routine="federation state anti-entropy"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopped routine: routine="legacy ACL token upgrade"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopped routine: routine="acl token reaping"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopping routine: routine="federation state pruning"
+2021-06-21T02:54:05.418Z [DEBUG] agent.leader: stopped routine: routine="federation state pruning"
+2021-06-21T02:54:05.420Z [INFO]  agent.router.manager: shutting down
+2021-06-21T02:54:05.420Z [INFO]  agent: consul server down
+2021-06-21T02:54:05.420Z [INFO]  agent: shutdown complete
+2021-06-21T02:54:05.420Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/agent/leave from=127.0.0.1:34632 latency=11.002082485s
+2021-06-21T02:54:05.420Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=tcp
+2021-06-21T02:54:05.420Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=udp
+2021-06-21T02:54:05.420Z [INFO]  agent: Stopping server: address=[::]:8500 network=tcp protocol=http
+Graceful leave complete
++ sleep 10s
+2021-06-21T02:54:05.469Z [DEBUG] agent.server.autopilot: state update routine is now stopped
+2021-06-21T02:54:05.469Z [DEBUG] agent.server.autopilot: autopilot is now stopped
+2021-06-21T02:54:05.920Z [INFO]  agent: Waiting for endpoints to shut down
+2021-06-21T02:54:05.920Z [INFO]  agent: Endpoints down
+2021-06-21T02:54:05.920Z [INFO]  agent: Exit code: code=0
+++ jq --arg node shconsulnode01 '.node_name = $node'
+++ echo '{' '"bind_addr":' '"0.0.0.0",' '"data_dir":' '"/bitnami/consul",' '"log_file":' '"/opt/bitnami/consul/logs/consul.log",' '"log_rotate_bytes"' : 1048576, '"log_rotate_max_files":' 10, '"log_level":' '"DEBUG",' '"server":' true, '"encrypt":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",' '"ui_config":' '{' '"enabled":' true '},' '"node_name":' '"",' '"retry_join"' : '[],' '"client_addr":' '"0.0.0.0",' '"leave_on_terminate":' false, '"skip_leave_on_interrupt":' true, '"rejoin_after_leave":' true, '"datacenter":' '"dc1",' '"primary_datacenter":' '"dc1",' '"acl":' '{' '"enabled":' true, '"default_policy":' '"deny",' '"down_policy":' '"extend-cache"' '}' '}'
+++ jq --arg token 5367e4c0-ad91-d721-3345-5cbc7f02de15 '. * {"acl": {"tokens": {master: $token}}}'
+++ tee /opt/bitnami/consul/conf/consul.json
+++ jq --arg token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 '. * {"acl": {"tokens": {agent: $token}}}'
+++ jq --arg node shconsulnode01 '.retry_join += [$node]'
++ CONSUL_CONFIG_BUFFER='{
+  "bind_addr": "0.0.0.0",
+  "data_dir": "/bitnami/consul",
+  "log_file": "/opt/bitnami/consul/logs/consul.log",
+  "log_rotate_bytes": 1048576,
+  "log_rotate_max_files": 10,
+  "log_level": "DEBUG",
+  "server": true,
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "ui_config": {
+    "enabled": true
+  },
+  "node_name": "shconsulnode01",
+  "retry_join": [
+    "shconsulnode01"
+  ],
+  "client_addr": "0.0.0.0",
+  "leave_on_terminate": false,
+  "skip_leave_on_interrupt": true,
+  "rejoin_after_leave": true,
+  "datacenter": "dc1",
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}'
++ sed -i '/consul.kv.access.token/s/=.*/=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75/g' /opt/smarthub/iotc/conf/node.properties
++ sed -i '/consul.host/s/=.*/=shconsulnode01/g' /opt/smarthub/iotc/conf/node.properties
++ echo 'Restarting consul server, phase 2'
+Restarting consul server, phase 2
++ retry=10
++ '[' 10 -gt 0 ']'
++ sleep 10
++ consul agent -node shconsulnode01 -config-dir /opt/bitnami/consul/conf
+==> Starting Consul agent...
+           Version: '1.9.6'
+           Node ID: '63db1123-0c51-8bdd-b04d-f34a861ec00f'
+         Node name: 'shconsulnode01'
+        Datacenter: 'dc1' (Segment: '<all>')
+            Server: true (Bootstrap: false)
+       Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, gRPC: -1, DNS: 8600)
+      Cluster Addr: 172.19.0.2 (LAN: 8301, WAN: 8302)
+           Encrypt: Gossip: true, TLS-Outgoing: false, TLS-Incoming: false, Auto-Encrypt-TLS: false
+
+==> Log data will now stream in as it occurs:
+
+2021-06-21T02:54:15.511Z [INFO]  agent.server.raft: initial configuration: index=1 servers="[{Suffrage:Voter ID:63db1123-0c51-8bdd-b04d-f34a861ec00f Address:172.19.0.2:8300}]"
+2021-06-21T02:54:15.511Z [INFO]  agent.server.raft: entering follower state: follower="Node at 172.19.0.2:8300 [Follower]" leader=
+2021-06-21T02:54:15.511Z [INFO]  agent.server.serf.wan: serf: Ignoring previous leave in snapshot
+2021-06-21T02:54:15.511Z [INFO]  agent.server.serf.wan: serf: EventMemberJoin: shconsulnode01.dc1 172.19.0.2
+2021-06-21T02:54:15.511Z [WARN]  agent.server.serf.wan: serf: Failed to re-join any previously known node
+2021-06-21T02:54:15.511Z [INFO]  agent.server.serf.lan: serf: Ignoring previous leave in snapshot
+2021-06-21T02:54:15.512Z [INFO]  agent.server.serf.lan: serf: EventMemberJoin: shconsulnode01 172.19.0.2
+2021-06-21T02:54:15.512Z [INFO]  agent.router: Initializing LAN area manager
+2021-06-21T02:54:15.512Z [WARN]  agent.server.serf.lan: serf: Failed to re-join any previously known node
+2021-06-21T02:54:15.512Z [INFO]  agent.server: Adding LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:54:15.512Z [INFO]  agent.server: Handled event for server in area: event=member-join server=shconsulnode01.dc1 area=wan
+2021-06-21T02:54:15.512Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=udp
+2021-06-21T02:54:15.512Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=tcp
+2021-06-21T02:54:15.512Z [INFO]  agent: Starting server: address=[::]:8500 network=tcp protocol=http
+2021-06-21T02:54:15.513Z [WARN]  agent: DEPRECATED Backwards compatibility with pre-1.9 metrics enabled. These metrics will be removed in a future version of Consul. Set `telemetry { disable_compat_1.9 = true }` to disable them.
+2021-06-21T02:54:15.513Z [INFO]  agent: Retry join is supported for the following discovery methods: cluster=LAN discovery_methods="aliyun aws azure digitalocean gce k8s linode mdns os packet scaleway softlayer tencentcloud triton vsphere"
+2021-06-21T02:54:15.513Z [INFO]  agent: Joining cluster...: cluster=LAN
+2021-06-21T02:54:15.513Z [INFO]  agent: (LAN) joining: lan_addresses=[shconsulnode01]
+2021-06-21T02:54:15.513Z [INFO]  agent: started state syncer
+2021-06-21T02:54:15.513Z [INFO]  agent: Consul agent running!
+2021-06-21T02:54:15.515Z [WARN]  agent.server.memberlist.lan: memberlist: Failed to resolve shconsulnode01: lookup shconsulnode01 on 127.0.0.11:53: server misbehaving
+2021-06-21T02:54:15.515Z [WARN]  agent: (LAN) couldn't join: number_of_nodes=0 error="1 error occurred:
+	* Failed to resolve shconsulnode01: lookup shconsulnode01 on 127.0.0.11:53: server misbehaving
+
+"
+2021-06-21T02:54:15.515Z [WARN]  agent: Join cluster failed, will retry: cluster=LAN retry_interval=30s error=<nil>
+2021-06-21T02:54:15.562Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:15.662Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:15.862Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:16.262Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:17.062Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:18.663Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:21.863Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T02:54:22.701Z [WARN]  agent.server.raft: heartbeat timeout reached, starting election: last-leader=
+2021-06-21T02:54:22.701Z [INFO]  agent.server.raft: entering candidate state: node="Node at 172.19.0.2:8300 [Candidate]" term=3
+2021-06-21T02:54:22.702Z [DEBUG] agent.server.raft: votes: needed=1
+2021-06-21T02:54:22.702Z [DEBUG] agent.server.raft: vote granted: from=63db1123-0c51-8bdd-b04d-f34a861ec00f term=3 tally=1
+2021-06-21T02:54:22.702Z [INFO]  agent.server.raft: election won: tally=1
+2021-06-21T02:54:22.702Z [INFO]  agent.server.raft: entering leader state: leader="Node at 172.19.0.2:8300 [Leader]"
+2021-06-21T02:54:22.703Z [INFO]  agent.server: cluster leadership acquired
+2021-06-21T02:54:22.703Z [INFO]  agent.server: New leader elected: payload=shconsulnode01
+2021-06-21T02:54:22.705Z [INFO]  agent.server: initializing acls
+2021-06-21T02:54:22.705Z [INFO]  agent.leader: started routine: routine="legacy ACL token upgrade"
+2021-06-21T02:54:22.705Z [INFO]  agent.leader: started routine: routine="acl token reaping"
+2021-06-21T02:54:22.705Z [INFO]  agent.server.serf.lan: serf: EventMemberUpdate: shconsulnode01
+2021-06-21T02:54:22.705Z [INFO]  agent.server.serf.wan: serf: EventMemberUpdate: shconsulnode01.dc1
+2021-06-21T02:54:22.705Z [INFO]  agent.server: Updating LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:54:22.705Z [INFO]  agent.server: Handled event for server in area: event=member-update server=shconsulnode01.dc1 area=wan
+2021-06-21T02:54:22.706Z [INFO]  agent.leader: started routine: routine="federation state anti-entropy"
+2021-06-21T02:54:22.706Z [INFO]  agent.leader: started routine: routine="federation state pruning"
+2021-06-21T02:54:22.706Z [DEBUG] agent.server: successfully established leadership: duration=949.089µs
+2021-06-21T02:54:22.706Z [DEBUG] agent.server.autopilot: autopilot is now running
+2021-06-21T02:54:22.706Z [DEBUG] agent.server.autopilot: state update routine is now running
+2021-06-21T02:54:22.823Z [DEBUG] agent: Skipping remote check since it is managed automatically: check=serfHealth
+2021-06-21T02:54:22.824Z [INFO]  agent: Synced node info
+2021-06-21T02:54:22.949Z [DEBUG] agent: Skipping remote check since it is managed automatically: check=serfHealth
+2021-06-21T02:54:22.949Z [DEBUG] agent: Node info in sync
+2021-06-21T02:54:22.949Z [DEBUG] agent: Node info in sync
+++ consul members -token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T02:54:25.500Z [DEBUG] agent.http: Request finished: method=GET url=/v1/agent/members?segment=_all from=127.0.0.1:34720 latency=138.507µs
++ response='Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.6  2         dc1  <all>'
++ [[ Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.6  2         dc1  <all> =~ .*shconsulnode01.* ]]
++ break
++ '[' 10 -eq 0 ']'
++ echo 'Initilalize defualts including randomized keys and passwords'
+Initilalize defualts including randomized keys and passwords
++ python3 /init/consulinit.py bootstrap --host=localhost --port=8500 --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T02:54:26.062Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/site.name from=127.0.0.1:34722 latency=850.665µs
+2021-06-21T02:54:26.065Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/instance.name from=127.0.0.1:34722 latency=689.605µs
+2021-06-21T02:54:26.068Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/node.fqdn from=127.0.0.1:34722 latency=1.26496ms
+2021-06-21T02:54:26.070Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/node.ip from=127.0.0.1:34722 latency=583.113µs
+2021-06-21T02:54:26.072Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/node.url from=127.0.0.1:34722 latency=521.008µs
+2021-06-21T02:54:26.074Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/node.name from=127.0.0.1:34722 latency=555.392µs
+2021-06-21T02:54:26.076Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/consul.host from=127.0.0.1:34722 latency=556.608µs
+2021-06-21T02:54:26.078Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/consul.port from=127.0.0.1:34722 latency=620.197µs
+2021-06-21T02:54:26.080Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/consul.kv.access.token from=127.0.0.1:34722 latency=534.159µs
+2021-06-21T02:54:26.082Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/consul.service.health.check.interval from=127.0.0.1:34722 latency=1.128632ms
+2021-06-21T02:54:26.084Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/consul.service.health.check.timeout from=127.0.0.1:34722 latency=592.88µs
+2021-06-21T02:54:26.086Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/db.name from=127.0.0.1:34722 latency=552.426µs
+2021-06-21T02:54:26.088Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.enable.ssl from=127.0.0.1:34722 latency=558.871µs
+2021-06-21T02:54:26.090Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/jwt.secret from=127.0.0.1:34722 latency=554.381µs
+2021-06-21T02:54:26.093Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/encrypt.key from=127.0.0.1:34722 latency=1.024374ms
+2021-06-21T02:54:26.095Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/logging.path from=127.0.0.1:34722 latency=652.834µs
+2021-06-21T02:54:26.097Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.trust.store from=127.0.0.1:34722 latency=562.492µs
+2021-06-21T02:54:26.099Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/hello.host from=127.0.0.1:34722 latency=592.022µs
+2021-06-21T02:54:26.101Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/hello.grpc.port from=127.0.0.1:34722 latency=618.269µs
+2021-06-21T02:54:26.103Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/hello.rest.port from=127.0.0.1:34722 latency=599.129µs
+2021-06-21T02:54:26.105Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/communicator.host from=127.0.0.1:34722 latency=667.346µs
+2021-06-21T02:54:26.108Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/communicator.grpc.port from=127.0.0.1:34722 latency=1.037506ms
+2021-06-21T02:54:26.110Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/communicator.rest.port from=127.0.0.1:34722 latency=768.641µs
+2021-06-21T02:54:26.112Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iam.host from=127.0.0.1:34722 latency=519.236µs
+2021-06-21T02:54:26.114Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iam.grpc.port from=127.0.0.1:34722 latency=683.817µs
+2021-06-21T02:54:26.116Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iam.rest.port from=127.0.0.1:34722 latency=582.1µs
+2021-06-21T02:54:26.118Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/distribution.host from=127.0.0.1:34722 latency=937.058µs
+2021-06-21T02:54:26.121Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/distribution.grpc.port from=127.0.0.1:34722 latency=590.542µs
+2021-06-21T02:54:26.124Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/distribution.rest.port from=127.0.0.1:34722 latency=1.374532ms
+2021-06-21T02:54:26.126Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/lcm.host from=127.0.0.1:34722 latency=576.236µs
+2021-06-21T02:54:26.128Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/lcm.grpc.port from=127.0.0.1:34722 latency=466.383µs
+2021-06-21T02:54:26.130Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/lcm.rest.port from=127.0.0.1:34722 latency=466.574µs
+2021-06-21T02:54:26.132Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicemgmt.host from=127.0.0.1:34722 latency=519.911µs
+2021-06-21T02:54:26.134Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicemgmt.grpc.port from=127.0.0.1:34722 latency=683.244µs
+2021-06-21T02:54:26.136Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicemgmt.rest.port from=127.0.0.1:34722 latency=636.812µs
+2021-06-21T02:54:26.138Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicesec.host from=127.0.0.1:34722 latency=645.626µs
+2021-06-21T02:54:26.141Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicesec.grpc.port from=127.0.0.1:34722 latency=1.170651ms
+2021-06-21T02:54:26.143Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicesec.rest.port from=127.0.0.1:34722 latency=642.439µs
+2021-06-21T02:54:26.145Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricingest.host from=127.0.0.1:34722 latency=601.594µs
+2021-06-21T02:54:26.147Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricingest.grpc.port from=127.0.0.1:34722 latency=619.287µs
+2021-06-21T02:54:26.149Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricingest.rest.port from=127.0.0.1:34722 latency=620.773µs
+2021-06-21T02:54:26.151Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricquery.host from=127.0.0.1:34722 latency=660.474µs
+2021-06-21T02:54:26.153Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricquery.grpc.port from=127.0.0.1:34722 latency=537.699µs
+2021-06-21T02:54:26.156Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metricquery.rest.port from=127.0.0.1:34722 latency=1.268275ms
+2021-06-21T02:54:26.158Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/alert.host from=127.0.0.1:34722 latency=594.516µs
+2021-06-21T02:54:26.160Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/alert.grpc.port from=127.0.0.1:34722 latency=574.101µs
+2021-06-21T02:54:26.162Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/alert.rest.port from=127.0.0.1:34722 latency=589.295µs
+2021-06-21T02:54:26.164Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/aggregator.host from=127.0.0.1:34722 latency=576.299µs
+2021-06-21T02:54:26.166Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/aggregator.grpc.port from=127.0.0.1:34722 latency=498.831µs
+2021-06-21T02:54:26.168Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/aggregator.rest.port from=127.0.0.1:34722 latency=441.519µs
+2021-06-21T02:54:26.170Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/notifications.host from=127.0.0.1:34722 latency=961.896µs
+2021-06-21T02:54:26.172Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/notifications.grpc.port from=127.0.0.1:34722 latency=502.2µs
+2021-06-21T02:54:26.174Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/notifications.rest.port from=127.0.0.1:34722 latency=554.037µs
+2021-06-21T02:54:26.176Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/console.host from=127.0.0.1:34722 latency=546.829µs
+2021-06-21T02:54:26.178Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/console.grpc.port from=127.0.0.1:34722 latency=488.228µs
+2021-06-21T02:54:26.180Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/console.rest.port from=127.0.0.1:34722 latency=542.676µs
+2021-06-21T02:54:26.182Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/cspadapter.host from=127.0.0.1:34722 latency=664.514µs
+2021-06-21T02:54:26.185Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/cspadapter.rest.port from=127.0.0.1:34722 latency=1.214139ms
+2021-06-21T02:54:26.187Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/instdeployer.host from=127.0.0.1:34722 latency=522.695µs
+2021-06-21T02:54:26.189Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/instdeployer.rest.port from=127.0.0.1:34722 latency=598.449µs
+2021-06-21T02:54:26.190Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.host from=127.0.0.1:34722 latency=481.082µs
+2021-06-21T02:54:26.192Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.grpc.port from=127.0.0.1:34722 latency=545.567µs
+2021-06-21T02:54:26.194Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.rest.port from=127.0.0.1:34722 latency=500.323µs
+2021-06-21T02:54:26.198Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deviceagent.host from=127.0.0.1:34722 latency=2.825466ms
+2021-06-21T02:54:26.201Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deviceagent.grpc.port from=127.0.0.1:34722 latency=1.124135ms
+2021-06-21T02:54:26.203Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deviceagent.rest.port from=127.0.0.1:34722 latency=455.171µs
+2021-06-21T02:54:26.205Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/zcsconnector.host from=127.0.0.1:34722 latency=573.064µs
+2021-06-21T02:54:26.208Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/zcsconnector.rest.port from=127.0.0.1:34722 latency=589.977µs
+2021-06-21T02:54:26.210Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/zcs.key.store from=127.0.0.1:34722 latency=579.985µs
+2021-06-21T02:54:26.215Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicedisc.host from=127.0.0.1:34722 latency=885.967µs
+2021-06-21T02:54:26.217Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicedisc.grpc.port from=127.0.0.1:34722 latency=1.168013ms
+2021-06-21T02:54:26.219Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/devicedisc.rest.port from=127.0.0.1:34722 latency=630.632µs
+2021-06-21T02:54:26.221Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.urls from=127.0.0.1:34722 latency=429.626µs
+2021-06-21T02:54:26.223Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.admin.username from=127.0.0.1:34722 latency=529.701µs
+2021-06-21T02:54:26.225Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.admin.password from=127.0.0.1:34722 latency=563.379µs
+2021-06-21T02:54:26.227Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.username from=127.0.0.1:34722 latency=555.666µs
+2021-06-21T02:54:26.229Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.password from=127.0.0.1:34722 latency=1.065599ms
+2021-06-21T02:54:26.231Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.max.connections from=127.0.0.1:34722 latency=555.006µs
+2021-06-21T02:54:26.233Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.max.thread.waiting from=127.0.0.1:34722 latency=587.031µs
+2021-06-21T02:54:26.235Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.connection.timeout.secs from=127.0.0.1:34722 latency=586.284µs
+2021-06-21T02:54:26.237Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.socket.timeout.secs from=127.0.0.1:34722 latency=610.33µs
+2021-06-21T02:54:26.239Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.threshold.insert from=127.0.0.1:34722 latency=553.282µs
+2021-06-21T02:54:26.241Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.threshold.delete from=127.0.0.1:34722 latency=497.494µs
+2021-06-21T02:54:26.243Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.threshold.query from=127.0.0.1:34722 latency=859.756µs
+2021-06-21T02:54:26.245Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/mongo.db.threshold.update from=127.0.0.1:34722 latency=562.179µs
+2021-06-21T02:54:26.247Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.host from=127.0.0.1:34722 latency=467.519µs
+2021-06-21T02:54:26.249Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.port from=127.0.0.1:34722 latency=478.212µs
+2021-06-21T02:54:26.251Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.admin.username from=127.0.0.1:34722 latency=509.896µs
+2021-06-21T02:54:26.253Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.admin.password from=127.0.0.1:34722 latency=568.81µs
+2021-06-21T02:54:26.256Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.username from=127.0.0.1:34722 latency=1.0646ms
+2021-06-21T02:54:26.258Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.password from=127.0.0.1:34722 latency=583.703µs
+2021-06-21T02:54:26.260Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.retention.policy from=127.0.0.1:34722 latency=586.453µs
+2021-06-21T02:54:26.262Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/influx.db.consistency.level from=127.0.0.1:34722 latency=526.354µs
+2021-06-21T02:54:26.264Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/kapacitor.db.host from=127.0.0.1:34722 latency=541.177µs
+2021-06-21T02:54:26.266Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/kapacitor.db.port from=127.0.0.1:34722 latency=545.087µs
+2021-06-21T02:54:26.268Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/kapacitor.db.username from=127.0.0.1:34722 latency=1.074774ms
+2021-06-21T02:54:26.270Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/kapacitor.db.password from=127.0.0.1:34722 latency=482.707µs
+2021-06-21T02:54:26.272Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/kapacitor.data.current.version from=127.0.0.1:34722 latency=524.19µs
+2021-06-21T02:54:26.274Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.min.api.version from=127.0.0.1:34722 latency=534.785µs
+2021-06-21T02:54:26.276Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.current.api.version from=127.0.0.1:34722 latency=457.862µs
+2021-06-21T02:54:26.278Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/api.version.enabled from=127.0.0.1:34722 latency=531.307µs
+2021-06-21T02:54:26.280Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/grpc.fixed.thread.pool.enabled from=127.0.0.1:34722 latency=966.965µs
+2021-06-21T02:54:26.282Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/grpc.fixed.thread.pool.size from=127.0.0.1:34722 latency=564.145µs
+2021-06-21T02:54:26.284Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/auditlogs.retention.period.days from=127.0.0.1:34722 latency=496.196µs
+2021-06-21T02:54:26.286Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.request.timeout.millis from=127.0.0.1:34722 latency=574.064µs
+2021-06-21T02:54:26.288Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.connect.timeout.millis from=127.0.0.1:34722 latency=535.577µs
+2021-06-21T02:54:26.290Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.socket.timeout.millis from=127.0.0.1:34722 latency=518.827µs
+2021-06-21T02:54:26.292Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.request.retry.enable from=127.0.0.1:34722 latency=591.396µs
+2021-06-21T02:54:26.294Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.request.retry.attempts from=127.0.0.1:34722 latency=1.040849ms
+2021-06-21T02:54:26.296Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.max.retry.backoff from=127.0.0.1:34722 latency=479.357µs
+2021-06-21T02:54:26.298Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.initial.interval.delay from=127.0.0.1:34722 latency=484.369µs
+2021-06-21T02:54:26.300Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.request.keep.alive from=127.0.0.1:34722 latency=631.627µs
+2021-06-21T02:54:26.302Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.max.total.connections from=127.0.0.1:34722 latency=508.638µs
+2021-06-21T02:54:26.304Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.default.max.connections.per.route from=127.0.0.1:34722 latency=565.713µs
+2021-06-21T02:54:26.306Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/http.client.validate.inactive.millis from=127.0.0.1:34722 latency=907.163µs
+2021-06-21T02:54:26.308Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/retention.policy.default from=127.0.0.1:34722 latency=549.597µs
+2021-06-21T02:54:26.310Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/retention.policy.enabled from=127.0.0.1:34722 latency=496.772µs
+2021-06-21T02:54:26.312Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/smtp.default.sender.email from=127.0.0.1:34722 latency=563.869µs
+2021-06-21T02:54:26.314Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/csp.username from=127.0.0.1:34722 latency=604.833µs
+2021-06-21T02:54:26.316Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/csp.password from=127.0.0.1:34722 latency=585.617µs
+2021-06-21T02:54:26.318Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/org.hierarchy.visibility.enabled from=127.0.0.1:34722 latency=957.669µs
+2021-06-21T02:54:26.320Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/ff.audit.jsondiff.enabled from=127.0.0.1:34722 latency=580.789µs
+2021-06-21T02:54:26.322Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.manager.username from=127.0.0.1:34722 latency=478.037µs
+2021-06-21T02:54:26.324Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.manager.password from=127.0.0.1:34722 latency=587.818µs
+2021-06-21T02:54:26.326Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/repo.path from=127.0.0.1:34722 latency=529.784µs
+2021-06-21T02:54:26.328Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metrics.reporter.type from=127.0.0.1:34722 latency=562.86µs
+2021-06-21T02:54:26.330Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/metrics.reporter.console.interval.min from=127.0.0.1:34722 latency=472.72µs
+2021-06-21T02:54:26.332Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/ff.alert.device.list.support.enabled from=127.0.0.1:34722 latency=1.042173ms
+2021-06-21T02:54:26.334Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/ff.alert.multi.level.support.enabled from=127.0.0.1:34722 latency=546.987µs
+2021-06-21T02:54:26.336Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/logging.level from=127.0.0.1:34722 latency=564.179µs
+2021-06-21T02:54:26.338Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.consumer.numOfWorkers from=127.0.0.1:34722 latency=549.924µs
+2021-06-21T02:54:26.341Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.consumer.poll.interval.ms from=127.0.0.1:34722 latency=577.309µs
+2021-06-21T02:54:26.342Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.entry.ttl.days from=127.0.0.1:34722 latency=452.248µs
+2021-06-21T02:54:26.344Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.consumer.incompleteTimeout.seconds from=127.0.0.1:34722 latency=559.939µs
+2021-06-21T02:54:26.347Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.consumer.redelivery.max from=127.0.0.1:34722 latency=1.194641ms
+2021-06-21T02:54:26.349Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/tasks.query.pageSize.max from=127.0.0.1:34722 latency=592.997µs
+2021-06-21T02:54:26.351Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/token.version from=127.0.0.1:34722 latency=526.782µs
+2021-06-21T02:54:26.353Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/ff.idp.settings.enabled from=127.0.0.1:34722 latency=539.682µs
+2021-06-21T02:54:26.355Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.repo.root.dir from=127.0.0.1:34722 latency=436.952µs
+2021-06-21T02:54:26.357Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.file.read.buffer.size from=127.0.0.1:34722 latency=630.347µs
+2021-06-21T02:54:26.359Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/iotc.file.adapter.type from=127.0.0.1:34722 latency=961.881µs
+2021-06-21T02:54:26.380Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/token.access.validity.min from=127.0.0.1:34726 latency=688.544µs
+2021-06-21T02:54:26.383Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/token.access.forgot.password.validity.min from=127.0.0.1:34726 latency=571.146µs
+2021-06-21T02:54:26.385Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/token.access.generate.password.validity.min from=127.0.0.1:34726 latency=647.261µs
+2021-06-21T02:54:26.387Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/disable.user.account.time.period.minutes from=127.0.0.1:34726 latency=626.871µs
+2021-06-21T02:54:26.391Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/max.login.attempts.allowed.before.lock from=127.0.0.1:34726 latency=2.257852ms
+2021-06-21T02:54:26.393Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/token.refresh.validity.min from=127.0.0.1:34726 latency=606.762µs
+2021-06-21T02:54:26.395Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/max.users.per.org from=127.0.0.1:34726 latency=1.033711ms
+2021-06-21T02:54:26.397Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/max.roles.per.org from=127.0.0.1:34726 latency=619.594µs
+2021-06-21T02:54:26.399Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/max.groups.per.org from=127.0.0.1:34726 latency=594.134µs
+2021-06-21T02:54:26.401Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/max.depth.org.hierarchy from=127.0.0.1:34726 latency=605.87µs
+2021-06-21T02:54:26.403Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/password.expire.time.in.days from=127.0.0.1:34726 latency=628.455µs
+2021-06-21T02:54:26.405Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/ldap.connection.timeout.sec from=127.0.0.1:34726 latency=573.75µs
+2021-06-21T02:54:26.407Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/ldap.read.timeout.sec from=127.0.0.1:34726 latency=581.25µs
+2021-06-21T02:54:26.410Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/deleted.users.retention.period.days from=127.0.0.1:34726 latency=1.003335ms
+2021-06-21T02:54:26.412Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/deleted.orgs.retention.period.days from=127.0.0.1:34726 latency=601.363µs
+2021-06-21T02:54:26.414Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/deleted.groups.retention.period.days from=127.0.0.1:34726 latency=627.983µs
+2021-06-21T02:54:26.416Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/deleted.roles.retention.period.days from=127.0.0.1:34726 latency=582.063µs
+2021-06-21T02:54:26.418Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.consumption.waiting.time.msec from=127.0.0.1:34726 latency=565.882µs
+2021-06-21T02:54:26.420Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.graceful.cancellation.try.count from=127.0.0.1:34726 latency=618.829µs
+2021-06-21T02:54:26.422Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.batch.size from=127.0.0.1:34726 latency=1.003929ms
+2021-06-21T02:54:26.424Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.consumption.size from=127.0.0.1:34726 latency=617.724µs
+2021-06-21T02:54:26.426Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.max.batch.size from=127.0.0.1:34726 latency=627.719µs
+2021-06-21T02:54:26.428Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.max.consumption.size from=127.0.0.1:34726 latency=584.587µs
+2021-06-21T02:54:26.430Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/worker.acceleration.threshold from=127.0.0.1:34726 latency=582.489µs
+2021-06-21T02:54:26.432Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/retention.default.time.sec from=127.0.0.1:34726 latency=598.589µs
+2021-06-21T02:54:26.435Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/max.results from=127.0.0.1:34726 latency=987.685µs
+2021-06-21T02:54:26.437Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/min.freememory from=127.0.0.1:34726 latency=590.186µs
+2021-06-21T02:54:26.439Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/list.filtereddevices.timeout.msec from=127.0.0.1:34726 latency=603.377µs
+2021-06-21T02:54:26.441Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/db.storage.enabled from=127.0.0.1:34726 latency=613.843µs
+2021-06-21T02:54:26.442Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/no.template.support.enabled from=127.0.0.1:34726 latency=501.962µs
+2021-06-21T02:54:26.444Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/multiple.templates.support.enabled from=127.0.0.1:34726 latency=584.613µs
+2021-06-21T02:54:26.447Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/max.filter.definition.name.length from=127.0.0.1:34726 latency=987.055µs
+2021-06-21T02:54:26.449Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/min.dynamic.task.update.interval.sec from=127.0.0.1:34726 latency=597.153µs
+2021-06-21T02:54:26.451Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/csp.cookie.validity.minutes from=127.0.0.1:34726 latency=574.506µs
+2021-06-21T02:54:26.453Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.template.file.name from=127.0.0.1:34726 latency=564.728µs
+2021-06-21T02:54:26.455Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/csp.aes.key from=127.0.0.1:34726 latency=569.643µs
+2021-06-21T02:54:26.457Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.minthreads from=127.0.0.1:34726 latency=610.204µs
+2021-06-21T02:54:26.459Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.maxthreads from=127.0.0.1:34726 latency=1.017914ms
+2021-06-21T02:54:26.461Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.idle.timeout from=127.0.0.1:34726 latency=601.175µs
+2021-06-21T02:54:26.463Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/csp.state.token.version from=127.0.0.1:34726 latency=621.423µs
+2021-06-21T02:54:26.465Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/csp.eula.absolute.path from=127.0.0.1:34726 latency=567.964µs
+2021-06-21T02:54:26.467Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/token.version from=127.0.0.1:34726 latency=601.329µs
+2021-06-21T02:54:26.469Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.template.absolute.path from=127.0.0.1:34726 latency=564.965µs
+2021-06-21T02:54:26.472Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.template.service.invite.file.name from=127.0.0.1:34726 latency=1.009579ms
+2021-06-21T02:54:26.474Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.template.order.notification.file.name from=127.0.0.1:34726 latency=560.234µs
+2021-06-21T02:54:26.476Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/csp.api.hit.interval from=127.0.0.1:34726 latency=553.08µs
+2021-06-21T02:54:26.477Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.evaluation.end.notification.file.name from=127.0.0.1:34726 latency=600.861µs
+2021-06-21T02:54:26.479Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.grace.end.notification.file.name from=127.0.0.1:34726 latency=555.534µs
+2021-06-21T02:54:26.481Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.premium.subscription.end.notification.file.name from=127.0.0.1:34726 latency=570.437µs
+2021-06-21T02:54:26.484Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.premium.grace.end.notification.file.name from=127.0.0.1:34726 latency=1.009979ms
+2021-06-21T02:54:26.486Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/mail.template.order.ack.failed.file.name from=127.0.0.1:34726 latency=556.23µs
+2021-06-21T02:54:26.488Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.low.resource.monitor.on from=127.0.0.1:34726 latency=536.796µs
+2021-06-21T02:54:26.490Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.is.server.dump.after.start from=127.0.0.1:34726 latency=674.043µs
+2021-06-21T02:54:26.492Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.is.server.dump.before.stop from=127.0.0.1:34726 latency=594.444µs
+2021-06-21T02:54:26.494Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.thread.pool.is.detail.dump.on from=127.0.0.1:34726 latency=997.883µs
+2021-06-21T02:54:26.496Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.output.buffer.size from=127.0.0.1:34726 latency=607.806µs
+2021-06-21T02:54:26.498Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.request.header.size from=127.0.0.1:34726 latency=510.442µs
+2021-06-21T02:54:26.500Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/cspadapter/rest.response.header.size from=127.0.0.1:34726 latency=594.747µs
+2021-06-21T02:54:26.502Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.devices.per.org from=127.0.0.1:34726 latency=634.564µs
+2021-06-21T02:54:26.504Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.templates.per.org from=127.0.0.1:34726 latency=538.535µs
+2021-06-21T02:54:26.506Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.metrics.per.template from=127.0.0.1:34726 latency=590.64µs
+2021-06-21T02:54:26.508Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.connected.device.per.device from=127.0.0.1:34726 latency=996.175µs
+2021-06-21T02:54:26.510Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.credential.expiry.time from=127.0.0.1:34726 latency=593.47µs
+2021-06-21T02:54:26.512Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/device.token.expiry.time from=127.0.0.1:34726 latency=610.244µs
+2021-06-21T02:54:26.514Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.hierarchy.level from=127.0.0.1:34726 latency=571.988µs
+2021-06-21T02:54:26.516Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/device.ttl.days from=127.0.0.1:34726 latency=598.72µs
+2021-06-21T02:54:26.518Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/min.metric.interval.time from=127.0.0.1:34726 latency=648.163µs
+2021-06-21T02:54:26.521Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/min.command.fetch.interval.time from=127.0.0.1:34726 latency=1.202781ms
+2021-06-21T02:54:26.523Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.files.per.org from=127.0.0.1:34726 latency=631.771µs
+2021-06-21T02:54:26.525Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/min.server.request.timeout from=127.0.0.1:34726 latency=548.344µs
+2021-06-21T02:54:26.527Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/max.server.request.timeout from=127.0.0.1:34726 latency=607.848µs
+2021-06-21T02:54:26.529Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/min.network.bandwidth from=127.0.0.1:34726 latency=616.406µs
+2021-06-21T02:54:26.531Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicesec/attestation.default.interval.seconds from=127.0.0.1:34726 latency=530.333µs
+2021-06-21T02:54:26.533Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicesec/attestation.wait.before.find.nonce from=127.0.0.1:34726 latency=949.422µs
+2021-06-21T02:54:26.535Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicesec/max.golden.values.cache.load.time.seconds from=127.0.0.1:34726 latency=617.448µs
+2021-06-21T02:54:26.537Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/max.destinations.per.org from=127.0.0.1:34726 latency=567.878µs
+2021-06-21T02:54:26.539Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/max.definitions.per.org from=127.0.0.1:34726 latency=574.684µs
+2021-06-21T02:54:26.541Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/tasks.consumer.poll.interval.ms from=127.0.0.1:34726 latency=569.5µs
+2021-06-21T02:54:26.543Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/notification.instances.retention.period.days from=127.0.0.1:34726 latency=568.331µs
+2021-06-21T02:54:26.545Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/notification.deleted.definitions.retention.period.days from=127.0.0.1:34726 latency=967.161µs
+2021-06-21T02:54:26.547Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/notification.deleted.destinations.retention.period.days from=127.0.0.1:34726 latency=619.982µs
+2021-06-21T02:54:26.551Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/system.notification.instances.retention.period.days from=127.0.0.1:34726 latency=577.704µs
+2021-06-21T02:54:26.553Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/min.repeating.interval from=127.0.0.1:34726 latency=627.023µs
+2021-06-21T02:54:26.555Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/max.repeating.interval from=127.0.0.1:34726 latency=596.529µs
+2021-06-21T02:54:26.558Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/email.min.repetition.value from=127.0.0.1:34726 latency=609.421µs
+2021-06-21T02:54:26.560Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/email.max.repetition.value from=127.0.0.1:34726 latency=1.024484ms
+2021-06-21T02:54:26.562Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.min.retry.interval from=127.0.0.1:34726 latency=546.901µs
+2021-06-21T02:54:26.564Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.max.retry.interval from=127.0.0.1:34726 latency=576.721µs
+2021-06-21T02:54:26.566Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.retry.count.min.value from=127.0.0.1:34726 latency=600.678µs
+2021-06-21T02:54:26.568Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.retry.count.max.value from=127.0.0.1:34726 latency=607.337µs
+2021-06-21T02:54:26.570Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.request.timeout.min.value from=127.0.0.1:34726 latency=572.051µs
+2021-06-21T02:54:26.573Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/http.definitions.request.timeout.max.value from=127.0.0.1:34726 latency=917.607µs
+2021-06-21T02:54:26.575Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/deprecate.destination.enabled from=127.0.0.1:34726 latency=484.261µs
+2021-06-21T02:54:26.577Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricquery/influx.db.connection.retry.max from=127.0.0.1:34726 latency=543.683µs
+2021-06-21T02:54:26.579Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricquery/influx.db.connection.retry.interval from=127.0.0.1:34726 latency=557.809µs
+2021-06-21T02:54:26.581Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricquery/influx.db.response.max.points.per.device from=127.0.0.1:34726 latency=498.38µs
+2021-06-21T02:54:26.583Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/expiry.indays from=127.0.0.1:34726 latency=578.708µs
+2021-06-21T02:54:26.585Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/max.definitions.per.org from=127.0.0.1:34726 latency=914.812µs
+2021-06-21T02:54:26.587Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/max.device.templates.per.definition from=127.0.0.1:34726 latency=586.24µs
+2021-06-21T02:54:26.589Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/max.devices.per.definition from=127.0.0.1:34726 latency=545.759µs
+2021-06-21T02:54:26.591Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/devices.update.interval.in.seconds from=127.0.0.1:34726 latency=496.602µs
+2021-06-21T02:54:26.593Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/max.triggers.per.record from=127.0.0.1:34726 latency=514.766µs
+2021-06-21T02:54:26.595Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/assertion.enabled from=127.0.0.1:34726 latency=504.468µs
+2021-06-21T02:54:26.597Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/export.audit.logs.max from=127.0.0.1:34726 latency=955.657µs
+2021-06-21T02:54:26.599Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/batching.enabled from=127.0.0.1:34726 latency=571.52µs
+2021-06-21T02:54:26.601Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/async.enabled from=127.0.0.1:34726 latency=483.317µs
+2021-06-21T02:54:26.603Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/buffer.batch.limit from=127.0.0.1:34726 latency=562.846µs
+2021-06-21T02:54:26.605Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/buffer.reader.initial.delay from=127.0.0.1:34726 latency=472.841µs
+2021-06-21T02:54:26.607Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/buffer.reader.interval from=127.0.0.1:34726 latency=529.969µs
+2021-06-21T02:54:26.609Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/buffer.readers.count from=127.0.0.1:34726 latency=525.411µs
+2021-06-21T02:54:26.611Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/validation.enabled from=127.0.0.1:34726 latency=938.267µs
+2021-06-21T02:54:26.613Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/kapacitor.write.enabled from=127.0.0.1:34726 latency=569.174µs
+2021-06-21T02:54:26.615Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/influxdb.write.enabled from=127.0.0.1:34726 latency=581.742µs
+2021-06-21T02:54:26.617Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/kapacitor.write.multinode from=127.0.0.1:34726 latency=576.899µs
+2021-06-21T02:54:26.619Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/kapacitor.write.single.point from=127.0.0.1:34726 latency=586.09µs
+2021-06-21T02:54:26.621Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/iam.username from=127.0.0.1:34726 latency=549.886µs
+2021-06-21T02:54:26.661Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/iam.password from=127.0.0.1:34726 latency=1.096821ms
+2021-06-21T02:54:26.663Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/aggregator.username from=127.0.0.1:34726 latency=543.256µs
+2021-06-21T02:54:26.702Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/aggregator/aggregator.password from=127.0.0.1:34726 latency=657.055µs
+2021-06-21T02:54:26.704Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricquery/metricquery.username from=127.0.0.1:34726 latency=493.968µs
+2021-06-21T02:54:26.744Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricquery/metricquery.password from=127.0.0.1:34726 latency=644.016µs
+2021-06-21T02:54:26.747Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/alert.username from=127.0.0.1:34726 latency=1.042221ms
+2021-06-21T02:54:26.787Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/alert/alert.password from=127.0.0.1:34726 latency=599.599µs
+2021-06-21T02:54:26.789Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/lcm/lcm.username from=127.0.0.1:34726 latency=459.356µs
+2021-06-21T02:54:26.829Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/lcm/lcm.password from=127.0.0.1:34726 latency=510.135µs
+2021-06-21T02:54:26.834Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/notifications.username from=127.0.0.1:34726 latency=3.12625ms
+2021-06-21T02:54:26.875Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/notifications.password from=127.0.0.1:34726 latency=569.04µs
+2021-06-21T02:54:26.876Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/console.username from=127.0.0.1:34726 latency=474.981µs
+2021-06-21T02:54:26.917Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/console.password from=127.0.0.1:34726 latency=762.246µs
+2021-06-21T02:54:26.919Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/nodemgmt/nodemgmt.username from=127.0.0.1:34726 latency=543.82µs
+2021-06-21T02:54:26.960Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/nodemgmt/nodemgmt.password from=127.0.0.1:34726 latency=1.235512ms
+2021-06-21T02:54:26.963Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/devicemgmt.username from=127.0.0.1:34726 latency=666.384µs
+2021-06-21T02:54:27.003Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/devicemgmt.password from=127.0.0.1:34726 latency=787.26µs
+2021-06-21T02:54:27.009Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/distribution/distribution.username from=127.0.0.1:34726 latency=714.404µs
+2021-06-21T02:54:27.050Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/distribution/distribution.password from=127.0.0.1:34726 latency=724.326µs
+2021-06-21T02:54:27.053Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/repo/repo.username from=127.0.0.1:34726 latency=1.232036ms
+2021-06-21T02:54:27.093Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/repo/repo.password from=127.0.0.1:34726 latency=631.482µs
+2021-06-21T02:54:27.095Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicesec/devicesec.username from=127.0.0.1:34726 latency=514.503µs
+2021-06-21T02:54:27.135Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicesec/devicesec.password from=127.0.0.1:34726 latency=588.252µs
+2021-06-21T02:54:27.137Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/deviceagent/deviceagent.username from=127.0.0.1:34726 latency=635.383µs
+2021-06-21T02:54:27.179Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/deviceagent/deviceagent.password from=127.0.0.1:34726 latency=1.273023ms
+2021-06-21T02:54:27.182Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/rest.minthreads from=127.0.0.1:34726 latency=692.476µs
+2021-06-21T02:54:27.184Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/rest.maxthreads from=127.0.0.1:34726 latency=583.07µs
+2021-06-21T02:54:27.186Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/rest.minthreads from=127.0.0.1:34726 latency=445.688µs
+2021-06-21T02:54:27.188Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/iam/rest.maxthreads from=127.0.0.1:34726 latency=559.463µs
+2021-06-21T02:54:27.189Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/rest.minthreads from=127.0.0.1:34726 latency=444.888µs
+2021-06-21T02:54:27.191Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/devicemgmt/rest.maxthreads from=127.0.0.1:34726 latency=472.423µs
+2021-06-21T02:54:27.194Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/rest.minthreads from=127.0.0.1:34726 latency=899.518µs
+2021-06-21T02:54:27.196Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/metricingest/rest.maxthreads from=127.0.0.1:34726 latency=449.586µs
+2021-06-21T02:54:27.198Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/rest.minthreads from=127.0.0.1:34726 latency=575.956µs
+2021-06-21T02:54:27.200Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/notifications/rest.maxthreads from=127.0.0.1:34726 latency=469.816µs
+2021-06-21T02:54:27.202Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/instdeployer/rest.minthreads from=127.0.0.1:34726 latency=496.24µs
+2021-06-21T02:54:27.204Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/instdeployer/rest.maxthreads from=127.0.0.1:34726 latency=448.695µs
+2021-06-21T02:54:27.206Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/ff.tpm.enrolment.enabled from=127.0.0.1:34726 latency=985.551µs
+2021-06-21T02:54:27.208Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/zcsconnector/zcs.url from=127.0.0.1:34726 latency=473.435µs
+2021-06-21T02:54:27.210Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/zcsconnector/zcs.certificate from=127.0.0.1:34726 latency=566.555µs
+2021-06-21T02:54:27.212Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/zcsconnector/zcs.customer from=127.0.0.1:34726 latency=510.812µs
+2021-06-21T02:54:27.214Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/ff.tpm.attestation.enabled from=127.0.0.1:34726 latency=555.706µs
+2021-06-21T02:54:27.216Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/services/console/ff.zcs.connector.enabled from=127.0.0.1:34726 latency=442.033µs
+TENANT_NAME,tenant.name,SmartHub
+iotc/sites/default/instances/default/deployment/properties/tenant.name,SmartHub,SmartHub
+2021-06-21T02:54:27.219Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/tenant.name from=127.0.0.1:34728 latency=590.455µs
+TENANT_DOMAIN_NAME,domain.name,smarthub.local
+iotc/sites/default/instances/default/deployment/properties/domain.name,smarthub.local,smarthub.local
+2021-06-21T02:54:27.221Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/domain.name from=127.0.0.1:34728 latency=912.826µs
+TENANT_CONSOLE_USERNAME,console.username,sysadmin
+iotc/sites/default/instances/default/deployment/properties/console.username,sysadmin,sysadmin
+2021-06-21T02:54:27.224Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/console.username from=127.0.0.1:34728 latency=532.938µs
+TENANT_CONSOLE_USER_EMAIL,console.user.email,ajith@smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/console.user.email,ajith@smarthub.ai,ajith@smarthub.ai
+2021-06-21T02:54:27.226Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/console.user.email from=127.0.0.1:34728 latency=497.926µs
+TENANT_CONSOLE_USER_PASSWORD,console.password,SmartHub#123
+iotc/sites/default/instances/default/deployment/properties/console.password,8D1E374283575BDFE3C20ABF4B24582E7AB3BB820E91702D5D61A78C62652419A247585945280C6DCD2895B185348CBD4F20CB880A4FCFF0000F5A83,SmartHub#123
+2021-06-21T02:54:27.267Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/console.password from=127.0.0.1:34728 latency=848.957µs
+TENANT_SMTP_HOST,smtp.host,smtp.smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/smtp.host,smtp.smarthub.ai,smtp.smarthub.ai
+2021-06-21T02:54:27.269Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/smtp.host from=127.0.0.1:34728 latency=623.043µs
+TENANT_SMTP_PORT,smtp.port,587
+iotc/sites/default/instances/default/deployment/properties/smtp.port,587,587
+2021-06-21T02:54:27.272Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/smtp.port from=127.0.0.1:34728 latency=742.932µs
+TENANT_SMTP_USERNAME,smtp.username,ajith
+iotc/sites/default/instances/default/deployment/properties/smtp.username,ajith,ajith
+2021-06-21T02:54:27.274Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/smtp.username from=127.0.0.1:34728 latency=1.084713ms
+TENANT_SMTP_USER_PASSWORD,smtp.user.password,ajith@123
+iotc/sites/default/instances/default/deployment/properties/smtp.user.password,861A98CEFE0EC1D791EA34A9037A39E1C796F8C915E94081F90C9CD91D3538AA5C41B86488165AF9F85E239684234890A76C379406F7BC436F,ajith@123
+2021-06-21T02:54:27.315Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/kv/iotc/sites/default/instances/default/deployment/properties/smtp.user.password from=127.0.0.1:34728 latency=681.748µs
++ '[' 0 -ne 0 ']'
++ echo 'Generating Root CA certificate'
+Generating Root CA certificate
++ python3 /opt/smarthub/utils/sh_generate_certs.py ca --cert-store consul:///iotc/sites/default/instances/default/certstore --cert-name 'SmartHub INFER IoT Center Root CA'
+Generating CA certificate...
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            c3:8b:00:b4:0e:86:26:68
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, ST = CA, L = Union City, O = SmartHub Inc., OU = INFER, CN = SmartHub INFER IoT Center Root CA
+        Validity
+            Not Before: Jun 21 02:54:28 2021 GMT
+            Not After : Jun 16 02:54:28 2041 GMT
+        Subject: C = US, ST = CA, L = Union City, O = SmartHub Inc., OU = INFER, CN = SmartHub INFER IoT Center Root CA
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (4096 bit)
+                Modulus:
+                    00:c7:ea:6f:e1:e6:f5:30:53:9c:8a:7f:ae:07:15:
+                    9a:99:b4:73:0e:ea:94:92:e8:a2:4c:62:71:3c:d3:
+                    6d:b5:04:da:ac:9f:ef:5e:ef:1d:9a:07:27:a7:89:
+                    f9:f2:95:92:36:61:06:69:19:1d:d9:34:02:1c:9b:
+                    f1:11:61:6f:b3:44:be:d4:15:e7:07:c6:46:a4:e6:
+                    56:5c:a4:4b:e9:43:fd:2a:cb:06:f3:dd:b6:d4:fa:
+                    c9:dc:01:53:d0:03:fb:5b:2a:cc:12:73:d6:63:64:
+                    f6:c1:5e:d0:32:61:f0:11:ef:04:43:54:5e:78:aa:
+                    72:c0:5e:fd:66:e6:5e:2e:25:5a:61:f2:6e:08:a3:
+                    86:39:db:20:50:94:73:8d:f2:e6:96:b6:e1:c1:26:
+                    22:22:8f:4b:d0:02:fa:52:90:fd:5c:7b:67:f0:c1:
+                    67:7d:04:63:53:ff:80:21:6b:c4:50:d6:1c:ff:bf:
+                    37:34:fb:6e:4f:04:ec:cd:8c:9f:b2:1d:2b:e7:4e:
+                    55:74:f1:a5:8d:2d:25:2d:dc:c2:f9:e9:c2:b9:e7:
+                    e6:71:4e:26:a1:49:09:62:77:4e:28:81:0d:71:9d:
+                    c6:44:2d:0d:dc:bf:3f:c9:18:eb:56:2f:5b:79:9c:
+                    b0:ef:a5:4d:76:b1:7f:fa:71:33:5c:bd:a3:37:b0:
+                    12:46:28:0f:82:ac:71:a2:f3:7d:3d:45:bc:d5:51:
+                    d3:1e:8c:3b:b2:de:b0:55:8f:1b:b2:c7:9c:16:e0:
+                    28:c7:8f:f0:cf:62:3b:6c:a5:fc:b5:40:d5:87:40:
+                    60:b7:38:1d:81:b8:9e:a9:09:9f:98:07:1d:80:23:
+                    11:c1:87:cf:da:72:71:fb:0d:ef:dd:08:c0:22:77:
+                    a8:c1:d5:cf:7f:45:ea:ac:ef:19:92:cc:21:8d:c7:
+                    f9:33:04:51:1c:a4:cd:3b:85:ef:ea:7e:bd:e8:52:
+                    9d:21:b6:c4:43:32:60:6c:95:8f:62:ff:1b:23:1d:
+                    d3:fc:98:9b:cd:79:8d:25:51:9e:db:d2:cd:a3:dc:
+                    ce:ea:f1:af:cd:4f:13:4d:09:56:cf:2c:7c:f6:7e:
+                    fb:db:45:8a:5b:3b:6a:2f:21:c7:e0:55:78:07:4a:
+                    9d:86:43:85:41:00:7e:fd:c2:5f:5c:fc:6f:89:1e:
+                    58:70:58:5e:73:bf:7e:75:5e:de:be:69:58:2d:13:
+                    19:4b:dc:fe:a6:1d:3d:77:19:a1:26:6a:a7:85:1c:
+                    d3:37:4e:a8:ee:69:c7:f5:92:d1:78:78:7b:80:00:
+                    c1:8d:c0:3e:12:3f:f4:79:11:59:cc:4c:1d:63:21:
+                    c3:37:ec:d9:11:52:db:88:37:df:31:4d:45:1c:9f:
+                    9d:91:6b
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:TRUE, pathlen:0
+            X509v3 Key Usage: critical
+                Certificate Sign, CRL Sign
+            X509v3 Subject Key Identifier: 
+                96:A5:9C:25:62:2D:F9:F9:29:07:C2:AA:08:13:DC:3C:13:38:0C:C4
+            X509v3 Authority Key Identifier: 
+                keyid:96:A5:9C:25:62:2D:F9:F9:29:07:C2:AA:08:13:DC:3C:13:38:0C:C4
+
+    Signature Algorithm: sha256WithRSAEncryption
+         8b:e2:74:b2:c6:56:1e:7c:45:15:42:c8:c4:17:04:da:17:8e:
+         aa:c7:0e:77:10:b0:be:fb:24:25:14:b1:cb:b3:ce:04:28:e8:
+         72:b1:d2:c5:09:00:f6:bf:96:6f:bd:04:5e:b2:1c:5e:d7:4e:
+         c5:46:85:23:09:ad:81:af:83:dd:c8:56:9f:8c:7d:06:f4:15:
+         57:55:e7:ae:66:52:72:98:36:02:7e:08:8f:b0:d7:3a:b6:07:
+         a5:e4:85:08:f0:a9:7b:a5:e2:43:67:cb:14:29:a6:51:ef:cb:
+         45:5f:86:86:6d:aa:08:b0:66:17:ed:66:01:92:90:d9:48:d1:
+         16:28:7c:05:8d:29:73:37:af:9a:01:f2:8f:30:fb:43:ff:ec:
+         aa:39:fa:86:8a:ee:f7:17:06:8a:21:2e:31:e1:32:a9:4e:8c:
+         21:f5:f7:bd:0c:ac:ac:d2:57:21:02:de:73:19:1e:8f:95:1a:
+         9c:60:72:3e:bb:dd:74:f5:6e:3e:96:3b:98:6d:11:3a:11:36:
+         d1:8e:1a:34:37:12:65:df:82:61:3a:7c:0f:bc:fc:41:78:53:
+         ab:97:42:b5:e3:c5:43:fe:21:7c:e7:2e:1f:0d:e3:6f:14:a6:
+         d7:5c:a6:dc:33:75:95:9f:7c:00:ce:df:49:00:37:ad:4a:0e:
+         10:03:3f:3a:75:4b:3f:c8:d0:99:75:12:96:d8:06:86:87:24:
+         e8:95:9e:44:8c:34:7d:9e:32:a6:e1:68:ed:0e:18:e5:93:8d:
+         e3:f7:5e:b4:4a:2c:04:6e:25:1b:e2:0c:59:0f:c6:4b:fa:6b:
+         9d:9b:88:ec:3c:18:18:0f:88:56:26:ff:71:87:e2:41:be:18:
+         fa:a4:47:02:20:04:45:6c:95:cf:a5:21:d4:3a:a6:1d:94:bb:
+         5f:98:27:e2:1e:fe:ba:e1:33:12:33:da:75:2b:79:80:c8:f5:
+         44:15:20:d2:5d:f8:4e:9c:f5:b8:a4:25:58:f6:73:14:94:aa:
+         a0:5c:c3:5f:68:c8:b5:9b:2c:5f:33:70:29:4b:7f:85:47:f0:
+         93:11:d8:13:1c:18:cb:b1:2f:33:3e:f1:a8:d0:a9:b5:2b:75:
+         c5:06:88:0e:52:15:d2:9b:90:22:86:4b:39:ea:6a:38:74:e7:
+         89:69:67:84:d1:b8:82:b2:3f:85:6c:91:96:81:e8:36:d3:ee:
+         0c:0a:c1:68:1f:65:f4:71:e6:64:0d:13:89:94:67:6c:86:c2:
+         74:ec:ee:55:90:00:78:42:a7:55:17:66:c0:26:73:0c:73:4d:
+         fd:1a:79:31:16:8e:45:39:4f:95:1f:0f:f0:28:5f:37:03:37:
+         2d:68:94:ec:05:69:49:b1
+-----BEGIN CERTIFICATE-----
+MIIF9TCCA92gAwIBAgIJAMOLALQOhiZoMA0GCSqGSIb3DQEBCwUAMIGDMQswCQYD
+VQQGEwJVUzELMAkGA1UECAwCQ0ExEzARBgNVBAcMClVuaW9uIENpdHkxFjAUBgNV
+BAoMDVNtYXJ0SHViIEluYy4xDjAMBgNVBAsMBUlORkVSMSowKAYDVQQDDCFTbWFy
+dEh1YiBJTkZFUiBJb1QgQ2VudGVyIFJvb3QgQ0EwIhgPMjAyMTA2MjEwMjU0Mjha
+GA8yMDQxMDYxNjAyNTQyOFowgYMxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTET
+MBEGA1UEBwwKVW5pb24gQ2l0eTEWMBQGA1UECgwNU21hcnRIdWIgSW5jLjEOMAwG
+A1UECwwFSU5GRVIxKjAoBgNVBAMMIVNtYXJ0SHViIElORkVSIElvVCBDZW50ZXIg
+Um9vdCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMfqb+Hm9TBT
+nIp/rgcVmpm0cw7qlJLookxicTzTbbUE2qyf717vHZoHJ6eJ+fKVkjZhBmkZHdk0
+Ahyb8RFhb7NEvtQV5wfGRqTmVlykS+lD/SrLBvPdttT6ydwBU9AD+1sqzBJz1mNk
+9sFe0DJh8BHvBENUXniqcsBe/WbmXi4lWmHybgijhjnbIFCUc43y5pa24cEmIiKP
+S9AC+lKQ/Vx7Z/DBZ30EY1P/gCFrxFDWHP+/NzT7bk8E7M2Mn7IdK+dOVXTxpY0t
+JS3cwvnpwrnn5nFOJqFJCWJ3TiiBDXGdxkQtDdy/P8kY61YvW3mcsO+lTXaxf/px
+M1y9ozewEkYoD4KscaLzfT1FvNVR0x6MO7LesFWPG7LHnBbgKMeP8M9iO2yl/LVA
+1YdAYLc4HYG4nqkJn5gHHYAjEcGHz9pycfsN790IwCJ3qMHVz39F6qzvGZLMIY3H
++TMEURykzTuF7+p+vehSnSG2xEMyYGyVj2L/GyMd0/yYm815jSVRntvSzaPczurx
+r81PE00JVs8sfPZ++9tFils7ai8hx+BVeAdKnYZDhUEAfv3CX1z8b4keWHBYXnO/
+fnVe3r5pWC0TGUvc/qYdPXcZoSZqp4Uc0zdOqO5px/WS0Xh4e4AAwY3APhI/9HkR
+WcxMHWMhwzfs2RFS24g33zFNRRyfnZFrAgMBAAGjZjBkMBIGA1UdEwEB/wQIMAYB
+Af8CAQAwDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBSWpZwlYi35+SkHwqoIE9w8
+EzgMxDAfBgNVHSMEGDAWgBSWpZwlYi35+SkHwqoIE9w8EzgMxDANBgkqhkiG9w0B
+AQsFAAOCAgEAi+J0ssZWHnxFFULIxBcE2heOqscOdxCwvvskJRSxy7POBCjocrHS
+xQkA9r+Wb70EXrIcXtdOxUaFIwmtga+D3chWn4x9BvQVV1XnrmZScpg2An4Ij7DX
+OrYHpeSFCPCpe6XiQ2fLFCmmUe/LRV+Ghm2qCLBmF+1mAZKQ2UjRFih8BY0pczev
+mgHyjzD7Q//sqjn6horu9xcGiiEuMeEyqU6MIfX3vQysrNJXIQLecxkej5UanGBy
+PrvddPVuPpY7mG0ROhE20Y4aNDcSZd+CYTp8D7z8QXhTq5dCtePFQ/4hfOcuHw3j
+bxSm11ym3DN1lZ98AM7fSQA3rUoOEAM/OnVLP8jQmXUSltgGhock6JWeRIw0fZ4y
+puFo7Q4Y5ZON4/detEosBG4lG+IMWQ/GS/prnZuI7DwYGA+IVib/cYfiQb4Y+qRH
+AiAERWyVz6Uh1DqmHZS7X5gn4h7+uuEzEjPadSt5gMj1RBUg0l34Tpz1uKQlWPZz
+FJSqoFzDX2jItZssXzNwKUt/hUfwkxHYExwYy7EvMz7xqNCptSt1xQaIDlIV0puQ
+IoZLOepqOHTniWlnhNG4grI/hWyRloHoNtPuDArBaB9l9HHmZA0TiZRnbIbCdOzu
+VZAAeEKnVRdmwCZzDHNN/Rp5MRaORTlPlR8P8ChfNwM3LWiU7AVpSbE=
+-----END CERTIFICATE-----
+
+2021-06-21T02:54:28.234Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/certstore/14090356632496514664/component.name from=127.0.0.1:34732 latency=137.003µs
+2021-06-21T02:54:28.350Z [DEBUG] agent.http: Request finished: method=GET url=/v1/kv/iotc/sites/default/instances/default/certstore/14090356632496514664/other.stores from=127.0.0.1:34736 latency=117.255µs
+e a7c5c1f8e01c0781f96c64ceb888e3fe923d7dae ba3305f50ed7d102279bbcdb98611395
+2021-06-21T02:54:28.505Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/txn from=127.0.0.1:34738 latency=2.838285ms
+Updated keys : 
+	iotc/sites/default/instances/default/certstore/14090356632496514664/cert.data
+	iotc/sites/default/instances/default/certstore/14090356632496514664/private.key
+	iotc/sites/default/instances/default/certstore/14090356632496514664/private.key.passphrase
+	iotc/sites/default/instances/default/certstore/14090356632496514664/cert.name
+	iotc/sites/default/instances/default/certstore/14090356632496514664/issuer.name
+	iotc/sites/default/instances/default/certstore/14090356632496514664/cert.expiry
+	iotc/sites/default/instances/default/certstore/14090356632496514664/cert.type
+
++ '[' 0 -ne 0 ']'
++ consul leave --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T02:54:28.585Z [INFO]  agent.server: server starting leave
+2021-06-21T02:54:28.585Z [INFO]  agent.server.serf.wan: serf: EventMemberLeave: shconsulnode01.dc1 172.19.0.2
+2021-06-21T02:54:28.585Z [INFO]  agent.server: Handled event for server in area: event=member-leave server=shconsulnode01.dc1 area=wan
+2021-06-21T02:54:28.585Z [INFO]  agent.router.manager: shutting down
+2021-06-21T02:54:31.585Z [INFO]  agent.server.serf.lan: serf: EventMemberLeave: shconsulnode01 172.19.0.2
+2021-06-21T02:54:31.585Z [INFO]  agent.server: Removing LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T02:54:31.585Z [WARN]  agent.server: deregistering self should be done by follower: name=shconsulnode01
+2021-06-21T02:54:32.706Z [DEBUG] agent.server.autopilot: will not remove server as its removal would be unsafe due to affectingas removal of a majority or servers is not safe: id=63db1123-0c51-8bdd-b04d-f34a861ec00f
+2021-06-21T02:54:34.585Z [INFO]  agent.server: Waiting to drain RPC traffic: drain_time=5s
+2021-06-21T02:54:37.002Z [ERROR] agent: Coordinate update error: error="No cluster leader"
+2021-06-21T02:54:39.585Z [INFO]  agent: Requesting shutdown
+2021-06-21T02:54:39.586Z [INFO]  agent.server: shutting down server
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopping routine: routine="legacy ACL token upgrade"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopping routine: routine="acl token reaping"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopping routine: routine="federation state anti-entropy"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopping routine: routine="federation state pruning"
+2021-06-21T02:54:39.586Z [DEBUG] agent.server.usage_metrics: usage metrics reporter shutting down
+2021-06-21T02:54:39.586Z [ERROR] agent.server: error performing anti-entropy sync of federation state: error="context canceled"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopped routine: routine="federation state anti-entropy"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopped routine: routine="acl token reaping"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopped routine: routine="legacy ACL token upgrade"
+2021-06-21T02:54:39.586Z [DEBUG] agent.leader: stopped routine: routine="federation state pruning"
+2021-06-21T02:54:39.587Z [INFO]  agent.router.manager: shutting down
+2021-06-21T02:54:39.587Z [INFO]  agent: consul server down
+2021-06-21T02:54:39.587Z [INFO]  agent: shutdown complete
+2021-06-21T02:54:39.587Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/agent/leave from=127.0.0.1:34740 latency=11.002340259s
+2021-06-21T02:54:39.587Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=tcp
+2021-06-21T02:54:39.587Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=udp
+2021-06-21T02:54:39.587Z [INFO]  agent: Stopping server: address=[::]:8500 network=tcp protocol=http
+Graceful leave complete
++ addDeployment shkranthi-05 shconsulnode01 e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 5367e4c0-ad91-d721-3345-5cbc7f02de15 9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ status=0
++ '[' 5 -ne 5 ']'
++ deploymentname=shkranthi-05
++ configsvcaddr=shconsulnode01
++ configsvctoken=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++ configmastertoken=5367e4c0-ad91-d721-3345-5cbc7f02de15
++ configencryptkey=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
+++ printf infer/catalog/%s shkranthi-05
++ deploymentpath=infer/catalog/shkranthi-05
++ data='{"addr": "shconsulnode01", "token": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75", "mastertoken": "5367e4c0-ad91-d721-3345-5cbc7f02de15", "encryptkey": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
+++ printf http://51.83.252.116:8500/v1/kv/%s infer/catalog/shkranthi-05
++ url=http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05
++ value=
+++ curl -X PUT -s http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05 --data '{"addr": "shconsulnode01", "token": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75", "mastertoken": "5367e4c0-ad91-d721-3345-5cbc7f02de15", "encryptkey": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}' -H 'Accept: application/json' -H 'cache-control: no-cache' -H 'x-consul-token: b123bd0d-180b-933c-7af5-a50a281b535a'
++ response=true
++ status=0
++ echo CATALOG_UPDATE_STATUS=0
+CATALOG_UPDATE_STATUS=0
++ '[' -s /opt/bitnami/consul/conf/consul.json ']'
++ echo 'Updating Consul config file permissions'
+Updating Consul config file permissions
++ chown 1001:1001 /opt/bitnami/consul/conf/consul.json
+chown: changing ownership of '/opt/bitnami/consul/conf/consul.json': Operation not permitted
++ chmod 644 /opt/bitnami/consul/conf/consul.json
++ echo Done
+Done

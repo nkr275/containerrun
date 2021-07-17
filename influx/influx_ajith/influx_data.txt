@@ -1,0 +1,62 @@
+Starting influx cluster - begin with data nodes:
+
+
+mkdir -p $PWD/influxdata01/{conf,data,init} && sudo chown -R 1001:1001 $PWD/influxdata01
+
+docker run -it --rm --name influxdatainit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_DATA_ADVERTISED_HOSTNAME=shinfluxdata \
+-e INFLUX_DATA_HOSTNAME_PVT=shinfluxdata01 \
+-v $PWD/influxdata01/conf:/etc/influxdb \
+-v $PWD/influxdata01/data:/var/lib/influxdb \
+-v $PWD/influxdata01/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxdatainit:3.0.0-13 bash -x /init/influxdatainit.sh
+
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/influxdatainit:3.0.0-13
+
+docker run -d --rm --name shinfluxdata01 \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e INFLUX_DATA_ADVERTISED_HOSTNAME=shinfluxdata \
+-v $PWD/influxdata01/conf:/etc/influxdb \
+-v $PWD/influxdata01/data:/var/lib/influxdb \
+-v $PWD/influxdata01/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxdata:3.0.0-13
+
+
+==>node02
+
+
+mkdir -p $PWD/influxdata02/{conf,data,init} && sudo chown -R 1001:1001 $PWD/influxdata02
+
+docker run -it --rm --name influxdatainit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"  \
+-e INFLUX_DATA_ADVERTISED_HOSTNAME=shinfluxdata \
+-e INFLUX_DATA_HOSTNAME_PVT=shinfluxdata02 \
+-v $PWD/influxdata02/conf:/etc/influxdb \
+-v $PWD/influxdata02/data:/var/lib/influxdb \
+-v $PWD/influxdata02/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxdatainit:3.0.0-13 bash -x /init/influxdatainit.sh
+
+
+docker run -d --rm --name shinfluxdata02 \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e INFLUX_DATA_ADVERTISED_HOSTNAME=shinfluxdata \
+-v $PWD/influxdata02/conf:/etc/influxdb \
+-v $PWD/influxdata02/data:/var/lib/influxdb \
+-v $PWD/influxdata02/init:/opt/smarthub/iotc/conf \
+shazdevops.azurecr.io/shinternal/infer/influxdata:3.0.0-13  
+
+
+
+kubectl create secret docker-registry azurecred --namespace default \
+--docker-server=shazdevops.azurecr.io \
+--docker-username=shazdevops \
+--docker-password=G4pa78e39HmOfcdAYos4=KBCb7ekb8gc

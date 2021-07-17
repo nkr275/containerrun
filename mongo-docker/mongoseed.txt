@@ -1,0 +1,31 @@
+docker run -it --rm --name mongoseed \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shmongoseed \
+-e CONSUL_NODE_NAME=shmongoseed \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=mongos \
+-e MONGO_HOST=shmongos01 \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongo-seed:3.0.0-13 bash -x /init/mongodb-setup.sh
+
+
+
+docker run -it --rm --name mongoseed \
+--network devnw \
+-e INSTANCE_NAME=akrinferapp03 \
+-e CATALOG_SERVICE_ADDR=146.59.205.26 \
+-e CATALOG_SERVICE_TOKEN=7a5864d5-e5ec-9201-16a2-82f9f9d63993 \
+-e CONSUL_SERVICE_NAME=shmongoseed \
+-e CONSUL_NODE_NAME=shmongoseed \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=mongos \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongo-seed:3.0.0-13 bash -x /init/mongodb-setup.sh
+
+
+# MONGO_HOST=shmongos01
+# CONSUL_HOST=shconsulnode01
+# INSTANCE_NAME=shkranthi-05
+# CATALOG_SERVICE_ADDR=51.83.252.116
+# CATALOG_SERVICE_TOKEN=b123bd0d-180b-933c-7af5-a50a281b535a

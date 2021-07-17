@@ -1,0 +1,391 @@
+kranti@b2-15-waw1-dev02:~/new_deploy/consul$ docker run -it --rm --name consulinit \
+> --network devnw \
+> -e INSTANCE_NAME=shkranthi-05 \
+> -e CATALOG_SERVICE_ADDR=51.83.252.116 \
+> -e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+> -e CONSUL_SERVICE_NAME=shconsulnode02 \
+> -e CONSUL_NODE_NAME=shconsulnode02 \
+> -e TENANT_NAME=SmartHub \
+> -e TENANT_DOMAIN_NAME=smarthub.local \
+> -e TENANT_CONSOLE_USERNAME=sysadmin \
+> -e TENANT_CONSOLE_USER_EMAIL=ajith@smarthub.ai \
+> -e TENANT_CONSOLE_USER_PASSWORD=SmartHub#123 \
+> -e TENANT_SMTP_HOST=smtp.smarthub.ai \
+> -e TENANT_SMTP_PORT=587 \
+> -e TENANT_SMTP_USERNAME=ajith \
+> -e TENANT_SMTP_USER_PASSWORD=ajith@123 \
+> -v $PWD/consul02/data:/bitnami/consul \
+> -v $PWD/consul02/conf:/opt/bitnami/consul/conf \
+> -v $PWD/consul02/logs:/opt/bitnami/consul/logs \
+> -v $PWD/consul02/ssl:/opt/bitnami/consul/certificates \
+> -v $PWD/consul02/extra:/opt/bitnami/consul/extra \
+> -v $PWD/consul02/tmp:/opt/bitnami/consul/tmp \
+> -v $PWD/consul02/app:/opt/smarthub/iotc/conf \
+> s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/consulinit:3.0.0-13 bash -x /init/consulinit.sh
+ 03:02:43.11 
+ 03:02:43.12 Welcome to the Bitnami consul container
+ 03:02:43.12 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-consul
+ 03:02:43.12 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-consul/issues
+ 03:02:43.12 
+
++ set -x
++ source /opt/smarthub/utils/catalogsvc.sh
+++ CATALOG_SERVICE_ADDR=51.83.252.116
+++ CATALOG_SERVICE_TOKEN=b123bd0d-180b-933c-7af5-a50a281b535a
++ export -p
+declare -x BITNAMI_APP_NAME="consul"
+declare -x BITNAMI_IMAGE_VERSION="1.9.6-debian-10-r9"
+declare -x CATALOG_SERVICE_ADDR="51.83.252.116"
+declare -x CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"
+declare -x CONSUL_AGENT_MODE="server"
+declare -x CONSUL_BASE_DIR="/opt/bitnami/consul"
+declare -x CONSUL_BIND_ADDR=""
+declare -x CONSUL_BIND_INTERFACE=""
+declare -x CONSUL_BOOTSTRAP_EXPECT="1"
+declare -x CONSUL_CLIENT_LAN_ADDRESS="0.0.0.0"
+declare -x CONSUL_CONFIG_TEMPLATE_FILE="/opt/bitnami/consul/templates/consul.json.tpl"
+declare -x CONSUL_CONF_DIR="/opt/bitnami/consul/conf"
+declare -x CONSUL_CONF_FILE="/opt/bitnami/consul/conf/consul.json"
+declare -x CONSUL_DATACENTER="dc1"
+declare -x CONSUL_DATA_DIR="/bitnami/consul"
+declare -x CONSUL_DISABLE_HOST_NODE_ID="true"
+declare -x CONSUL_DISABLE_KEYRING_FILE="false"
+declare -x CONSUL_DNS_PORT_NUMBER="8600"
+declare -x CONSUL_DOMAIN="consul"
+declare -x CONSUL_ENABLE_UI="true"
+declare -x CONSUL_ENCRYPT_FILE="/opt/bitnami/consul/conf/encrypt.json"
+declare -x CONSUL_ENCRYPT_TEMPLATE_FILE="/opt/bitnami/consul/templates/encrypt.json.tpl"
+declare -x CONSUL_EXTRA_DIR="/opt/bitnami/consul/extra"
+declare -x CONSUL_GOSSIP_ENCRYPTION="no"
+declare -x CONSUL_GOSSIP_ENCRYPTION_KEY=""
+declare -x CONSUL_GOSSIP_ENCRYPTION_KEY_FILE=""
+declare -x CONSUL_HTTP_PORT_NUMBER="8500"
+declare -x CONSUL_LOCAL_CONFIG=""
+declare -x CONSUL_LOCAL_CONF_FILE="/opt/bitnami/consul/conf/local.json"
+declare -x CONSUL_LOCAL_TEMPLATE_FILE="/opt/bitnami/consul/templates/local.json.tpl"
+declare -x CONSUL_LOGROTATE_FILE="/opt/bitnami/consul/extra/logrotate.conf"
+declare -x CONSUL_LOG_DIR="/opt/bitnami/consul/logs"
+declare -x CONSUL_LOG_FILE="/opt/bitnami/consul/logs/consul.log"
+declare -x CONSUL_MONIT_FILE="/opt/bitnami/consul/extra/monit.conf"
+declare -x CONSUL_NODE_NAME="shconsulnode02"
+declare -x CONSUL_PID_FILE="/opt/bitnami/consul/tmp/consul.pid"
+declare -x CONSUL_RAFT_MULTIPLIER="1"
+declare -x CONSUL_RETRY_JOIN_ADDRESS="127.0.0.1"
+declare -x CONSUL_RETRY_JOIN_WAN_ADDRESS="127.0.0.1"
+declare -x CONSUL_RPC_PORT_NUMBER="8300"
+declare -x CONSUL_SERF_LAN_ADDRESS="0.0.0.0"
+declare -x CONSUL_SERF_LAN_PORT_NUMBER="8301"
+declare -x CONSUL_SERVICE_NAME="shconsulnode02"
+declare -x CONSUL_SSL_DIR="/opt/bitnami/consul/certificates"
+declare -x CONSUL_SYSTEM_GROUP="consul"
+declare -x CONSUL_SYSTEM_USER="consul"
+declare -x CONSUL_TEMPLATES_DIR="/opt/bitnami/consul/templates"
+declare -x CONSUL_TMP_DIR="/opt/bitnami/consul/tmp"
+declare -x HOME="/"
+declare -x HOSTNAME="2afc61d7c4d5"
+declare -x INSTANCE_NAME="shkranthi-05"
+declare -x OLDPWD
+declare -x OS_ARCH="amd64"
+declare -x OS_FLAVOUR="debian-10"
+declare -x OS_NAME="linux"
+declare -x PATH="/opt/bitnami/common/bin:/opt/bitnami/consul/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+declare -x PWD="/"
+declare -x SHLVL="1"
+declare -x TENANT_CONSOLE_USERNAME="sysadmin"
+declare -x TENANT_CONSOLE_USER_EMAIL="ajith@smarthub.ai"
+declare -x TENANT_CONSOLE_USER_PASSWORD="SmartHub#123"
+declare -x TENANT_DOMAIN_NAME="smarthub.local"
+declare -x TENANT_NAME="SmartHub"
+declare -x TENANT_SMTP_HOST="smtp.smarthub.ai"
+declare -x TENANT_SMTP_PORT="587"
+declare -x TENANT_SMTP_USERNAME="ajith"
+declare -x TENANT_SMTP_USER_PASSWORD="ajith@123"
+declare -x TERM="xterm"
++ CONSUL_CONFIG_TEMPLATE=/init/templates/server.json
++ CONSUL_INFER_POLICY_TEMPLATE=/init/templates/inferpolicy.hcl
++ INFER_TEMPLATES_DIR=/opt/smarthub/templates/config
++ NODE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/node.properties
++ INSTANCE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/instance-config.properties
++ SERVICE_PROPERTIES_TEMPLATE_FILE=/opt/smarthub/templates/config/service-config.properties
++ CONSUL_LOG_DIR=/opt/bitnami/consul/logs
++ CONSUL_CONF_DIR=/opt/bitnami/consul/conf
++ CONSUL_DATA_DIR=/bitnami/consul
++ CONSUL_CONFIG=/opt/bitnami/consul/conf/consul.json
++ SMARTHUB_CONF_DIR=/opt/smarthub/iotc/conf
++ NODE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/node.properties
++ INSTANCE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/instance-config.properties
++ SERVICE_PROPERTIES_FILE=/opt/smarthub/iotc/conf/service-config.properties
++ INSTANCE_KV_PATH=iotc/sites/default/instances/default
++ BOOTSTRAP_UTILS=/opt/smarthub/utils
++ CONSUL_SERVICE_NAME=shconsulnode02
++ '[' -z shkranthi-05 ']'
++ mkdir -p /bitnami/consul
+++ getDeployment shkranthi-05
+++ status=0
+++ deploymentname=shkranthi-05
++++ printf infer/catalog/%s shkranthi-05
+++ deploymentpath=infer/catalog/shkranthi-05
++++ printf 'http://51.83.252.116:8500/v1/kv/%s?raw' infer/catalog/shkranthi-05
+++ url='http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw'
++++ curl -s 'http://51.83.252.116:8500/v1/kv/infer/catalog/shkranthi-05?raw' -H 'Accept: application/json' -H 'cache-control: no-cache' -H 'x-consul-token: b123bd0d-180b-933c-7af5-a50a281b535a'
+++ response='{"addr": "shconsulnode01", "token": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75", "mastertoken": "5367e4c0-ad91-d721-3345-5cbc7f02de15", "encryptkey": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
+++ status=0
+++ echo CATALOG_QUERY_STATUS=0
+++ '[' 0 -eq 0 ']'
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 4
+++ echo CONFIG_SERVER=shconsulnode01
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 8
+++ echo CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 12
+++ echo CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
++++ echo '{"addr":' '"shconsulnode01",' '"token":' '"e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75",' '"mastertoken":' '"5367e4c0-ad91-d721-3345-5cbc7f02de15",' '"encryptkey":' '"9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q="}'
++++ cut -d '"' -f 16
+++ echo CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ eval CATALOG_QUERY_STATUS=0 CONFIG_SERVER=shconsulnode01 CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15 CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
+++ CATALOG_QUERY_STATUS=0
+++ CONFIG_SERVER=shconsulnode01
+++ CONFIG_CLIENT_TOKEN=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+++ CONFIG_MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
+++ CONFIG_ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ ENCRYPT_KEY=9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=
++ '[' -z 9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q= ']'
++ MASTER_TOKEN=5367e4c0-ad91-d721-3345-5cbc7f02de15
++ ACCESS_TOKEN_VALUE=e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
++ '[' '!' -f /opt/bitnami/consul/conf/consul.json ']'
++ jq --arg enckey 9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q= '.encrypt = $enckey'
++ jq --arg node shconsulnode02 '.node_name = $node'
++ jq --arg token 5367e4c0-ad91-d721-3345-5cbc7f02de15 '. * {"acl": {"tokens": {master: $token}}}'
++ cat /init/templates/server.json
++ jq --arg token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75 '. * {"acl": {"tokens": {agent: $token}}}'
++ tee /opt/bitnami/consul/conf/consul.json
+{
+  "bind_addr": "0.0.0.0",
+  "data_dir": "/bitnami/consul",
+  "log_file": "/opt/bitnami/consul/logs/consul.log",
+  "log_rotate_bytes": 1048576,
+  "log_rotate_max_files": 10,
+  "log_level": "DEBUG",
+  "server": true,
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "ui_config": {
+    "enabled": true
+  },
+  "node_name": "shconsulnode02",
+  "retry_join": [],
+  "client_addr": "0.0.0.0",
+  "leave_on_terminate": false,
+  "skip_leave_on_interrupt": true,
+  "rejoin_after_leave": true,
+  "datacenter": "dc1",
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}
+++ echo shconsulnode01,shconsulnode02
+++ tr , '\n'
+++ sort -u
+++ xargs
++ CONSULSERVERS='shconsulnode01 shconsulnode02'
++ for cs in ${CONSULSERVERS[@]}
++ jq --arg node shconsulnode01 '.retry_join += [$node]'
++ cat /opt/bitnami/consul/conf/consul.json
++ tee /opt/bitnami/consul/conf/consul.json
+{
+  "bind_addr": "0.0.0.0",
+  "data_dir": "/bitnami/consul",
+  "log_file": "/opt/bitnami/consul/logs/consul.log",
+  "log_rotate_bytes": 1048576,
+  "log_rotate_max_files": 10,
+  "log_level": "DEBUG",
+  "server": true,
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "ui_config": {
+    "enabled": true
+  },
+  "node_name": "shconsulnode02",
+  "retry_join": [
+    "shconsulnode01"
+  ],
+  "client_addr": "0.0.0.0",
+  "leave_on_terminate": false,
+  "skip_leave_on_interrupt": true,
+  "rejoin_after_leave": true,
+  "datacenter": "dc1",
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}
++ for cs in ${CONSULSERVERS[@]}
++ jq --arg node shconsulnode02 '.retry_join += [$node]'
++ cat /opt/bitnami/consul/conf/consul.json
++ tee /opt/bitnami/consul/conf/consul.json
+{
+  "bind_addr": "0.0.0.0",
+  "data_dir": "/bitnami/consul",
+  "log_file": "/opt/bitnami/consul/logs/consul.log",
+  "log_rotate_bytes": 1048576,
+  "log_rotate_max_files": 10,
+  "log_level": "DEBUG",
+  "server": true,
+  "encrypt": "9SD8NPCn6eJazKua7q1cxu0wZrr/GYW1vYElUxt444Q=",
+  "ui_config": {
+    "enabled": true
+  },
+  "node_name": "shconsulnode02",
+  "retry_join": [
+    "shconsulnode01",
+    "shconsulnode02"
+  ],
+  "client_addr": "0.0.0.0",
+  "leave_on_terminate": false,
+  "skip_leave_on_interrupt": true,
+  "rejoin_after_leave": true,
+  "datacenter": "dc1",
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "master": "5367e4c0-ad91-d721-3345-5cbc7f02de15",
+      "agent": "e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75"
+    }
+  }
+}
++ retry=10
++ '[' 10 -gt 0 ']'
++ consul agent -node shconsulnode02 -config-dir /opt/bitnami/consul/conf
++ sleep 10
+==> Starting Consul agent...
+           Version: '1.9.6'
+           Node ID: '1f27f5a1-8ad9-85aa-9388-67b3964c364a'
+         Node name: 'shconsulnode02'
+        Datacenter: 'dc1' (Segment: '<all>')
+            Server: true (Bootstrap: false)
+       Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, gRPC: -1, DNS: 8600)
+      Cluster Addr: 172.19.0.3 (LAN: 8301, WAN: 8302)
+           Encrypt: Gossip: true, TLS-Outgoing: false, TLS-Incoming: false, Auto-Encrypt-TLS: false
+
+==> Log data will now stream in as it occurs:
+
+2021-06-21T03:02:43.213Z [INFO]  agent.server.raft: initial configuration: index=0 servers=[]
+2021-06-21T03:02:43.214Z [INFO]  agent.server.raft: entering follower state: follower="Node at 172.19.0.3:8300 [Follower]" leader=
+2021-06-21T03:02:43.214Z [INFO]  agent.server.serf.wan: serf: EventMemberJoin: shconsulnode02.dc1 172.19.0.3
+2021-06-21T03:02:43.214Z [INFO]  agent.server.serf.lan: serf: EventMemberJoin: shconsulnode02 172.19.0.3
+2021-06-21T03:02:43.214Z [INFO]  agent.router: Initializing LAN area manager
+2021-06-21T03:02:43.214Z [INFO]  agent.server: Adding LAN server: server="shconsulnode02 (Addr: tcp/172.19.0.3:8300) (DC: dc1)"
+2021-06-21T03:02:43.215Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=udp
+2021-06-21T03:02:43.215Z [INFO]  agent.server: Handled event for server in area: event=member-join server=shconsulnode02.dc1 area=wan
+2021-06-21T03:02:43.215Z [INFO]  agent: Started DNS server: address=0.0.0.0:8600 network=tcp
+2021-06-21T03:02:43.215Z [INFO]  agent: Starting server: address=[::]:8500 network=tcp protocol=http
+2021-06-21T03:02:43.215Z [WARN]  agent: DEPRECATED Backwards compatibility with pre-1.9 metrics enabled. These metrics will be removed in a future version of Consul. Set `telemetry { disable_compat_1.9 = true }` to disable them.
+2021-06-21T03:02:43.215Z [INFO]  agent: started state syncer
+2021-06-21T03:02:43.215Z [INFO]  agent: Consul agent running!
+2021-06-21T03:02:43.215Z [INFO]  agent: Retry join is supported for the following discovery methods: cluster=LAN discovery_methods="aliyun aws azure digitalocean gce k8s linode mdns os packet scaleway softlayer tencentcloud triton vsphere"
+2021-06-21T03:02:43.215Z [INFO]  agent: Joining cluster...: cluster=LAN
+2021-06-21T03:02:43.215Z [INFO]  agent: (LAN) joining: lan_addresses=[shconsulnode01, shconsulnode02]
+2021-06-21T03:02:43.216Z [DEBUG] agent.server.memberlist.lan: memberlist: Initiating push/pull sync with:  172.19.0.2:8301
+2021-06-21T03:02:43.217Z [INFO]  agent.server.serf.lan: serf: EventMemberJoin: shconsulnode01 172.19.0.2
+2021-06-21T03:02:43.217Z [WARN]  agent.server.memberlist.lan: memberlist: Refuting a dead message (from: shconsulnode02)
+2021-06-21T03:02:43.217Z [DEBUG] agent.server.serf.lan: serf: Refuting an older leave intent
+2021-06-21T03:02:43.218Z [INFO]  agent.server: Adding LAN server: server="shconsulnode01 (Addr: tcp/172.19.0.2:8300) (DC: dc1)"
+2021-06-21T03:02:43.218Z [DEBUG] agent.server.memberlist.wan: memberlist: Initiating push/pull sync with: shconsulnode01.dc1 172.19.0.2:8302
+2021-06-21T03:02:43.219Z [WARN]  agent.server.memberlist.wan: memberlist: Refuting a dead message (from: shconsulnode02.dc1)
+2021-06-21T03:02:43.219Z [INFO]  agent.server.serf.wan: serf: EventMemberJoin: shconsulnode01.dc1 172.19.0.2
+2021-06-21T03:02:43.219Z [DEBUG] agent.server.serf.wan: serf: Refuting an older leave intent
+2021-06-21T03:02:43.219Z [DEBUG] agent.server: Successfully performed flood-join for server at address: server=shconsulnode01.dc1 address=172.19.0.2:8302
+2021-06-21T03:02:43.219Z [INFO]  agent.server: Handled event for server in area: event=member-join server=shconsulnode01.dc1 area=wan
+2021-06-21T03:02:43.220Z [WARN]  agent.server.memberlist.lan: memberlist: Failed to resolve shconsulnode02: lookup shconsulnode02 on 127.0.0.11:53: server misbehaving
+2021-06-21T03:02:43.220Z [INFO]  agent: (LAN) joined: number_of_nodes=1
+2021-06-21T03:02:43.220Z [DEBUG] agent: systemd notify failed: error="No socket"
+2021-06-21T03:02:43.220Z [INFO]  agent: Join cluster completed. Synced with initial agents: cluster=LAN num_agents=1
+2021-06-21T03:02:43.265Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T03:02:43.365Z [DEBUG] agent.server: Cannot upgrade to new ACLs: leaderMode=3 mode=2 found=true leader=
+2021-06-21T03:02:43.427Z [DEBUG] agent.server.raft: accepted connection: local-address=172.19.0.3:8300 remote-address=172.19.0.2:38706
+2021-06-21T03:02:43.427Z [WARN]  agent.server.raft: failed to get previous log: previous-index=358 last-index=0 error="log not found"
+2021-06-21T03:02:43.487Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.487Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.550Z [DEBUG] agent: Skipping remote check since it is managed automatically: check=serfHealth
+2021-06-21T03:02:43.552Z [INFO]  agent: Synced node info
+2021-06-21T03:02:43.552Z [DEBUG] agent: Node info in sync
+2021-06-21T03:02:43.565Z [DEBUG] agent.server: transitioning out of legacy ACL mode
+2021-06-21T03:02:43.565Z [INFO]  agent.server.serf.lan: serf: EventMemberUpdate: shconsulnode02
+2021-06-21T03:02:43.566Z [INFO]  agent.server: Updating LAN server: server="shconsulnode02 (Addr: tcp/172.19.0.3:8300) (DC: dc1)"
+2021-06-21T03:02:43.686Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.686Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.886Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.886Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:43.985Z [DEBUG] agent.server.serf.wan: serf: messageJoinType: shconsulnode02.dc1
+2021-06-21T03:02:44.056Z [DEBUG] agent.server.raft: accepted connection: local-address=172.19.0.3:8300 remote-address=172.19.0.2:38710
+2021-06-21T03:02:44.086Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:44.086Z [DEBUG] agent.server.serf.lan: serf: messageJoinType: shconsulnode02
+2021-06-21T03:02:44.215Z [INFO]  agent.server.serf.wan: serf: EventMemberUpdate: shconsulnode02.dc1
+2021-06-21T03:02:44.215Z [INFO]  agent.server: Handled event for server in area: event=member-update server=shconsulnode02.dc1 area=wan
+2021-06-21T03:02:44.485Z [DEBUG] agent.server.serf.wan: serf: messageJoinType: shconsulnode02.dc1
+2021-06-21T03:02:44.985Z [DEBUG] agent.server.serf.wan: serf: messageJoinType: shconsulnode02.dc1
+2021-06-21T03:02:45.485Z [DEBUG] agent.server.serf.wan: serf: messageJoinType: shconsulnode02.dc1
+++ consul members -token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T03:02:53.205Z [DEBUG] agent.http: Request finished: method=GET url=/v1/agent/members?segment=_all from=127.0.0.1:36114 latency=132.301µs
++ response='Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.5  2         dc1  <all>
+shconsulnode02  172.19.0.3:8301  alive   server  1.9.6  2         dc1  <all>'
++ [[ Node            Address          Status  Type    Build  Protocol  DC   Segment
+shconsulnode01  172.19.0.2:8301  alive   server  1.9.5  2         dc1  <all>
+shconsulnode02  172.19.0.3:8301  alive   server  1.9.6  2         dc1  <all> =~ .*shconsulnode02.* ]]
++ break
++ consul leave --token e76cddf8-0c3f-2dcd-6fa8-6b2ba2ba7b75
+2021-06-21T03:02:53.248Z [INFO]  agent.server: server starting leave
+2021-06-21T03:02:53.985Z [DEBUG] agent.server.serf.wan: serf: messageLeaveType: shconsulnode02.dc1
+2021-06-21T03:02:54.485Z [DEBUG] agent.server.serf.wan: serf: messageLeaveType: shconsulnode02.dc1
+2021-06-21T03:02:54.985Z [DEBUG] agent.server.serf.wan: serf: messageLeaveType: shconsulnode02.dc1
+2021-06-21T03:02:55.485Z [DEBUG] agent.server.serf.wan: serf: messageLeaveType: shconsulnode02.dc1
+2021-06-21T03:02:55.714Z [INFO]  agent.server.serf.wan: serf: EventMemberLeave: shconsulnode02.dc1 172.19.0.3
+2021-06-21T03:02:55.714Z [INFO]  agent.server: Handled event for server in area: event=member-leave server=shconsulnode02.dc1 area=wan
+2021-06-21T03:03:00.886Z [DEBUG] agent.server.serf.lan: serf: messageLeaveType: shconsulnode02
+2021-06-21T03:03:01.086Z [DEBUG] agent.server.serf.lan: serf: messageLeaveType: shconsulnode02
+2021-06-21T03:03:01.215Z [INFO]  agent.server.serf.lan: serf: EventMemberLeave: shconsulnode02 172.19.0.3
+2021-06-21T03:03:01.215Z [INFO]  agent.server: Removing LAN server: server="shconsulnode02 (Addr: tcp/172.19.0.3:8300) (DC: dc1)"
+2021-06-21T03:03:01.215Z [DEBUG] agent.server.serf.lan: serf: messageLeaveType: shconsulnode02
+2021-06-21T03:03:01.286Z [DEBUG] agent.server.serf.lan: serf: messageLeaveType: shconsulnode02
+2021-06-21T03:03:01.417Z [ERROR] agent.server.raft: failed to flush response: error="write tcp 172.19.0.3:8300->172.19.0.2:38706: write: broken pipe"
+2021-06-21T03:03:02.720Z [WARN]  agent.server.raft: failed to get previous log: previous-index=365 last-index=362 error="log not found"
+2021-06-21T03:03:03.359Z [DEBUG] agent.server.raft: accepted connection: local-address=172.19.0.3:8300 remote-address=172.19.0.2:38772
+2021-06-21T03:03:05.015Z [INFO]  agent.server: Waiting to drain RPC traffic: drain_time=5s
+2021-06-21T03:03:08.722Z [ERROR] agent: Coordinate update error: error="No cluster leader"
+2021-06-21T03:03:15.031Z [WARN]  agent.server: failed to leave raft configuration gracefully, timeout
+2021-06-21T03:03:15.031Z [INFO]  agent: Requesting shutdown
+2021-06-21T03:03:15.031Z [INFO]  agent.server: shutting down server
+2021-06-21T03:03:15.031Z [DEBUG] agent.server.usage_metrics: usage metrics reporter shutting down
+2021-06-21T03:03:15.033Z [INFO]  agent.router.manager: shutting down
+2021-06-21T03:03:15.033Z [INFO]  agent.router.manager: shutting down
+2021-06-21T03:03:15.033Z [INFO]  agent: consul server down
+2021-06-21T03:03:15.033Z [INFO]  agent: shutdown complete
+2021-06-21T03:03:15.033Z [DEBUG] agent.http: Request finished: method=PUT url=/v1/agent/leave from=127.0.0.1:36116 latency=21.784601411s
+2021-06-21T03:03:15.033Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=tcp
+2021-06-21T03:03:15.033Z [INFO]  agent: Stopping server: protocol=DNS address=0.0.0.0:8600 network=udp
+2021-06-21T03:03:15.033Z [INFO]  agent: Stopping server: address=[::]:8500 network=tcp protocol=http
+Graceful leave complete
++ echo 'Updating Consul config file permissions'
+Updating Consul config file permissions
++ chown 1001:1001 /opt/bitnami/consul/conf/consul.json
+chown: changing ownership of '/opt/bitnami/consul/conf/consul.json': Operation not permitted
++ chmod 644 /opt/bitnami/consul/conf/consul.json
++ echo Done
+Done

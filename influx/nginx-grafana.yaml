@@ -1,0 +1,93 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-grafana
+  namespace: default
+  labels:
+    app: nginx-grafana
+spec:
+  selector:
+    matchLabels:
+      app: nginx-grafana
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx-grafana
+    spec:      
+      containers:
+        - name:  nginx-grafana
+          image: bitnami/nginx:latest          
+          ports:
+          - containerPort: 8080
+            name:  https
+          volumeMounts:
+            - name: nginx-conf-yaml
+              mountPath: "/opt/bitnami/nginx/conf/nginx.conf"
+              subPath: nginx.conf   
+            - name: grafana-conf-yaml
+              mountPath: "/opt/bitnami/nginx/conf/conf.d/grafana.conf"
+              subPath: grafana.conf            
+            - name: hostvol
+              mountPath: /var/log/smarthub/iotc            
+      volumes:
+        - name: local-path-pvc
+          persistentVolumeClaim: 
+            claimName: local-nginx-pvc1
+        - configMap:            
+            name: nginx-conf-yaml
+          name: nginx-conf-yaml
+        - configMap:            
+            name: grafana-conf-yaml
+          name: grafana-conf-yaml        
+        - name: hostvol
+          hostPath:
+            path: /home/kranti/nk275/nginx/nginx-grafana/logs
+               
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-nginx-pvc1
+#  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: microk8s-hostpath
+  resources:
+    requests:
+      storage: 2Gi    
+      
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-grafana
+  namespace: default
+spec:
+  type: ClusterIP 
+  selector:
+    app: nginx-grafana
+  ports:
+    - port: 80
+      targetPort: 8080
+ #  nodePort: 30101
+      protocol: TCP
+
+
+
+docker run -d --name nginx \
+  -v /home/kranti/nk275/nginx/nginx/conf/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf \
+  -v /home/kranti/nk275/nginx/nginx/certs/site.conf:/opt/bitnami/nginx/conf/conf.d/ \
+  -v /home/kranti/nk275/nginx/nginx/certs/nginx.crt:/opt/bitnami/nginx/certs/nginx.crt \
+  -v /home/kranti/nk275/nginx/nginx/certs/nginx.crt:/opt/bitnami/nginx/certs/nginx.key \
+  -v /home/kranti/nk275/nginx/nginx/logs:/var/log/smarthub/iotc \
+bitnami/nginx:latest bash 

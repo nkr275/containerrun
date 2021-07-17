@@ -1,0 +1,93 @@
+mkdir -p $PWD/mongoshard01/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shmongoshard01 \
+-e CONSUL_NODE_NAME=shmongoshard01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard01 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=shardsvr \
+-v $PWD/mongoshard01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongoshard01/consul:/bitnami/consul \
+-v $PWD/mongoshard01/data:/bitnami \
+-v $PWD/mongoshard01/ssl:/certificates \
+-v $PWD/mongoshard01/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13 bash -x /init/mongoinit.sh
+
+
+
+docker run -d --rm --name shmongoshard01 \
+--network devnw \
+-e MONGODB_SHARDING_MODE=shardsvr \
+-e MONGODB_REPLICA_SET_MODE=primary \
+-e MONGODB_MONGOS_HOST=shmongos01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard01 \
+-e MONGODB_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-e MONGODB_REPLICA_SET_KEY=shinferapp01 \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_shard_1 \
+-v $PWD/mongoshard01/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongoshard01/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongoshard01/data:/bitnami \
+-v $PWD/mongoshard01/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+
+mkdir -p $PWD/mongoshard02/{ssl,app,consul,data,init}
+
+docker run -it --rm --name mongoinit \
+--network devnw \
+-e INSTANCE_NAME=shkranthi-05 \
+-e CATALOG_SERVICE_ADDR=51.83.252.116 \
+-e CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a" \
+-e CONSUL_SERVICE_NAME=shmongoshard02 \
+-e CONSUL_NODE_NAME=shmongoshard02 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard02 \
+-e CONSUL_DATA_DIR=/bitnami/consul \
+-e MONGODB_SHARDING_MODE=shardsvr \
+-v $PWD/mongoshard02/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongoshard02/consul:/bitnami/consul \
+-v $PWD/mongoshard02/data:/bitnami \
+-v $PWD/mongoshard02/ssl:/certificates \
+-v $PWD/mongoshard02/app:/opt/smarthub/iotc/conf \
+s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/mongoinit:3.0.0-13 bash -x /init/mongoinit.sh
+
+
+docker run -d --rm --name shmongoshard02 \
+--network devnw \
+-e MONGODB_SHARDING_MODE=shardsvr \
+-e MONGODB_REPLICA_SET_MODE=secondary \
+-e MONGODB_MONGOS_HOST=shmongos01 \
+-e MONGODB_ADVERTISED_HOSTNAME=shmongoshard02 \
+-e MONGODB_REPLICA_SET_KEY=shinferapp01 \
+-e MONGODB_REPLICA_SET_NAME=smarthub_infer_mongodb_shard_1 \
+-e MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE=/opt/smarthub/iotc/conf/rootpass \
+-e MONGODB_MONGOS_HOST=shmongos01 \
+-e MONGODB_INITIAL_PRIMARY_HOST=shmongoshard01 \
+-v $PWD/mongoshard02/app:/opt/smarthub/iotc/conf \
+-v $PWD/mongoshard02/init:/docker-entrypoint-initdb.d \
+-v $PWD/mongoshard02/data:/bitnami \
+-v $PWD/mongoshard02/ssl:/certificates \
+bitnami/mongodb-sharded:4.4
+
+
+data: 
+  # init-container variables
+  INSTANCE_NAME: shkranthi-02
+  CATALOG_SERVICE_ADDR: "51.83.252.116"
+  CATALOG_SERVICE_TOKEN: 03abfb46-11d1-db61-46ad-3abb945b3a4d  
+  CONSUL_SERVICE_NAME: shmongoshard02-0 #shmongocs01-0
+  CONSUL_NODE_NAME: shmongoshard02-0 #shmongocs01-0
+  MONGODB_ADVERTISED_HOSTNAME: shmongoshard02-0 #shmongocs01-0
+  CONSUL_DATA_DIR: /bitnami/consul
+  MONGODB_SHARDING_MODE: shardsvr
+  # main container variables   
+  MONGODB_REPLICA_SET_MODE: secondary
+  MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD_FILE: /opt/smarthub/iotc/conf/rootpass 
+  MONGODB_REPLICA_SET_KEY: "shinferapp01" 
+  MONGODB_REPLICA_SET_NAME: smarthub_infer_mongodb_shard_1
+  # MONGODB_EXTRA_FLAGS: "--tlsMode=requireTLS --tlsCertificateKeyFile=/certificates/keyfile.pem --tlsClusterFile=/certificates/keyfile.pem --tlsAllowInvalidCertificates --tlsAllowInvalidHostnames --tlsAllowConnectionsWithoutCertificates"
+  # MONGODB_CLIENT_EXTRA_FLAGS: "--tls ---tlsCertificateKeyFile=/certificates/keyfile.pem --tlsCAFile=/certificates/ca.crt"
+  MONGODB_MONGOS_HOST: shmongos01-0 #shmongos01
+  MONGODB_INITIAL_PRIMARY_HOST: "shmongoshard01-0"
