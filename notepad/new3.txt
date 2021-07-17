@@ -1,0 +1,100 @@
+
+	CUR_DIR := $(CURDIR)
+	IOTC_ROOT_DIR := $(CUR_DIR)/../../..
+	IOTC_USERVICE_DEPLOY := $(CUR_DIR)/../../../support/setuptools/deploy-uservice-containers
+
+	#IOTC_SERVICES = $(shell $(FIND) $(IOTC_ROOT_DIR) -name "*-uservice" -type d -print)
+	IOTC_SERVICES := ${shell cat iotc-services}
+
+	RPM_BUILDDIR_FILES_ROOT=$(CUR_DIR)/builddir
+	RPM_RESULT_PACKAGE_DIR=$(CUR_DIR)/result_package_dir
+	RPM_SPEC_DIR=$(CUR_DIR)/spec
+	RPM_SPEC=$(RPM_SPEC_DIR)/package.spec
+
+   $(MKDIR) -p $(SERVICE_ARTIFACTS)
+	$(CP) $(IOTC_ROOT_DIR)/$(IOTC_SERVICE)-uservice/target/$(IOTC_SERVICE)-uservice.jar $(SERVICE_ARTIFACTS)
+	cp  iotc-iam-uservice/target/iotc-iam-uservice.jar $(SERVICE_ARTIFACTS)
+	$(CP) $(IOTC_ROOT_DIR)/$(IOTC_SERVICE)-uservice/src/main/resources/logback*.xml $(SERVICE_ARTIFACTS)
+	cp  iotc-iam-uservice/src/main/resources/logback*.xml $(SERVICE_ARTIFACTS)
+	$(CP) $(IOTC_USERVICE_DEPLOY)/$(IOTC_SERVICE).sh $(SERVICE_ARTIFACTS)/run-container.sh
+	cp  support/setuptools/deploy-uservice-containers/iotc-iam.sh  $(SERVICE_ARTIFACTS)/run-container.sh
+	
+	
+	
+	
+	
+	
+	
+	
+	SERVICE_ARTIFACTS=$(CUR_DIR)/files/opt/vmware/iotc/$(IOTC_SERVICE)-uservice)
+	
+	
+	java -Xms128M -Xmx256M -XX:+UseG1GC -DServiceName="iotc-iam" -Dlogback.configurationFile=/opt/smarthub/iotc/iotc-iam-uservice/logback.xml -jar /opt/smarthub/iotc/iotc-iam-uservice/iotc-iam-uservice.jar com.vmware.iotc.iam.IAMMicroService
+	
+	
+
+
+
+	
+	
+	
+	
+Two things to do
+1. change the value of the property mongo.db.enable.ssl in consul to false. Search first whether the values is there. If the value is not there add it as false using the put_consul_key_value
+
+2. also enable the debug log in iam by changing the log_back.xml
+
+
+change the line, <root level="INFO"> to  <root level="Debug">
+
+consul get kv -client-key= -token 6ce31e77-beda-aa97-7862-9a28569d46d4 -recurse 
+
+consul kv get  -token=6ce31e77-beda-aa97-7862-9a28569d46d4 -http-addr=shconsulnode-01:8500 -recurse | grep "mongo.db.enable.ssl"
+
+
+root@8818e811df21:/# consul kv get  -token=6ce31e77-beda-aa97-7862-9a28569d46d4 -http-addr=shconsulnode-01:8500 -recurse | grep "mongo.db.enable.ssl"
+iotc/sites/default/instances/default/mongo.db.enable.ssl:false
+root@8818e811df21:/# 
+
+consul kv get  -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b -http-addr=shconsulnode-01:8500 -recurse | grep "mongo.db.enable.ssl"
+
+consul kv put  iotc/sites/default/instances/default/mongo.db.enable.ssl:false -token=6ce31e77-beda-aa97-7862-9a28569d46d4 -http-addr=shconsulnode-01:8500 
+
+
+echo "false" | consul kv put iotc/sites/default/instances/default/mongo.db.enable.ssl -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b
+
+consul kv put   -http-addr=localhost:8500 -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b iotc/sites/default/instances/default/mongo.db.enable.ssl false
+
+docker run --name iotc-iam_2 -it --network inferapp -u 0 bitnami/consul bash 
+
+
+curl -X PUT -d 'false' http://localhost:8500/v1/kv/iotc/sites/default/instances/default/mongo.db.enable.ssl
+
+
+consul kv put  iotc/sites/default/instances/default/mongo.db.enable.ssl -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b -cas -modify-index=false
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b  iotc/sites/default/instances/default/mongo.db.urls shmongos01
+
+
+mongo.db.urls
+
+consul kv get  -token=bc6431f2-e1e1-1431-bfaa-a66c49c27e1b -http-addr=shconsulnode-01:8500 -recurse | grep "console.username"
+
+consul kv get  -token=4a69c3b7-880d-e1da-f6a7-47104c89147e -http-addr=localhost:8500 -recurse | grep "infer.tenantname"
+
+
+iotcUser  iotcDb
+
+mongo 
+
+python3 /opt/smarthub/utils/run_mongo_script.py  iotcDb shmongos01-0 iotcDb create-meter-config.js
+
+
+mongo -u iotcUser --authenticationDatabase  iotcDb "localhost/iotcDb"  --password bb2e24317d0817076edb3cf0a832a327b09a8f95
+
+mongo -u iotcUser --authenticationDatabase  iotcDb "localhost/iotcDb"  --password bb2e24317d0817076edb3cf0a832a327b09a8f95
+
+mongo -u iotcUser --authenticationDatabase  iotcDb "localhost/iotcDb"  --password 81c8fbb09501aacf46c7113c3719d508e309e301
+81c8fbb09501aacf46c7113c3719d508e309e301(k8s mongodb)
+
+

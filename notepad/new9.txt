@@ -1,0 +1,151 @@
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-deviceagent-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-devicemgmt-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-devicedisc-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-lcm-uservice:3.0.0-13    			
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-devicesec-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-distribution-uservice:3.0.0-13 	
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-repo-uservice:3.0.0-13 				
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-aggregator-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-metricingest-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-communicator-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-alert-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-metricingest-uservice:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-metricquery-uservice:3.0.0-13   not done 
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/iotc-notifications-uservice:3.0.0-13
+
+
+shazdevops.azurecr.io/shinternal/iotc-alert-uservice:3.0.0-13
+shazdevops.azurecr.io/shinternal/iotc-aggregator-uservice:3.0.0-13
+
+
+influx.seeded
+iotc/sites/default/instances/default/logging.path:/var/log/smarthub/iotc/
+iotc/sites/default/instances/default/influx.seeded:0
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=39868825-9290-6f95-4f99-4427610d4b82  iotc/sites/default/instances/default/influx.seeded 0
+
+consul kv get  -token=39868825-9290-6f95-4f99-4427610d4b82 -http-addr=39868825-consul-web:8500 -recurse | grep "influx"
+
+
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=39868825-9290-6f95-4f99-4427610d4b82 iotc/sites/default/instances/default/influx.db.host http://shinfluxdata01-0
+
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=39868825-9290-6f95-4f99-4427610d4b82 iotc/sites/default/instances/default/influx.seeded 0
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=39868825-9290-6f95-4f99-4427610d4b82 iotc/sites/default/instances/default/influx.db.enable.ssl false
+
+
+
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/influxmeta:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/influxmetainit:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/influxdata:3.0.0-13
+docker pull s8gskgvj.gra7.container-registry.ovh.net/shinternal/infer/influxdatainit:3.0.0-13
+
+kubectl create secret docker-registry azurecred --namespace default \
+    --docker-server=shazdevops.azurecr.io \ 
+    --docker-username=shazdevops \
+    --docker-password=G4pa78e39HmOfcdAYos4=KBCb7ekb8gc
+
+
+iotc/sites/default/instances/default/deployment/properties/console.password:47BFDF8487B82EF4051E44DB46AEB396B643F565126DD19D9A3A167B778062731BEE33E11457EE3AB91B7310E5C328E2D3B4C237F4D10811BE1E0D71
+iotc/sites/default/instances/default/deployment/properties/console.user.email:ajith@smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/console.username:sysadmin
+iotc/sites/default/instances/default/deployment/properties/domain.name:smarthub.local
+iotc/sites/default/instances/default/deployment/properties/smtp.host:smtp.smarthub.ai
+iotc/sites/default/instances/default/deployment/properties/smtp.port:587
+iotc/sites/default/instances/default/deployment/properties/smtp.user.password:BC80F57DE2954707C2762DA1678312093B022598E05B386A6586F8C99DA86EA02625F529ACC732C2F4E7B4B62D17F53BDCBB092FB4D0CD351E
+iotc/sites/default/instances/default/deployment/properties/smtp.username:ajith
+iotc/sites/default/instances/default/deployment/properties/tenant.name:SmartHub
+
+
+consul kv get  -token=ed311fd4-9c20-097a-8b6f-9f0825a2ed24 -http-addr=localhost:8500 -recurse | grep "console.username"
+
+consul kv put   -http-addr=shconsulnode01:8500 -token=64332575-7e0d-6cad-26be-b7ece3fdf24a   iotc/sites/default/instances/default/mongo.db.urls shmongos01
+
+
+
+
+	curl --header  "X-Consul-Token: ed311fd4-9c20-097a-8b6f-9f0825a2ed24"  http://consul-web:8500/v1/agent/members 
+	
+	
+		curl --header   https://2av5qbq0pj.execute-api.us-east-1.amazonaws.com/dev/zoho-book-customer-payment
+		
+		
+		curl --location --request POST 'https://2av5qbq0pj.execute-api.us-east-1.amazonaws.com/dev/zoho-book-customer-payment' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "testdata":"lambda testdata"
+}'
+	
+	
+	nginx 
+	1. combine 2 nginx services
+	2.
+	
+	
+	
+	
+	curl -u 'sysadmin:SmartHub#123' -X GET 'http://iotc-iam:60052/api/tokens' --header 'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'  (iotc-iam)
+	
+	curl -u 'sysadmin:SmartHub#123' -X GET 'http://nginx/api/tokens' --header 'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'
+	curl  -v -u 'sysadmin:SmartHub#123' -X GET 'http://localhost:8080api/tokens' --header 'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'
+	
+	
+	
+	
+	infer_token="eyJraWQiOiJhNWU1NGQ1YS00M2I3LTRlNWQtOWQ2Zi03NDIyZTcxZTYyOTQiLCJhbGciOiJIUzUxMiIsInppcCI6IkRFRiJ9.eNo0kLuuFDEQRP9l4hrkfvlxI1JiIEIE9qxHWtiX1nsRK8S_416JpDRjnyp315_lx-O4vC2atVErfY1baKtuelhLsLYGbbE02ataWbAcx5hw451asrDS3vuqTftaC9dVknUp1Zru24THe5vweI56OB8vH4-Xvd8_nK5bPc3L_vu2vFHkqCapxBldH_8PqPjBr34fx-tlRpCHbddbn9912_oYX64_--U1z-fnePTz19Hvy9teT6NjeZ8_nw6T3SJrlSqrsaY55zaXslZXM937gQ4qIc2Qx_OV3Oo4-ti3fj_PPefTc9dvBIZAYYhIyCigACIQgwSkIANFUAYH8KQZLGAFGziCE3heFUiAEGSGCUQhBomQBMnQACUoQ-dDCjVohCZohgUYwRgmsDmEwSIsweZVQQyIhMiIgqiIc8aImBAzYkEKSITESIKkSIZMyIysyBG5oAQUQmEUQZlbhEAu7CIu6vK6iC7JJbt4CV5D8CKCVxG8ieBdBG8jkMPkMDnMDrPD7DB7PLuD3cHuYHewO9gd4g5xhzgs-v3vPwAAAP__.b3pGcalu-bn_4puFZ83XZS-AQDOjzFaSwEi8SBEbirpeXq0gIu-pjg27gmclmnXwEuN7nwTFiFcnl9Dt5qdM7w"
+
+
+curl -L -X GET 'http://localhost:60057/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+
+curl --header  'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'
+	
+	-----------------------------------------------------------------only for metric ingest---------------------------
+	infertoken=$(http -a 'sysadmin:SmartHub#123' --follow --timeout 3600 GET 'http://localhost:60052/api/tokens' 'Content-Type:application/json' 'Accept:application/json;api-version=0.17' | jq -r '.accessToken')
+	
+	http --follow --timeout 3600 GET 'http://localhost:60057/api/health' 'Accept:application/json;api-version=0.17' "Authorization: Bearer $infertoken"
+	
+	http --follow --timeout 3600 GET 'http://localhost:60057/api/metrics/61d3e211-3963-4c40-99ee-2d2cd0d3b9f1/CPU-Usage(DOUBLE)?start_time_ms=1626005655269&end_time_ms=1626009255269&queryType=SHOW_DESCENDANTS&limit=1000' 'Accept:application/json;api-version=0.17' "Authorization: Bearer $infertoken"
+-----------------------------------------------------------------only for metric ingest---------------------------
+	
+	
+iotc-iam  				curl -L -X GET 'http://iotc-iam:60052/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+iotc-console
+	
+		
+iam   							done		60052      curl -L -X GET 'http://iotc-iam:60052/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+console (not the ui) 	done		60062		curl -L -X GET 'http://iotc-console:60062/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"									Connection refused
+deviceagent				done		60070		curl -L -X GET 'http://iotc-deviceagent:60070/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+zcsconnector				pending	60064		curl -L -X GET 'http://iotc-zcsconnector:60064/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+distribution					done		60067		curl -L -X GET 'http://iotc-distribution:60067/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+repo								done		60065		curl -L -X GET 'http://iotc-repo:60065/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+aggregator					done		60059		curl -L -X GET 'http://iotc-aggregator:60059/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token" 	                       Connection refused     
+metricquery				done 		60057		curl -L -X GET 'http://iotc-metricquery:60057/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+metricingest				done		60056		curl -L -X GET 'http://iotc-metricingest:60056/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+alert								done		60058		curl -L -X GET 'http://iotc-alert:60058/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"										Connection refused
+communicator			done		60051		curl -L -X GET 'http://iotc-communicator:60051/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"						Connection refused
+notifications					done		60060		curl -L -X GET 'http://iotc-notifications:60060/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"							Session expired, Please relogin
+devicedisc					done		60069		curl -L -X GET 'http://iotc-devicedisc:60069/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"							Session expired, Please relogin
+devicesec					done		60068		curl -L -X GET 'http://iotc-devicesec:60068/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"								Session expired, Please relogin
+lcm								done		60054		curl -L -X GET 'http://iotc-lcm:60054/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"										Session expired, Please relogin
+devicemgmt				done		60055		curl -L -X GET 'http://iotc-devicemgmt:60055/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"							Session expired, Please relogin
+
+
+
+iotc-iam.default.svc.cluster.local
+
+
+curl  -v -u 'sysadmin:SmartHub#123' -X GET 'http://localhost:60051/api/health/communicator' --header 'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'
+
+curl  -v -u 'sysadmin:SmartHub#123' -X GET 'http://nginx/api/health/alert' --header 'Content-Type:application/json' --header 'Accept:application/json;api-version=0.17'
+/api/health/aggregator
+
+
+curl -L -X GET 'http://nginx/api/organizations' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token"
+/api/health/metricquery
+
+
+curl -L -X GET 'http://localhost:60062/api/health' --header 'Accept:application/json;api-version=0.17' --header "Authorization: Bearer $infer_token" 
+
+

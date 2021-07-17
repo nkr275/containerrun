@@ -1,0 +1,99 @@
+	iotc-aggregator-8646cc4695-jpb74     1/1     Running     0          3d
+	iotc-alert-796fc6787b-5hpg9          1/1     Running     0          2d23h
+	iotc-communicator-849d4cf777-6cjwm   1/1     Running     0          2d23h
+	iotc-console-d4f4fb89c-9nmqf         1/1     Running     0          2d19h
+	iotc-deviceagent-57d74d4855-8s6w9    1/1     Running     0          3d
+	iotc-devicedisc-76db689757-v8tl6     1/1     Running     0          3d
+	iotc-devicemgmt-646f677987-pd992     1/1     Running     0          3d
+	iotc-devicesec-7bf4f45769-qjz85      1/1     Running     0          3d
+	iotc-distribution-7798d59b5c-z7b8p   1/1     Running     0          2d18h
+	iotc-iam-5cdc4ff6c6-q2ghm            1/1     Running     0          3d
+	iotc-lcm-d55f7dd6d-b9dfw             1/1     Running     0          2d18h
+	iotc-metricingest-775f66748f-m9tbm   1/1     Running     0          2d20h
+	iotc-notifications-66895d6b5-rlv9g   1/1     Running     0          2d19h
+	iotc-repo-fb5c544c7-zfj87            1/1     Running     0          2d18h
+	
+	
+shazdevops.azurecr.io/shinternal/iotc-metricquery-uservice:3.0.0-13	
+	
+iam   							done
+console (not the ui) 	done
+deviceagent				done
+zcsconnector				pending
+distribution					done
+repo								done
+aggregator					done
+metricquery				pending
+metricingest				done
+alert								done
+communicator			done
+notifications					done
+devicedisc					done
+devicesec					done
+lcm								done	
+devicemgmt				done
+
+creating a pod in iotc-lcm-uservice in k8s cluster 
+
+iotc-aggregator-8646cc4695-jpb74     1/1     Running            0          3d5h
+iotc-alert-796fc6787b-5hpg9          1/1     Running            0          3d4h
+iotc-communicator-849d4cf777-6cjwm   1/1     Running            0          3d4h
+iotc-console-d4f4fb89c-9nmqf         1/1     Running            0          3d
+iotc-deviceagent-57d74d4855-8s6w9    1/1     Running            0          3d5h
+iotc-devicedisc-76db689757-v8tl6     1/1     Running            0          3d5h
+iotc-devicemgmt-646f677987-pd992     1/1     Running            0          3d5h
+iotc-devicesec-7bf4f45769-qjz85      1/1     Running            0          3d5h
+iotc-distribution-7798d59b5c-z7b8p   1/1     Running            0          2d23h
+iotc-iam-5cdc4ff6c6-q2ghm            1/1     Running            0          3d5h
+iotc-lcm-d55f7dd6d-b9dfw             1/1     Running            0          2d23h
+iotc-metricingest-775f66748f-m9tbm   1/1     Running            0          3d1h
+iotc-metricquery-96d746ff-cn4j2      0/1     CrashLoopBackOff   4          2m33s
+iotc-notifications-66895d6b5-rlv9g   1/1     Running            0          3d
+iotc-repo-fb5c544c7-zfj87            1/1     Running            0          2d23h
+
+
+
+	
+AWS: rt.viyyuri@gmail.com
+Password: Teja@1240
+
+Username: rt.viyyuri@gmail.com
+Password:  Teja@1240
+
+
+-----> Helper: Deployment with PM2
+
+  Generate a sample ecosystem.config.js with the command
+  $ pm2 ecosystem
+  Then edit the file depending on your needs
+
+  Commands:
+    setup                run remote setup commands
+    update               update deploy to the latest release
+    revert [n]           revert to [n]th last deployment or 1
+    curr[ent]            output current release commit
+    prev[ious]           output previous release commit
+    exec|run <cmd>       execute the given <cmd>
+    list                 list previous deploy commits
+    [ref]                deploy to [ref], the "ref" setting, or latest tag
+
+
+  Basic Examples:
+
+    First initialize remote production host:
+    $ pm2 deploy ecosystem.config.js production setup
+
+    Then deploy new code:
+    $ pm2 deploy ecosystem.config.js production
+
+    If I want to revert to the previous commit:
+    $ pm2 deploy ecosystem.config.js production revert 1
+
+    Execute a command on remote server:
+    $ pm2 deploy ecosystem.config.js production exec "pm2 restart all"
+
+    PM2 will look by default to the ecosystem.config.js file so you dont need to give the file name:
+    $ pm2 deploy production
+    Else you have to tell PM2 the name of your ecosystem file
+
+    More examples in https://github.com/Unitech/pm2

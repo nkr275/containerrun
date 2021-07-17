@@ -1,0 +1,101 @@
+
+
+License key or file
+InfluxDB Enterprise requires a license key OR a license file to run. Your license key is available at InfluxPortal. Contact support at the email we provided at signup to receive a license file. License files are required only if the nodes in your cluster cannot reach portal.influxdata.com on port 80 or 443.
+
+
+Ports
+Meta nodes communicate over ports 8088, 8089, and 8091.
+
+
+admin
+lms
+lms-api
+finance-api 
+api-baches
+
+
+bcxktyo0ua   
+rtllusxrji
+
+
+
+
+
+notification.edureka.in/zoho-book-customer-payment
+
+
+
+https://notification.edureka.in/v1/zoho-book-customer-payment
+
+
+if [ $lambda = "zoho-book" ];
+then
+  /var/lib/jenkins/.local/bin/aws s3 cp s3://edureka.prod.server.config/zoho-book/config.json .
+  sudo sh install.sh
+fi
+
+REPORT RequestId: 60eda130-2cd9-4a00-a704-b7e79a5c2acd	Duration: 6006.63 ms	Billed Duration: 6000 ms	Memory Size: 1024 MB	Max Memory Used: 76 MB	Init Duration: 232.50 ms	
+
+
+
+if (consultoken is avaialable)
+{
+	get shared secrets
+	if (shared secrets are empty) {
+		generate shared secrets
+		put secrets with consul token
+	}
+	else
+	{
+		pull the secrets from consul
+	}
+}
+
+
+if [ -z "$ENCRYPT_KEY" ]; then 
+
+    # get InfluxDB shared secret key from consul
+   echo "Getting InfluxDB shared secret key"
+   key=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'influx.shared.secret')
+   [[ -z "$key" ]] && echo "Failed to get Influx secret key from consul" && exit 1
+   internal_key=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'influx.internal.shared.secret')
+   [[ -z "$internal_key" ]] && echo "Failed to get Influx secret key from consul" && exit 1
+    
+  
+else
+
+    echo "Generating InfluxDB shared secret key"
+   key=$(uuidgen)
+   internal_key=$(uuidgen)
+   echo $consul_token | python3 $BOOTSTRAP_UTILS/put_consul_key_value.py 'influx.shared.secret' $key
+   echo $consul_token | python3 $BOOTSTRAP_UTILS/put_consul_key_value.py 'influx.internal.shared.secret' $internal_key
+
+
+
+fi
+
+
+if [ -z "$ENCRYPT_KEY" ]; then 
+
+	key=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'influx.shared.secret')
+	internal_key=$(echo $consul_token | python3 $BOOTSTRAP_UTILS/get_consul_key_value.py 'influx.internal.shared.secret')
+
+else
+	if [ -z "$key" ] || [ -z "$internal_key" ]; then
+	
+	    echo "Generating InfluxDB shared secret key"
+		key=$(uuidgen)
+		internal_key=$(uuidgen)
+		echo $consul_token | python3 $BOOTSTRAP_UTILS/put_consul_key_value.py 'influx.shared.secret' $key
+		echo $consul_token | python3 $BOOTSTRAP_UTILS/put_consul_key_value.py 'influx.internal.shared.secret' $internal_key
+	fi
+	
+		
+fi
+
+
+
+109934718044:bcxktyo0ua
+
+rtllusxrji

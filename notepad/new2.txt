@@ -1,0 +1,41 @@
+INFLUX_HOST="influx-meta"
+CONSUL_HOST="shconsulnode01"
+INSTANCE_NAME="shkranthi-05"
+CATALOG_SERVICE_ADDR="51.83.252.116"
+CATALOG_SERVICE_TOKEN="b123bd0d-180b-933c-7af5-a50a281b535a"
+
+INFER_TEMPLATES_DIR="/opt/smarthub/templates/config"
+NODE_PROPERTIES_TEMPLATE_FILE="${INFER_TEMPLATES_DIR}/node.properties"
+CONSUL_CLIENT_CONFIG_TEMPLATE="${INFER_TEMPLATES_DIR}/client.json"
+APP_CONFIG_DIR=${APP_CONFIG_DIR:-/opt/smarthub/iotc/conf}
+NODE_PROPERTIES_FILE="${APP_CONFIG_DIR}/node.properties"
+CONSUL_CLIENT_CONFIG="${APP_CONFIG_DIR}/consul.json"
+INFLUX_HOME=/etc/influxdb
+INFLUX_META_CONF=$INFLUX_HOME/influxdb-meta.conf
+
+
+-v $PWD/influxmeta01/influxdb/home:/etc/influxdb
+-v $PWD/influxmeta01/app:/opt/smarthub/iotc/conf
+-v $PWD/influxmeta01/data:/var/lib/influxdb
+
+
+
+
+
+INFER_TEMPLATES_DIR="/opt/smarthub/templates/config"
+NODE_PROPERTIES_TEMPLATE_FILE="${INFER_TEMPLATES_DIR}/node.properties"
+CONSUL_CLIENT_CONFIG_TEMPLATE="${INFER_TEMPLATES_DIR}/client.json"
+APP_CONFIG_DIR=${APP_CONFIG_DIR:-/opt/smarthub/iotc/conf}
+NODE_PROPERTIES_FILE="${APP_CONFIG_DIR}/node.properties"
+CONSUL_CLIENT_CONFIG="${APP_CONFIG_DIR}/consul.json"
+
+
+
+-v $PWD/mongocs01/consul:/bitnami/consul \
+-v $PWD/mongocs01/data:/bitnami \
+-v $PWD/mongocs01/ssl:/certificates \
+-v $PWD/mongocs01/app:/opt/smarthub/iotc/conf
+
+
+Console/cake Ops paymentTransactionReport > paymentTransactionReport.log
+

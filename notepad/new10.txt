@@ -1,0 +1,67 @@
+
+
+aws s3 cp admin.edureka.co_20210104_1925  s3://edureka-backups/prod-admin-server-app-backup/admin.edureka.co_20210104_1925 --recursive --no-follow-symlinks
+
+
+curl --location --request POST 'https://notification.edureka.in/v1/zoho-book-customer-payment'
+
+apis.edureka.co/v1/zoho-book-customer-payment
+
+curl --location --request POST 'https://apis.edureka.co/v1.0/payment-call-back Methods '
+curl --location --request POST 'https://apis.edureka.co/v1.0/zoho-book-customer-payment'
+
+curl --location --request POST 'https://9duqqgso9l.execute-api.us-west-2.amazonaws.com/prod/url-shortener'
+
+curl --location --request POST 'https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/payment-call-back/{proxy+}'
+
+curl --location --request POST  'https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/payment-call-back'
+
+
+curl --location --request POST 'apis.edureka.co/v1/zoho-book-customer-payment' \
+--header 'authentication_data: ZOHO_BOOK_PAYMENT_SERVICE' \
+--header 'Content-Type: application/json' \
+
+
+
+	curl -v https://vpce-01234567abcdef012-01234567.execute-api.us-east-1.vpce.amazonaws.com/test/pets -H 'Host: 01234567ab.execute-api.us-west-2.amazonaws.com'
+	
+	
+	 https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/zoho-book-customer-payment
+	 
+	 
+	 curl -v https://vpce-01234567abcdef012-01234567.execute-api.us-east-1.vpce.amazonaws.com/test/pets -H 'Host: 01234567ab.execute-api.us-west-2.amazonaws.com'
+	 
+	 
+	 curl -v -X POST "https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/zoho-book-customer-payment" -H "content-type: application/json" -H "day: Thursday" -d "{ \"time\": \"evening\" }"
+
+
+	https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/zoho-book-customer-payment
+	
+	https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/zoho-book-customer-payment
+	
+	curl --location --request POST 'https://rtllusxrji.execute-api.us-west-2.amazonaws.com/PROD/zoho-book-customer-payment' \
+--header 'authentication_data: ZOHO_BOOK_PAYMENT_SERVICE' \
+--header 'Content-Type: application/json' \
+
+< HTTP/1.1 403 Forbidden
+< Server: Server
+< Date: Wed, 30 Jun 2021 12:30:32 GMT
+< Content-Type: application/json
+< Content-Length: 23
+< Connection: keep-alive
+< x-amzn-RequestId: c8cf8709-dae8-4bb6-af01-870ffaeaf538
+< x-amzn-ErrorType: ForbiddenException
+< x-amz-apigw-id: BvSMaEYmPHcFyMQ=
+
+"/usr/local/bin/helm del crm-integration-svc --purge"
+
+
+select count from queue_jobs  where failed_attempts > 0 and event_type in ('events','payments','custom-events','like','pgplead','crmactivity') and created > '2021-06-30 18:00:00' and created < '2021-06-30 20:30:00' order by id desc;
+
+
+select count(id) from queue_jobs  where failed_attempts > 0 and event_type in ('events','payments','custom-events','like','pgplead','crmactivity') and created > '2021-06-30 18:00:00' and created < '2021-06-30 20:30:00' order by id desc;
+
+UPDATE `edureka-prod`.`queue_jobs` SET `status`='0', `failed_attempts`='0' where failed_attempts > 0 and event_type in ('events','payments','custom-events','like','pgplead','crmactivity') and created > '2021-06-30 18:00:00' and created < '2021-06-30 20:30:00' order by id desc;
+
+
+
